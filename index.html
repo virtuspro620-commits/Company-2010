@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Company 2010 - Very Very Blood</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Verdana, sans-serif; font-size: 12px; color: #ccc; background: #0a0a0a url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="%230a0a0a"/><circle cx="3" cy="3" r="1" fill="%231a1a1a"/></svg>'); background-attachment: fixed; overflow-x: hidden; }
+  a { color: #ff3333; text-decoration: none; } a:hover { color: #fff; background: #ff0000; }
+
+  /* ШАПКА */
+  #header { height: 140px; background: linear-gradient(#3a0000, #000); border-bottom: 3px solid #ff0000; position: relative; z-index: 10; }
+  #logo { position: absolute; left: 20px; top: 20px; font-family: Impact, sans-serif; font-size: 42px; color: #fff; text-shadow: 3px 3px 0 #ff0000; cursor: pointer; }
+  #logo span { color: #ff0000; }
+  #slogan { position: absolute; left: 22px; top: 78px; color: #ff6666; font-size: 12px; font-style: italic; }
+
+  /* МЕНЮ */
+  #menu { height: 38px; background: linear-gradient(#550000, #220000); border-bottom: 2px solid #ff0000; display: flex; align-items: center; justify-content: space-between; padding: 0 20px 0 10px; }
+  #menu ul { list-style: none; display: flex; }
+  #menu a { display: block; padding: 0 15px; line-height: 38px; color: #fff; font-family: Impact, sans-serif; font-size: 15px; cursor: pointer; }
+  #menu a:hover, #menu a.active { background: #ff0000; color: #000; }
+  #user-info { display: none; align-items: center; color: #fff; font-family: Impact, sans-serif; font-size: 14px; cursor: pointer; }
+  #user-info img { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #ff0000; margin-right: 8px; }
+
+  /* КОНТЕНТ */
+  #wrapper { width: 980px; margin: 20px auto; display: flex; gap: 20px; }
+  #content { flex: 1; background: #1a1a1a; border: 2px solid #440000; padding: 20px; min-height: 500px; }
+  #sidebar { width: 270px; }
+  .box { background: #1a1a1a; border: 2px solid #440000; margin-bottom: 15px; }
+  .box h3 { background: linear-gradient(#550000, #220000); color: #ff3333; font-family: Impact; font-size: 16px; padding: 6px 10px; }
+  .box .box-content { padding: 12px; }
+
+  /* ЭЛЕМЕНТЫ */
+  .page-title { font-family: Impact; font-size: 28px; color: #ff0000; border-bottom: 2px solid #ff0000; padding-bottom: 6px; margin-bottom: 15px; }
+  p { line-height: 1.6; margin-bottom: 10px; color: #bbb; }
+  .btn { display: inline-block; padding: 8px 22px; font-family: Impact; font-size: 16px; color: #fff; background: linear-gradient(#cc0000, #550000); border: 1px solid #ff0000; cursor: pointer; margin: 5px 5px 5px 0; text-decoration: none; }
+  .btn:hover { background: linear-gradient(#ff3333, #aa0000); }
+  .form-control { width: 100%; padding: 8px; background: #111; border: 1px solid #ff0000; color: #fff; margin-bottom: 10px; }
+
+  .page { display: none; }
+  .page.active { display: block; }
+  
+  .list-item { border-bottom: 1px dashed #440000; padding: 10px 0; }
+  .list-title { color: #ff0000; font-family: Impact; font-size: 18px; }
+</style>
+</head>
+<body>
+
+<div id="header">
+  <div id="logo" onclick="showPage('home')">COMPANY <span>2010</span></div>
+  <div id="slogan">Простые игры. Много крови. Никакой пощады.</div>
+</div>
+
+<div id="menu">
+  <ul>
+    <li><a id="nav-home" class="active" onclick="showPage('home')">Главная</a></li>
+    <li><a id="nav-games" onclick="showPage('games')">Игры</a></li>
+    <li><a id="nav-guestbook" onclick="showPage('guestbook')">Гостевая</a></li>
+    <li><a id="nav-cabinet" onclick="showPage('cabinet')">Кабинет</a></li>
+  </ul>
+  
+  <div id="user-container">
+    <div id="user-info" onclick="showPage('cabinet')">
+      <img id="user-pic" src="" alt="avatar">
+      <span id="user-name"></span>
+    </div>
+    <div id="google-btn-container">
+      <div id="g_id_onload" data-client_id="457542589559-ngi47p1c12cbl2eid6u1epcdi2trcf7g.apps.googleusercontent.com" data-callback="handleCredentialResponse" data-auto_prompt="false"></div>
+      <div class="g_id_signin" data-type="standard"></div>
+    </div>
+  </div>
+</div>
+
+<div id="wrapper">
+  <div id="content">
+    <!-- ГЛАВНАЯ -->
+    <div id="page-home" class="page active">
+      <h1 class="page-title">Добро пожаловать в АД</h1>
+      <p><b>Company 2010</b> — это независимая студия. Только вы, оружие и море крови.</p>
+      <button class="btn" onclick="showPage('games')">Скачать игры</button>
+    </div>
+
+    <!-- ИГРЫ (ССЫЛКИ НА ТВОЙ GOOGLE ДИСК) -->
+    <div id="page-games" class="page">
+      <h1 class="page-title">Скачать игры</h1>
+      
+      <div class="list-item">
+        <div class="list-title">Very Very Blood (v1.2)</div>
+        <p>У вас есть только дробовик и ярость.</p>
+        <a href="https://drive.google.com/uc?export=download&id=13jpLyBL3bXlyG-RooTo_7o7O3Rmre7ce" target="_blank" class="btn">Скачать ZIP</a>
+      </div>
+      
+      <div class="list-item">
+        <div class="list-title">HellWar (v0.3.1)</div>
+        <p>Адские гончие и орды нежити.</p>
+        <a href="https://drive.google.com/uc?export=download&id=1qMAhKffbAyprNCFLqUHJ5U5fbaC_tBMf" target="_blank" class="btn">Скачать ZIP</a>
+      </div>
+    </div>
+
+    <!-- ГОСТЕВАЯ -->
+    <div id="page-guestbook" class="page">
+      <h1 class="page-title">Гостевая книга</h1>
+      <div id="guestbook-list" style="margin-bottom: 20px;">Загрузка...</div>
+      
+      <textarea id="review-text" class="form-control" style="height: 80px;" placeholder="Ваш отзыв..."></textarea>
+      <button class="btn" onclick="submitReview()">Отправить</button>
+    </div>
+
+    <!-- КАБИНЕТ -->
+    <div id="page-cabinet" class="page">
+      <h1 class="page-title">Личный кабинет</h1>
+      <div id="cabinet-content" style="display: none;">
+        <input type="text" id="profile-name" class="form-control" placeholder="Ваше имя">
+        <button class="btn" onclick="updateProfile()">Сохранить профиль</button>
+      </div>
+      <p id="cabinet-msg" style="color: #ff0000;">Пожалуйста, войдите через Google (справа вверху).</p>
+    </div>
+  </div>
+
+  <div id="sidebar">
+    <div class="box">
+      <h3>Связь</h3>
+      <div class="box-content">
+        <p><b>E-mail:</b> blood@company2010.ru</p>
+        <p><b>ICQ:</b> 666-666-666</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentUser = null;
+
+  function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + pageId).classList.add('active');
+    
+    document.querySelectorAll('#menu a').forEach(a => a.classList.remove('active'));
+    let nav = document.getElementById('nav-' + pageId);
+    if(nav) nav.classList.add('active');
+
+    if(pageId === 'guestbook') loadGuestbook();
+  }
+
+  window.onload = () => {
+    let saved = localStorage.getItem('u2010');
+    if (saved) { currentUser = JSON.parse(saved); updateUI(); }
+  };
+
+  function handleCredentialResponse(response) {
+    const payload = decodeJwtResponse(response.credential);
+    currentUser = { google_id: payload.sub, name: payload.given_name, picture: payload.picture };
+    localStorage.setItem('u2010', JSON.stringify(currentUser));
+    updateUI();
+  }
+  
+  function decodeJwtResponse(token) {
+    let base64Url = token.split('.')[1];
+    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    return JSON.parse(decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')));
+  }
+
+  function updateUI() {
+    if (!currentUser) return;
+    document.getElementById('user-pic').src = currentUser.picture;
+    document.getElementById('user-name').innerText = currentUser.name;
+    document.getElementById('google-btn-container').style.display = 'none';
+    document.getElementById('user-info').style.display = 'flex';
+    
+    document.getElementById('cabinet-content').style.display = 'block';
+    document.getElementById('cabinet-msg').style.display = 'none';
+    document.getElementById('profile-name').value = currentUser.name;
+  }
+
+  function loadGuestbook() {
+    const c = document.getElementById('guestbook-list'); 
+    c.innerHTML = '<div class="list-item">KillYou666: HellWar просто мясо! 10/10</div>';
+  }
+
+  function submitReview() {
+    alert("Для сохранения отзывов нужен сервер на Render!");
+  }
+  
+  function updateProfile() {
+    alert("Имя сохранено локально!");
+    currentUser.name = document.getElementById('profile-name').value;
+    localStorage.setItem('u2010', JSON.stringify(currentUser));
+    updateUI();
+  }
+</script>
+
+</body>
+</html>
