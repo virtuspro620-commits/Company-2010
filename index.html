@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Company 2010 - Very Very Blood</title>
+<title>Company 2010</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -17,19 +17,30 @@
 
   /* МЕНЮ */
   #menu { height: 38px; background: linear-gradient(#550000, #220000); border-bottom: 2px solid #ff0000; display: flex; align-items: center; justify-content: space-between; padding: 0 20px 0 10px; }
-  #menu ul { list-style: none; display: flex; }
-  #menu a { display: block; padding: 0 15px; line-height: 38px; color: #fff; font-family: Impact, sans-serif; font-size: 15px; cursor: pointer; }
+  #menu ul { list-style: none; display: flex; flex-wrap: wrap; }
+  #menu a { display: block; padding: 0 12px; line-height: 38px; color: #fff; font-family: Impact, sans-serif; font-size: 14px; cursor: pointer; }
   #menu a:hover, #menu a.active { background: #ff0000; color: #000; }
   #user-info { display: none; align-items: center; color: #fff; font-family: Impact, sans-serif; font-size: 14px; cursor: pointer; }
   #user-info img { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #ff0000; margin-right: 8px; }
 
   /* КОНТЕНТ */
-  #wrapper { width: 980px; margin: 20px auto; display: flex; gap: 20px; }
+  #wrapper { width: 980px; margin: 20px auto; display: flex; gap: 20px; position: relative; z-index: 5; }
   #content { flex: 1; background: #1a1a1a; border: 2px solid #440000; padding: 20px; min-height: 500px; }
   #sidebar { width: 270px; }
   .box { background: #1a1a1a; border: 2px solid #440000; margin-bottom: 15px; }
   .box h3 { background: linear-gradient(#550000, #220000); color: #ff3333; font-family: Impact; font-size: 16px; padding: 6px 10px; }
   .box .box-content { padding: 12px; }
+
+  /* БАННЕР И СИЛУЭТ */
+  .banner-container {
+    width: 100%; height: 200px; background: #000 url('resources/images/banner-bg.jpg') no-repeat center center;
+    background-size: cover; border: 3px solid #ff0000; box-shadow: 0 0 20px rgba(255,0,0,0.5); margin-bottom: 20px;
+  }
+  .hero-silhouette {
+    position: fixed; bottom: 0; right: 20px; width: 320px; height: 380px; z-index: 1;
+    pointer-events: none; opacity: 0.85; background: url('resources/images/hero-silhouette.png') no-repeat center bottom;
+    background-size: contain;
+  }
 
   /* ЭЛЕМЕНТЫ */
   .page-title { font-family: Impact; font-size: 28px; color: #ff0000; border-bottom: 2px solid #ff0000; padding-bottom: 6px; margin-bottom: 15px; }
@@ -43,9 +54,15 @@
   
   .list-item { border-bottom: 1px dashed #440000; padding: 10px 0; }
   .list-title { color: #ff0000; font-family: Impact; font-size: 18px; }
+  
+  /* Сервера и Аддоны */
+  .server-item { background: #111; border: 1px solid #440000; padding: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .addon-item { background: #111; border: 1px solid #440000; padding: 15px; margin-bottom: 10px; }
 </style>
 </head>
 <body>
+
+<div class="hero-silhouette"></div>
 
 <div id="header">
   <div id="logo" onclick="showPage('home')">COMPANY <span>2010</span></div>
@@ -56,6 +73,8 @@
   <ul>
     <li><a id="nav-home" class="active" onclick="showPage('home')">Главная</a></li>
     <li><a id="nav-games" onclick="showPage('games')">Игры</a></li>
+    <li><a id="nav-servers" onclick="showPage('servers')">Сервера</a></li>
+    <li><a id="nav-addons" onclick="showPage('addons')">Аддоны</a></li>
     <li><a id="nav-guestbook" onclick="showPage('guestbook')">Гостевая</a></li>
     <li><a id="nav-cabinet" onclick="showPage('cabinet')">Кабинет</a></li>
   </ul>
@@ -74,6 +93,9 @@
 
 <div id="wrapper">
   <div id="content">
+    <!-- БАННЕР -->
+    <div class="banner-container"></div>
+
     <!-- ГЛАВНАЯ -->
     <div id="page-home" class="page active">
       <h1 class="page-title">Добро пожаловать в АД</h1>
@@ -81,16 +103,14 @@
       <button class="btn" onclick="showPage('games')">Скачать игры</button>
     </div>
 
-    <!-- ИГРЫ (ССЫЛКИ НА ТВОЙ GOOGLE ДИСК) -->
+    <!-- ИГРЫ -->
     <div id="page-games" class="page">
       <h1 class="page-title">Скачать игры</h1>
-      
       <div class="list-item">
         <div class="list-title">Very Very Blood (v1.2)</div>
         <p>У вас есть только дробовик и ярость.</p>
         <a href="https://drive.google.com/uc?export=download&id=13jpLyBL3bXlyG-RooTo_7o7O3Rmre7ce" target="_blank" class="btn">Скачать ZIP</a>
       </div>
-      
       <div class="list-item">
         <div class="list-title">HellWar (v0.3.1)</div>
         <p>Адские гончие и орды нежити.</p>
@@ -98,11 +118,35 @@
       </div>
     </div>
 
+    <!-- СЕРВЕРА -->
+    <div id="page-servers" class="page">
+      <h1 class="page-title">Список серверов</h1>
+      <div id="servers-list" style="margin-bottom: 20px;">Загрузка...</div>
+      
+      <h2 class="page-title" style="font-size: 20px;">Создать сервер</h2>
+      <input type="text" id="srv-name" class="form-control" placeholder="Название сервера">
+      <select id="srv-map" class="form-control">
+        <option value="Мясная фабрика">Мясная фабрика</option>
+        <option value="Адский переулок">Адский переулок</option>
+      </select>
+      <button class="btn" onclick="createServer()">Запустить</button>
+    </div>
+
+    <!-- АДДОНЫ -->
+    <div id="page-addons" class="page">
+      <h1 class="page-title">Аддоны сообщества</h1>
+      <div id="addons-list" style="margin-bottom: 20px;">Загрузка...</div>
+      
+      <h2 class="page-title" style="font-size: 20px;">Добавить свой аддон</h2>
+      <input type="text" id="addon-title" class="form-control" placeholder="Название аддона">
+      <textarea id="addon-desc" class="form-control" style="height: 60px;" placeholder="Описание мода"></textarea>
+      <button class="btn" onclick="createAddon()">Опубликовать</button>
+    </div>
+
     <!-- ГОСТЕВАЯ -->
     <div id="page-guestbook" class="page">
       <h1 class="page-title">Гостевая книга</h1>
       <div id="guestbook-list" style="margin-bottom: 20px;">Загрузка...</div>
-      
       <textarea id="review-text" class="form-control" style="height: 80px;" placeholder="Ваш отзыв..."></textarea>
       <button class="btn" onclick="submitReview()">Отправить</button>
     </div>
@@ -112,6 +156,7 @@
       <h1 class="page-title">Личный кабинет</h1>
       <div id="cabinet-content" style="display: none;">
         <input type="text" id="profile-name" class="form-control" placeholder="Ваше имя">
+        <input type="file" id="profile-avatar" class="form-control" style="border:none;">
         <button class="btn" onclick="updateProfile()">Сохранить профиль</button>
       </div>
       <p id="cabinet-msg" style="color: #ff0000;">Пожалуйста, войдите через Google (справа вверху).</p>
@@ -124,6 +169,12 @@
       <div class="box-content">
         <p><b>E-mail:</b> blood@company2010.ru</p>
         <p><b>ICQ:</b> 666-666-666</p>
+      </div>
+    </div>
+    <div class="box">
+      <h3>Статус</h3>
+      <div class="box-content">
+        <p style="color: #00ff00;">Сервер: ONLINE</p>
       </div>
     </div>
   </div>
@@ -141,6 +192,8 @@
     if(nav) nav.classList.add('active');
 
     if(pageId === 'guestbook') loadGuestbook();
+    if(pageId === 'addons') loadAddons();
+    if(pageId === 'servers') loadServers();
   }
 
   window.onload = () => {
@@ -149,16 +202,14 @@
   };
 
   function handleCredentialResponse(response) {
-    const payload = decodeJwtResponse(response.credential);
-    currentUser = { google_id: payload.sub, name: payload.given_name, picture: payload.picture };
-    localStorage.setItem('u2010', JSON.stringify(currentUser));
-    updateUI();
-  }
-  
-  function decodeJwtResponse(token) {
-    let base64Url = token.split('.')[1];
-    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    return JSON.parse(decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')));
+    fetch('/api/login', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ token: response.credential }) })
+    .then(res => res.json()).then(data => {
+      if (data.success) {
+        currentUser = data.user;
+        localStorage.setItem('u2010', JSON.stringify(currentUser));
+        updateUI();
+      }
+    });
   }
 
   function updateUI() {
@@ -173,20 +224,74 @@
     document.getElementById('profile-name').value = currentUser.name;
   }
 
+  function updateProfile() {
+    if (!currentUser) return;
+    const formData = new FormData();
+    formData.append('google_id', currentUser.google_id);
+    formData.append('new_name', document.getElementById('profile-name').value);
+    const file = document.getElementById('profile-avatar').files[0];
+    if (file) formData.append('avatar', file);
+
+    fetch('/api/update-profile', { method: 'POST', body: formData })
+    .then(res => res.json()).then(data => {
+      if (data.success) {
+        currentUser.name = data.name;
+        if (data.picture) currentUser.picture = data.picture;
+        localStorage.setItem('u2010', JSON.stringify(currentUser));
+        updateUI();
+        alert('Профиль обновлен!');
+      }
+    });
+  }
+
   function loadGuestbook() {
-    const c = document.getElementById('guestbook-list'); 
-    c.innerHTML = '<div class="list-item">KillYou666: HellWar просто мясо! 10/10</div>';
+    fetch('/api/guestbook').then(res => res.json()).then(data => {
+      const c = document.getElementById('guestbook-list'); c.innerHTML = '';
+      if (data.length === 0) return c.innerHTML = '<p>Пусто.</p>';
+      data.forEach(m => c.innerHTML += `<div class="list-item"><span style="color:#ff6600">${m.user_name}</span>: ${m.message}</div>`);
+    });
   }
 
   function submitReview() {
-    alert("Для сохранения отзывов нужен сервер на Render!");
+    if (!currentUser) return alert('Войдите в аккаунт!');
+    const text = document.getElementById('review-text').value;
+    if (!text) return;
+    fetch('/api/guestbook', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ name: currentUser.name, message: text }) })
+    .then(() => { document.getElementById('review-text').value = ''; loadGuestbook(); });
   }
-  
-  function updateProfile() {
-    alert("Имя сохранено локально!");
-    currentUser.name = document.getElementById('profile-name').value;
-    localStorage.setItem('u2010', JSON.stringify(currentUser));
-    updateUI();
+
+  function loadAddons() {
+    fetch('/api/addons').then(res => res.json()).then(data => {
+      const c = document.getElementById('addons-list'); c.innerHTML = '';
+      if (data.length === 0) return c.innerHTML = '<p>Пока нет аддонов.</p>';
+      data.forEach(a => c.innerHTML += `<div class="addon-item"><div class="list-title">${a.title}</div><p>Автор: ${a.author_name}</p><p>${a.description}</p></div>`);
+    });
+  }
+
+  function createAddon() {
+    if (!currentUser) return alert('Войдите, чтобы добавить аддон!');
+    const title = document.getElementById('addon-title').value;
+    const desc = document.getElementById('addon-desc').value;
+    if (!title || !desc) return;
+    fetch('/api/addons', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ author: currentUser.name, title: title, desc: desc }) })
+    .then(() => { document.getElementById('addon-title').value = ''; document.getElementById('addon-desc').value = ''; loadAddons(); });
+  }
+
+  function loadServers() {
+    fetch('/api/servers').then(res => res.json()).then(data => {
+      const c = document.getElementById('servers-list'); c.innerHTML = '';
+      if (data.length === 0) return c.innerHTML = '<p>Серверов нет.</p>';
+      data.forEach(s => c.innerHTML += `<div class="server-item"><span style="color:#00ff00">${s.name}</span> <span>Карта: ${s.map} | Игроки: ${s.current_players}/${s.max_players}</span></div>`);
+    });
+  }
+
+  function createServer() {
+    if (!currentUser) return alert('Войдите, чтобы создать сервер!');
+    const name = document.getElementById('srv-name').value;
+    const map = document.getElementById('srv-map').value;
+    if (!name) return;
+    fetch('/api/servers', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ name: name, map: map }) })
+    .then(() => { document.getElementById('srv-name').value = ''; loadServers(); });
   }
 </script>
 
