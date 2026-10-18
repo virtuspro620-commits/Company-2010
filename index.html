@@ -9,13 +9,11 @@
   body { font-family: Verdana, sans-serif; font-size: 12px; color: #ccc; background: #0a0a0a url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="%230a0a0a"/><circle cx="3" cy="3" r="1" fill="%231a1a1a"/></svg>'); background-attachment: fixed; overflow-x: hidden; }
   a { color: #ff3333; text-decoration: none; } a:hover { color: #fff; background: #ff0000; }
 
-  /* ШАПКА */
   #header { height: 140px; background: linear-gradient(#3a0000, #000); border-bottom: 3px solid #ff0000; position: relative; z-index: 10; }
   #logo { position: absolute; left: 20px; top: 20px; font-family: Impact, sans-serif; font-size: 42px; color: #fff; text-shadow: 3px 3px 0 #ff0000; cursor: pointer; }
   #logo span { color: #ff0000; }
   #slogan { position: absolute; left: 22px; top: 78px; color: #ff6666; font-size: 12px; font-style: italic; }
 
-  /* МЕНЮ */
   #menu { height: 38px; background: linear-gradient(#550000, #220000); border-bottom: 2px solid #ff0000; display: flex; align-items: center; justify-content: space-between; padding: 0 20px 0 10px; }
   #menu ul { list-style: none; display: flex; flex-wrap: wrap; }
   #menu a { display: block; padding: 0 12px; line-height: 38px; color: #fff; font-family: Impact, sans-serif; font-size: 14px; cursor: pointer; }
@@ -23,7 +21,6 @@
   #user-info { display: none; align-items: center; color: #fff; font-family: Impact, sans-serif; font-size: 14px; cursor: pointer; }
   #user-info img { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #ff0000; margin-right: 8px; }
 
-  /* КОНТЕНТ */
   #wrapper { width: 980px; margin: 20px auto; display: flex; gap: 20px; position: relative; z-index: 5; }
   #content { flex: 1; background: #1a1a1a; border: 2px solid #440000; padding: 20px; min-height: 500px; }
   #sidebar { width: 270px; }
@@ -31,9 +28,8 @@
   .box h3 { background: linear-gradient(#550000, #220000); color: #ff3333; font-family: Impact; font-size: 16px; padding: 6px 10px; }
   .box .box-content { padding: 12px; }
 
-  /* ЭЛЕМЕНТЫ */
   .page-title { font-family: Impact; font-size: 28px; color: #ff0000; border-bottom: 2px solid #ff0000; padding-bottom: 6px; margin-bottom: 15px; }
-  p { line-height: 1.6; margin-bottom: 10px; color: #bbb; }
+  p { line-height: 1.6; margin-bottom: 10px; color: #bbb; text-align: justify; }
   .btn { display: inline-block; padding: 8px 22px; font-family: Impact; font-size: 16px; color: #fff; background: linear-gradient(#cc0000, #550000); border: 1px solid #ff0000; cursor: pointer; margin: 5px 5px 5px 0; text-decoration: none; }
   .btn:hover { background: linear-gradient(#ff3333, #aa0000); box-shadow: 0 0 10px red; }
   .btn-green { background: linear-gradient(#00cc00, #005500); border-color: #00ff00; }
@@ -43,18 +39,19 @@
   .page { display: none; }
   .page.active { display: block; }
   
-  /* Аддоны */
   .addon-card { display: flex; background: #111; border: 1px solid #440000; margin-bottom: 15px; }
   .addon-cover { width: 150px; height: 100px; object-fit: cover; border-right: 1px solid #440000; }
   .addon-info { padding: 10px; flex: 1; }
   .addon-title { font-family: Impact; font-size: 20px; color: #ff0000; }
-  .addon-author { font-size: 10px; color: #666; margin-bottom: 5px; }
 
-  /* Сервера */
   .server-item { background: #111; border: 1px solid #440000; padding: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
   .vip-badge { background: gold; color: black; font-weight: bold; padding: 2px 6px; border-radius: 3px; font-size: 10px; }
   .status-online { color: #00ff00; font-weight: bold; }
   .status-offline { color: #ff0000; font-weight: bold; }
+
+  /* КОНСОЛЬ */
+  .console-box { background: black; border: 1px solid #333; padding: 10px; font-family: 'Courier New', monospace; color: #00ff00; height: 200px; overflow-y: auto; margin-bottom: 10px; white-space: pre-wrap; }
+  .console-input { background: black; border: 1px solid #00ff00; color: #00ff00; width: 100%; padding: 5px; font-family: 'Courier New', monospace; }
 </style>
 </head>
 <body>
@@ -67,9 +64,10 @@
 <div id="menu">
   <ul>
     <li><a id="nav-home" class="active" onclick="showPage('home')">Главная</a></li>
+    <li><a id="nav-about" onclick="showPage('about')">О компании</a></li>
     <li><a id="nav-games" onclick="showPage('games')">Игры</a></li>
     <li><a id="nav-addons" onclick="showPage('addons')">Аддоны</a></li>
-    <li><a id="nav-servers" onclick="showPage('servers')">Сервера</a></li>
+    <li><a id="nav-servers" onclick="showPage('servers')">Хостинг</a></li>
     <li><a id="nav-guestbook" onclick="showPage('guestbook')">Гостевая</a></li>
     <li><a id="nav-cabinet" onclick="showPage('cabinet')">Кабинет</a></li>
   </ul>
@@ -94,70 +92,92 @@
       <h1 class="page-title">Добро пожаловать в АД</h1>
       <div style="text-align:center; margin: 20px 0;">
         <a href="#" class="btn" onclick="showPage('games'); return false;">Скачать игры</a>
-        <a href="#" class="btn btn-green" onclick="showPage('create-server'); return false;">Создать сервер</a>
-        <a href="#" class="btn" onclick="showPage('upload-addon'); return false;">Загрузить мод</a>
+        <a href="#" class="btn btn-green" onclick="showPage('create-server'); return false;">Арендовать сервер</a>
       </div>
-      <p><b>Company 2010</b> — это независимая студия. Только вы, оружие и море крови.</p>
+      <p><b>Company 2010</b> — это независимая студия, создающая самые кровавые и бескомпромиссные игры на движке VBP. Наш девиз: «Простые игры. Много крови. Никакой пощады».</p>
+    </div>
+
+    <!-- О КОМПАНИИ (ОГРОМНЫЙ ТЕКСТ) -->
+    <div id="page-about" class="page">
+      <h1 class="page-title">История Company 2010</h1>
+      <p>Компания <b>Company 2010</b> была основана в далеком 2010 году группой энтузиастов, уставших от стерильных и политкорректных игр того времени. Мы хотели вернуть в индустрию то, что делало ее великой в 90-е: чистый, нефильтрованный адреналин, простую механику «убей или будь убитым» и, конечно же, море крови. Наш первый офис располагался в сыром подвале на окраине города, где мы собирали первые прототипы нашего движка на старых ноутбуках. Именно там родилась концепция игры Very Very Blood — проекта, который впоследствии стал визитной карточкой студии.</p>
+      <p>В 2011 году мы выпустили первую публичную версию игры. Она была далека от идеала: графика оставляла желать лучшего, а сервера падали каждые полчаса. Однако игроки оценили нашу честность. Мы не пытались продать им «кинематографичный опыт» или «глубокий сюжет». Мы дали им дробовик и толпу зомби. И это сработало. Сообщество вокруг игры начало расти, появились первые кланы, первые турниры на выживание. Именно тогда мы поняли, что движемся в правильном направлении.</p>
+      <p>С годами наша студия росла. Мы переехали из подвала в нормальный офис, наняли профессиональных художников и программистов. Но наша философия осталась неизменной. Мы по-прежнему верим, что игры должны быть вызовом, а не просто интерактивным кино. Каждый наш проект — это испытание для игрока. Мы не прощаем ошибок. Мы не даем вторых шансов. Если ты замешкался — ты труп. Этот жесткий, но честный подход нашел отклик в сердцах миллионов игроков по всему миру.</p>
+      <p>В 2015 году мы столкнулись с серьезным вызовом. Индустрия начала меняться. На смену сложным и хардкорным шутерам приходили батл-роялы и казуальные мобильные игры. Нам предлагали сменить вектор, сделать игру более доступной, добавить микротранзакции и «бустеры». Мы отказались. Мы твердо решили, что Company 2010 останется верна своим корням. Мы продолжили поддерживать наш движок VBP, улучшать сетеевой код и добавлять новые карты. И, как показало время, мы не прогадали. Наше комьюнити, хоть и не самое многочисленное, но самое преданное и сплоченное.</p>
+      <p>Одной из главных наших фишек всегда была открытость. Мы позволяем игрокам создавать собственные модификации (аддоны) и серверы. Мы верим, что сообщество может сделать игру лучше, чем любая команда разработчиков. Именно поэтому на нашем сайте есть система загрузки плагинов и хостинг серверов. Вы можете создать свой собственный мир, свои правила и пригласить туда друзей. Мы лишь даем вам инструменты. Всё остальное — в ваших руках.</p>
+      <p>За эти годы мы пережили многое. Были и взлеты, и падения. Были ночи, проведенные за отладкой сетевого кода, и дни, когда сервера не выдерживали наплыва игроков. Но мы никогда не сдавались. Ведь наша цель — не просто делать игры. Наша цель — создавать места, где люди могут отвлечься от серой реальности и погрузиться в мир, где всё решает реакция и меткость. Где нет места лицемерию. Где есть только ты, твое оружие и враг.</p>
+      <p>Сегодня Company 2010 — это не просто студия. Это сообщество. Это стиль жизни. Мы гордимся тем, что наши игры объединяют людей по всему миру. Мы гордимся тем, что наши игроки ценят честность и сложность. И мы обещаем, что будем продолжать в том же духе. Никаких компромиссов. Никакой пощады. Только чистый адреналин и море крови. Добро пожаловать в нашу семью. Добро пожаловать в Company 2010.</p>
     </div>
 
     <!-- ИГРЫ -->
     <div id="page-games" class="page">
       <h1 class="page-title">Скачать игры</h1>
-      <div class="list-item" style="border-bottom:1px dashed #440; padding:10px 0;">
+      <div style="border-bottom:1px dashed #440; padding:10px 0;">
         <div style="font-family:Impact; font-size:18px; color:red;">Very Very Blood (v1.2)</div>
         <p>У вас есть только дробовик и ярость.</p>
         <a href="https://drive.google.com/uc?export=download&id=13jpLyBL3bXlyG-RooTo_7o7O3Rmre7ce" target="_blank" class="btn">Скачать ZIP</a>
       </div>
-      <div class="list-item" style="border-bottom:1px dashed #440; padding:10px 0;">
-        <div style="font-family:Impact; font-size:18px; color:red;">HellWar (v0.3.1)</div>
-        <p>Адские гончие и орды нежити.</p>
-        <a href="https://drive.google.com/uc?export=download&id=1qMAhKffbAyprNCFLqUHJ5U5fbaC_tBMf" target="_blank" class="btn">Скачать ZIP</a>
-      </div>
     </div>
 
-    <!-- АДДОНЫ (СПИСОК) -->
+    <!-- АДДОНЫ -->
     <div id="page-addons" class="page">
       <h1 class="page-title">Аддоны сообщества</h1>
       <button class="btn btn-green" onclick="showPage('upload-addon')" style="margin-bottom: 15px;">Загрузить свой аддон</button>
       <div id="addons-list">Загрузка...</div>
     </div>
 
-    <!-- СТРАНИЦА ЗАГРУЗКИ АДДОНА -->
     <div id="page-upload-addon" class="page">
       <h1 class="page-title">Публикация аддона</h1>
-      <p>Твой скрипт (.py) должен использовать API игры.</p>
       <input type="text" id="addon-title" class="form-control" placeholder="Название мода">
-      <textarea id="addon-desc" class="form-control" style="height: 60px;" placeholder="Что делает ваш мод?"></textarea>
-      <label style="color:#ff6600;">Обложка (Картинка):</label>
-      <input type="file" id="addon-cover" class="form-control" accept="image/*">
-      <label style="color:#ff6600;">Скрипт мода (.py):</label>
-      <input type="file" id="addon-py" class="form-control" accept=".py">
+      <textarea id="addon-desc" class="form-control" style="height: 60px;" placeholder="Описание"></textarea>
+      <label>Обложка:</label><input type="file" id="addon-cover" class="form-control" accept="image/*">
+      <label>Скрипт (.py):</label><input type="file" id="addon-py" class="form-control" accept=".py">
       <button class="btn" onclick="uploadAddon()">Опубликовать</button>
       <button class="btn" onclick="showPage('addons')" style="background:#333;">Назад</button>
     </div>
 
-    <!-- СЕРВЕРА (СПИСОК) -->
+    <!-- СЕРВЕРА -->
     <div id="page-servers" class="page">
       <h1 class="page-title">Хостинг серверов</h1>
-      <p>Подключение через игру. Реальный онлайн.</p>
       <button class="btn btn-green" onclick="showPage('create-server')" style="margin-bottom: 15px;">Арендовать сервер</button>
       <div id="servers-list">Загрузка...</div>
     </div>
 
-    <!-- СТРАНИЦА СОЗДАНИЯ СЕРВЕРА -->
+    <!-- СОЗДАНИЕ СЕРВЕРА (ТАРИФЫ) -->
     <div id="page-create-server" class="page">
-      <h1 class="page-title">Создание сервера</h1>
-      <input type="text" id="srv-name" class="form-control" placeholder="Название сервера (например: MyBloodServer)">
+      <h1 class="page-title">Выберите тариф</h1>
+      <input type="text" id="srv-name" class="form-control" placeholder="Название сервера">
       <select id="srv-map" class="form-control">
         <option value="Мясная фабрика">Мясная фабрика</option>
         <option value="Адский переулок">Адский переулок</option>
-        <option value="Кровавая баня">Кровавая баня</option>
       </select>
-      <div style="margin-bottom:15px; background:#220000; padding:10px; border:1px solid red;">
-        <input type="checkbox" id="srv-vip"> <label for="srv-vip" style="color:gold; font-weight:bold; cursor:pointer;">Сделать VIP-сервером (Получить VIP-чат и защиту)</label>
+      
+      <div style="background:#111; border:1px solid #440; padding:15px; margin-bottom:10px; cursor:pointer;" onclick="selectTariff('free')">
+        <h3 style="color:#00ff00;">512 MB - БЕСПЛАТНО</h3>
+        <p>До 10 игроков. Базовые плагины.</p>
       </div>
-      <button class="btn" onclick="createServer()">Запустить сервер</button>
+      
+      <div style="background:#111; border:1px solid #440; padding:15px; margin-bottom:10px; cursor:pointer;" onclick="selectTariff('1gb')">
+        <h3 style="color:gold;">1 GB - 30 РУБ / 100 ТЕНГЕ</h3>
+        <p>До 20 игроков. VIP-чат. Защита от DDoS.</p>
+      </div>
+      
+      <div style="background:#111; border:1px solid #440; padding:15px; margin-bottom:10px; cursor:pointer;" onclick="selectTariff('3gb')">
+        <h3 style="color:red;">3 GB - 50 РУБ / 500 ТЕНГЕ</h3>
+        <p>До 50 игроков. Все плагины. Выделенная консоль.</p>
+      </div>
+
+      <button class="btn" onclick="createServer()">Запустить</button>
       <button class="btn" onclick="showPage('servers')" style="background:#333;">Назад</button>
+    </div>
+
+    <!-- КОНСОЛЬ СЕРВЕРА -->
+    <div id="page-console" class="page">
+      <h1 class="page-title">Консоль сервера</h1>
+      <h3 id="console-srv-name" style="color:#ff6600; margin-bottom:10px;"></h3>
+      <div class="console-box" id="console-output">Загрузка...</div>
+      <input type="text" class="console-input" id="console-input" placeholder="Введите команду (help)..." onkeydown="if(event.key==='Enter') sendCommand()">
+      <button class="btn" onclick="showPage('servers')" style="margin-top:10px; background:#333;">Назад</button>
     </div>
 
     <!-- ГОСТЕВАЯ -->
@@ -173,27 +193,19 @@
       <h1 class="page-title">Личный кабинет</h1>
       <div id="cabinet-content" style="display: none;">
         <input type="text" id="profile-name" class="form-control" placeholder="Ваше имя">
-        <label style="color:#ff6600;">Аватарка:</label>
-        <input type="file" id="profile-avatar" class="form-control" style="border:none;">
-        <button class="btn" onclick="updateProfile()">Сохранить профиль</button>
+        <label>Аватарка:</label><input type="file" id="profile-avatar" class="form-control" style="border:none;">
+        <button class="btn" onclick="updateProfile()">Сохранить</button>
       </div>
-      <p id="cabinet-msg" style="color: #ff0000;">Пожалуйста, войдите через Google (справа вверху).</p>
+      <p id="cabinet-msg" style="color: #ff0000;">Пожалуйста, войдите через Google.</p>
     </div>
 
   </div>
 
   <div id="sidebar">
     <div class="box">
-      <h3>Статус серверов</h3>
+      <h3>Статус</h3>
       <div class="box-content">
-        <p><span class="status-online">СЕРВЕРА ON-LINE</span></p>
         <p>Игроков в сети: <span id="online-count" style="color:lime; font-weight:bold;">0</span></p>
-      </div>
-    </div>
-    <div class="box">
-      <h3>VIP Хостинг</h3>
-      <div class="box-content">
-        <p style="color:gold; font-size:10px;">Получите VIP-чат и защиту от DDoS, арендовав сервер!</p>
       </div>
     </div>
   </div>
@@ -201,16 +213,18 @@
 
 <script>
   let currentUser = null;
+  let selectedTariff = 'free';
+  let currentServerName = "";
 
   function showPage(pageId) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + pageId).classList.add('active');
     
     document.querySelectorAll('#menu a').forEach(a => a.classList.remove('active'));
-    // Если нет вкладки в меню (create-server, upload-addon), подсвечиваем родительскую
     let navId = pageId;
     if(pageId === 'create-server') navId = 'servers';
     if(pageId === 'upload-addon') navId = 'addons';
+    if(pageId === 'console') navId = 'servers';
     
     let nav = document.getElementById('nav-' + navId);
     if(nav) nav.classList.add('active');
@@ -218,12 +232,12 @@
     if(pageId === 'guestbook') loadGuestbook();
     if(pageId === 'addons') loadAddons();
     if(pageId === 'servers') loadServers();
+    if(pageId === 'console') loadConsole();
   }
 
   window.onload = () => {
     let saved = localStorage.getItem('u2010');
     if (saved) { currentUser = JSON.parse(saved); updateUI(); }
-    // Автообновление списка серверов каждые 5 секунд
     setInterval(() => {
         if(document.getElementById('page-servers').classList.contains('active')) loadServers();
     }, 5000);
@@ -246,47 +260,25 @@
     document.getElementById('user-name').innerText = currentUser.name;
     document.getElementById('google-btn-container').style.display = 'none';
     document.getElementById('user-info').style.display = 'flex';
-    
     document.getElementById('cabinet-content').style.display = 'block';
     document.getElementById('cabinet-msg').style.display = 'none';
     document.getElementById('profile-name').value = currentUser.name;
   }
 
-  function updateProfile() {
-    if (!currentUser) return;
-    const formData = new FormData();
-    formData.append('google_id', currentUser.google_id);
-    formData.append('new_name', document.getElementById('profile-name').value);
-    const file = document.getElementById('profile-avatar').files[0];
-    if (file) formData.append('avatar', file);
-
-    fetch('/api/update-profile', { method: 'POST', body: formData })
-    .then(res => res.json()).then(data => {
-      if (data.success) {
-        currentUser.name = data.name;
-        if (data.picture) currentUser.picture = data.picture;
-        localStorage.setItem('u2010', JSON.stringify(currentUser));
-        updateUI();
-        alert('Профиль обновлен!');
-      }
-    });
-  }
-
-  // --- АДДОНЫ ---
+  // АДДОНЫ
   function loadAddons() {
     fetch('/api/addons').then(res => res.json()).then(data => {
       const c = document.getElementById('addons-list'); c.innerHTML = '';
-      if (data.length === 0) return c.innerHTML = '<p>Пока нет аддонов. Будь первым!</p>';
-      
+      if (data.length === 0) return c.innerHTML = '<p>Пока нет аддонов.</p>';
       data.forEach(a => {
         const cover = a.cover_url ? a.cover_url : 'resources/images/banner-bg.jpg';
         c.innerHTML += `
           <div class="addon-card">
-            <img src="${cover}" class="addon-cover" alt="cover">
+            <img src="${cover}" class="addon-cover">
             <div class="addon-info">
               <div class="addon-title">${a.title}</div>
-              <div class="addon-author">Автор: ${a.author_name} | Скачиваний: ${a.downloads}</div>
-              <p style="font-size:12px; margin-top:5px;">${a.description}</p>
+              <div style="font-size:10px; color:#666;">Автор: ${a.author_name} | Скачиваний: ${a.downloads}</div>
+              <p style="font-size:12px;">${a.description}</p>
               <a href="${a.py_file_url}" class="btn" download style="padding: 4px 10px; font-size: 12px;" onclick="downloadAddon(${a.id})">Скачать .py</a>
             </div>
           </div>
@@ -296,13 +288,12 @@
   }
 
   function uploadAddon() {
-    if (!currentUser) return alert('Войдите, чтобы загрузить аддон!');
+    if (!currentUser) return alert('Войдите!');
     const title = document.getElementById('addon-title').value;
     const desc = document.getElementById('addon-desc').value;
     const cover = document.getElementById('addon-cover').files[0];
     const py = document.getElementById('addon-py').files[0];
-
-    if (!title || !desc || !py) return alert('Заполните все поля и прикрепите .py файл!');
+    if (!title || !py) return alert('Заполните поля и прикрепите .py файл!');
 
     const formData = new FormData();
     formData.append('author', currentUser.name);
@@ -313,84 +304,97 @@
 
     fetch('/api/addons/upload', { method: 'POST', body: formData })
     .then(res => res.json()).then(data => {
-      if (data.success) {
-        alert('Аддон успешно загружен!');
-        showPage('addons');
-      } else {
-        alert('Ошибка: ' + data.error);
-      }
+      if (data.success) { alert('Аддон загружен!'); showPage('addons'); }
     });
   }
 
-  function downloadAddon(id) {
-    fetch(`/api/addons/${id}/download`, { method: 'POST' });
-  }
+  function downloadAddon(id) { fetch(`/api/addons/${id}/download`, { method: 'POST' }); }
 
-  // --- СЕРВЕРА ---
+  // СЕРВЕРА
+  function selectTariff(t) { selectedTariff = t; alert('Выбран тариф: ' + t.toUpperCase()); }
+
   function loadServers() {
     fetch('/api/servers').then(res => res.json()).then(data => {
       const c = document.getElementById('servers-list'); c.innerHTML = '';
       let totalPlayers = 0;
-      
-      if (data.length === 0) {
-        c.innerHTML = '<p>Серверов нет. Создайте первый!</p>';
-        document.getElementById('online-count').innerText = 0;
-        return;
-      }
+      if (data.length === 0) { c.innerHTML = '<p>Серверов нет.</p>'; document.getElementById('online-count').innerText = 0; return; }
       
       data.forEach(s => {
         totalPlayers += s.current_players;
-        const vip = s.is_vip ? '<span class="vip-badge">VIP</span>' : '';
         const statusHtml = s.status === 'ONLINE' ? '<span class="status-online">[ONLINE]</span>' : '<span class="status-offline">[OFFLINE]</span>';
-        
+        const vip = s.is_vip ? '<span class="vip-badge">VIP</span>' : '';
         c.innerHTML += `
           <div class="server-item">
             <div>
               <span style="color:#00ff00; font-weight:bold; font-size:14px;">${s.name}</span> ${vip} ${statusHtml}
-              <div style="font-size:10px; color:#666;">Карта: ${s.map} | Владелец: ${s.owner}</div>
+              <div style="font-size:10px; color:#666;">Карта: ${s.map} | Тариф: ${s.tariff || 'free'} | Владелец: ${s.owner}</div>
             </div>
-            <div style="font-family:Impact; color:#fff; font-size: 18px;">${s.current_players} / ${s.max_players}</div>
+            <div style="text-align:right;">
+               <div style="font-family:Impact; color:#fff; font-size:18px;">${s.current_players} / ${s.max_players}</div>
+               <button class="btn" style="padding:2px 8px; font-size:10px; margin-top:5px;" onclick="openConsole('${s.name}')">Консоль</button>
+            </div>
           </div>
         `;
       });
-      
       document.getElementById('online-count').innerText = totalPlayers;
     });
   }
 
   function createServer() {
-    if (!currentUser) return alert('Войдите, чтобы арендовать сервер!');
+    if (!currentUser) return alert('Войдите!');
     const name = document.getElementById('srv-name').value;
     const map = document.getElementById('srv-map').value;
-    const isVip = document.getElementById('srv-vip').checked;
+    if (!name) return alert('Введите название!');
     
-    if (!name) return alert('Введите название сервера!');
-    
-    if (isVip) {
-        alert('VIP-сервер создан (В демо-режиме бесплатно).');
-    }
-
     fetch('/api/servers', { 
-        method: 'POST', 
-        headers: {'Content-Type': 'application/json'}, 
-        body: JSON.stringify({ name: name, map: map, is_vip: isVip, owner: currentUser.name }) 
-    })
-    .then(() => { 
-        showPage('servers'); 
+        method: 'POST', headers: {'Content-Type': 'application/json'}, 
+        body: JSON.stringify({ name: name, map: map, tariff: selectedTariff, owner: currentUser.name }) 
+    }).then(() => { showPage('servers'); });
+  }
+
+  // КОНСОЛЬ
+  function openConsole(serverName) {
+    currentServerName = serverName;
+    document.getElementById('console-srv-name').innerText = "Сервер: " + serverName;
+    showPage('console');
+  }
+
+  function loadConsole() {
+    fetch('/api/servers').then(res => res.json()).then(data => {
+        const srv = data.find(s => s.name === currentServerName);
+        if(srv) {
+            document.getElementById('console-output').innerText = srv.console_logs || "Логи пусты...";
+            document.getElementById('console-output').scrollTop = document.getElementById('console-output').scrollHeight;
+        }
     });
   }
 
-  // --- ГОСТЕВАЯ ---
+  function sendCommand() {
+    const cmd = document.getElementById('console-input').value;
+    if(!cmd) return;
+    document.getElementById('console-input').value = '';
+    
+    fetch('/api/servers/console', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ server_name: currentServerName, command: cmd })
+    }).then(res => res.json()).then(data => {
+        if(data.success) {
+            document.getElementById('console-output').innerText = data.logs;
+            document.getElementById('console-output').scrollTop = document.getElementById('console-output').scrollHeight;
+        }
+    });
+  }
+
+  // ГОСТЕВАЯ
   function loadGuestbook() {
     fetch('/api/guestbook').then(res => res.json()).then(data => {
       const c = document.getElementById('guestbook-list'); c.innerHTML = '';
-      if (data.length === 0) return c.innerHTML = '<p>Пусто.</p>';
       data.forEach(m => c.innerHTML += `<div style="border-bottom:1px dashed #440; padding:10px 0;"><span style="color:#ff6600">${m.user_name}</span>: ${m.message}</div>`);
     });
   }
 
   function submitReview() {
-    if (!currentUser) return alert('Войдите в аккаунт!');
+    if (!currentUser) return alert('Войдите!');
     const text = document.getElementById('review-text').value;
     if (!text) return;
     fetch('/api/guestbook', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ name: currentUser.name, message: text }) })
