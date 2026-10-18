@@ -223,7 +223,7 @@
   window.onload = () => {
     let saved = localStorage.getItem('u2010');
     if (saved) { currentUser = JSON.parse(saved); updateUI(); }
-    // Автообновление списка серверов каждые 5 секунд для "реального" онлайна
+    // Автообновление списка серверов каждые 5 секунд
     setInterval(() => {
         if(document.getElementById('page-servers').classList.contains('active')) loadServers();
     }, 5000);
