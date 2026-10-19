@@ -8,30 +8,46 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: Verdana, sans-serif; font-size: 12px; color: #ccc; background: #0a0a0a url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="%230a0a0a"/><circle cx="3" cy="3" r="1" fill="%231a1a1a"/></svg>'); background-attachment: fixed; overflow-x: hidden; }
   a { color: #ff3333; text-decoration: none; } a:hover { color: #fff; background: #ff0000; }
+
+  /* ШАПКА */
   #header { height: 140px; background: linear-gradient(#3a0000, #000); border-bottom: 3px solid #ff0000; position: relative; z-index: 10; }
   #logo { position: absolute; left: 20px; top: 20px; font-family: Impact, sans-serif; font-size: 42px; color: #fff; text-shadow: 3px 3px 0 #ff0000; cursor: pointer; }
   #logo span { color: #ff0000; }
   #slogan { position: absolute; left: 22px; top: 78px; color: #ff6666; font-size: 12px; font-style: italic; }
+
+  /* МЕНЮ */
   #menu { height: 38px; background: linear-gradient(#550000, #220000); border-bottom: 2px solid #ff0000; display: flex; align-items: center; justify-content: space-between; padding: 0 20px 0 10px; }
   #menu ul { list-style: none; display: flex; flex-wrap: wrap; }
   #menu a { display: block; padding: 0 12px; line-height: 38px; color: #fff; font-family: Impact, sans-serif; font-size: 14px; cursor: pointer; }
   #menu a:hover, #menu a.active { background: #ff0000; color: #000; }
   #user-info { display: none; align-items: center; color: #fff; font-family: Impact, sans-serif; font-size: 14px; cursor: pointer; }
   #user-info img { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #ff0000; margin-right: 8px; }
+
+  /* КОНТЕНТ */
   #wrapper { width: 980px; margin: 20px auto; display: flex; gap: 20px; position: relative; z-index: 5; }
   #content { flex: 1; background: #1a1a1a; border: 2px solid #440000; padding: 20px; min-height: 500px; }
   #sidebar { width: 270px; }
   .box { background: #1a1a1a; border: 2px solid #440000; margin-bottom: 15px; }
   .box h3 { background: linear-gradient(#550000, #220000); color: #ff3333; font-family: Impact; font-size: 16px; padding: 6px 10px; }
   .box .box-content { padding: 12px; }
+
+  /* ЭЛЕМЕНТЫ */
   .page-title { font-family: Impact; font-size: 28px; color: #ff0000; border-bottom: 2px solid #ff0000; padding-bottom: 6px; margin-bottom: 15px; }
   p { line-height: 1.6; margin-bottom: 10px; color: #bbb; text-align: justify; }
   .btn { display: inline-block; padding: 8px 22px; font-family: Impact; font-size: 16px; color: #fff; background: linear-gradient(#cc0000, #550000); border: 1px solid #ff0000; cursor: pointer; margin: 5px 5px 5px 0; text-decoration: none; }
   .btn:hover { background: linear-gradient(#ff3333, #aa0000); box-shadow: 0 0 10px red; }
   .btn-green { background: linear-gradient(#00cc00, #005500); border-color: #00ff00; }
   .form-control { width: 100%; padding: 8px; background: #111; border: 1px solid #ff0000; color: #fff; margin-bottom: 10px; }
+
   .page { display: none; }
   .page.active { display: block; }
+  
+  /* Карточки */
+  .card { display: flex; background: #111; border: 1px solid #440000; margin-bottom: 15px; padding: 10px; gap: 10px; }
+  .card img { width: 150px; height: 100px; object-fit: cover; border: 1px solid #000; }
+  .card-info { flex: 1; }
+  .card-title { font-family: Impact; font-size: 20px; color: #ff0000; }
+  .card-meta { font-size: 10px; color: #666; margin-bottom: 5px; }
   
   /* Галерея */
   .gallery-grid { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -42,12 +58,6 @@
   /* Посты */
   .post { background: #111; border: 1px solid #440; padding: 10px; margin-bottom: 10px; }
   .post-author { color: #ff6600; font-weight: bold; margin-bottom: 5px; }
-  
-  /* Аддоны */
-  .addon-card { background: #111; border: 1px solid #440000; margin-bottom: 15px; padding: 10px; }
-  .addon-title { font-family: Impact; font-size: 20px; color: #ff0000; }
-  .comment-box { margin-top: 10px; border-top: 1px dashed #333; padding-top: 10px; font-size: 11px; }
-  .comment { margin-bottom: 5px; }
   
   /* Сервера */
   .server-item { background: #111; border: 1px solid #440000; padding: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
@@ -70,7 +80,7 @@
   <ul>
     <li><a id="nav-home" class="active" onclick="showPage('home')">Главная</a></li>
     <li><a id="nav-gallery" onclick="showPage('gallery')">Галерея</a></li>
-    <li><a id="nav-games" onclick="showPage('games')">Игры</a></li>
+    <li><a id="nav-skins" onclick="showPage('skins')">Скины</a></li>
     <li><a id="nav-addons" onclick="showPage('addons')">Аддоны</a></li>
     <li><a id="nav-servers" onclick="showPage('servers')">Хостинг</a></li>
     <li><a id="nav-guestbook" onclick="showPage('guestbook')">Гостевая</a></li>
@@ -92,10 +102,9 @@
 <div id="wrapper">
   <div id="content">
     
-    <!-- ГЛАВНАЯ (С ПОСТАМИ) -->
+    <!-- ГЛАВНАЯ -->
     <div id="page-home" class="page active">
       <h1 class="page-title">Новости сообщества</h1>
-      
       <div id="home-posts" style="margin-bottom: 20px;">Загрузка...</div>
       
       <div id="post-form" style="display:none; background:#111; padding:10px; border:1px solid #440; margin-bottom:20px;">
@@ -103,42 +112,50 @@
         <button class="btn" onclick="createPost()">Отправить</button>
       </div>
       <p id="post-msg" style="color:red; display:none;">Войдите, чтобы писать посты.</p>
-      
-      <div style="text-align:center; margin: 20px 0;">
-        <a href="#" class="btn" onclick="showPage('gallery'); return false;">Смотреть Галерею</a>
-        <a href="#" class="btn btn-green" onclick="showPage('servers'); return false;">Сервера</a>
-      </div>
     </div>
 
     <!-- ГАЛЕРЕЯ -->
     <div id="page-gallery" class="page">
       <h1 class="page-title">Галерея скриншотов</h1>
-      
       <div id="upload-gallery-form" style="display:none; background:#111; padding:10px; border:1px solid #440; margin-bottom:20px;">
         <input type="file" id="gallery-image" class="form-control" accept="image/*">
         <button class="btn" onclick="uploadGallery()">Загрузить скриншот</button>
       </div>
-      
       <div class="gallery-grid" id="gallery-list">Загрузка...</div>
     </div>
 
-    <!-- ИГРЫ -->
-    <div id="page-games" class="page">
-      <h1 class="page-title">Скачать игры</h1>
-      <div style="border-bottom:1px dashed #440; padding:10px 0;">
-        <div style="font-family:Impact; font-size:18px; color:red;">Very Very Blood (v1.2)</div>
-        <p>У вас есть только дробовик и ярость.</p>
-        <a href="https://drive.google.com/uc?export=download&id=13jpLyBL3bXlyG-RooTo_7o7O3Rmre7ce" target="_blank" class="btn">Скачать ZIP</a>
-      </div>
+    <!-- СКИНЫ (СПИСОК) -->
+    <div id="page-skins" class="page">
+      <h1 class="page-title">Скины сообщества</h1>
+      <button class="btn btn-green" onclick="showPage('upload-skin')" style="margin-bottom:15px;">Загрузить свой скин</button>
+      <div id="skins-list">Загрузка...</div>
     </div>
 
-    <!-- АДДОНЫ (С КОММЕНТАРИЯМИ) -->
+    <!-- ЗАГРУЗКА СКИНА -->
+    <div id="page-upload-skin" class="page">
+      <h1 class="page-title">Загрузка скина</h1>
+      <p style="font-size:10px;">Загрузите картинку для превью и файл скина (.png), созданный в редакторе.</p>
+      <input type="text" id="skin-title" class="form-control" placeholder="Название скина">
+      <textarea id="skin-desc" class="form-control" style="height:60px;" placeholder="Описание"></textarea>
+      
+      <label style="color:#ff6600;">Картинка (Превью):</label>
+      <input type="file" id="skin-image" class="form-control" accept="image/*">
+      
+      <label style="color:#ff6600;">Файл скина:</label>
+      <input type="file" id="skin-file" class="form-control" accept=".png,.skin">
+      
+      <button class="btn" onclick="uploadSkin()">Опубликовать</button>
+      <button class="btn" onclick="showPage('skins')" style="background:#333;">Назад</button>
+    </div>
+
+    <!-- АДДОНЫ (СПИСОК) -->
     <div id="page-addons" class="page">
       <h1 class="page-title">Аддоны сообщества</h1>
-      <button class="btn btn-green" onclick="showPage('upload-addon')" style="margin-bottom: 15px;">Загрузить свой аддон</button>
+      <button class="btn btn-green" onclick="showPage('upload-addon')" style="margin-bottom:15px;">Загрузить аддон</button>
       <div id="addons-list">Загрузка...</div>
     </div>
 
+    <!-- ЗАГРУЗКА АДДОНА -->
     <div id="page-upload-addon" class="page">
       <h1 class="page-title">Публикация аддона</h1>
       <input type="text" id="addon-title" class="form-control" placeholder="Название мода">
@@ -156,6 +173,7 @@
       <div id="servers-list">Загрузка...</div>
     </div>
 
+    <!-- СОЗДАНИЕ СЕРВЕРА -->
     <div id="page-create-server" class="page">
       <h1 class="page-title">Выберите тариф</h1>
       <input type="text" id="srv-name" class="form-control" placeholder="Название сервера">
@@ -176,6 +194,7 @@
       <button class="btn" onclick="showPage('servers')" style="background:#333;">Назад</button>
     </div>
 
+    <!-- КОНСОЛЬ -->
     <div id="page-console" class="page">
       <h1 class="page-title">Консоль сервера</h1>
       <h3 id="console-srv-name" style="color:#ff6600; margin-bottom:10px;"></h3>
@@ -192,7 +211,7 @@
       <button class="btn" onclick="submitReview()">Отправить</button>
     </div>
 
-    <!-- КАБИНЕТ (С НОВЫМИ ПОЛЯМИ) -->
+    <!-- КАБИНЕТ -->
     <div id="page-cabinet" class="page">
       <h1 class="page-title">Личный кабинет</h1>
       <div id="cabinet-content" style="display: none;">
@@ -244,12 +263,14 @@
     let navId = pageId;
     if(pageId === 'create-server' || pageId === 'console') navId = 'servers';
     if(pageId === 'upload-addon') navId = 'addons';
+    if(pageId === 'upload-skin') navId = 'skins';
     
     let nav = document.getElementById('nav-' + navId);
     if(nav) nav.classList.add('active');
 
     if(pageId === 'home') loadPosts();
     if(pageId === 'gallery') loadGallery();
+    if(pageId === 'skins') loadSkins();
     if(pageId === 'guestbook') loadGuestbook();
     if(pageId === 'addons') loadAddons();
     if(pageId === 'servers') loadServers();
@@ -259,7 +280,7 @@
   window.onload = () => {
     let saved = localStorage.getItem('u2010');
     if (saved) { currentUser = JSON.parse(saved); updateUI(); }
-    loadPosts(); // Загружаем посты на главной
+    loadPosts();
     setInterval(() => {
         if(document.getElementById('page-servers').classList.contains('active')) loadServers();
     }, 5000);
@@ -286,20 +307,17 @@
     document.getElementById('cabinet-content').style.display = 'block';
     document.getElementById('cabinet-msg').style.display = 'none';
     
-    // Заполняем поля кабинета
     document.getElementById('prof-name').value = currentUser.name || '';
     document.getElementById('prof-email').value = currentUser.email || '';
     document.getElementById('prof-bio').value = currentUser.bio || '';
     document.getElementById('prof-vk').value = currentUser.vk || '';
     document.getElementById('prof-discord').value = currentUser.discord || '';
 
-    // Показываем формы для постов и галереи
     document.getElementById('post-form').style.display = 'block';
     document.getElementById('post-msg').style.display = 'none';
     document.getElementById('upload-gallery-form').style.display = 'block';
   }
 
-  // --- ПРОФИЛЬ ---
   function updateProfile() {
     if (!currentUser) return;
     const formData = new FormData();
@@ -323,55 +341,50 @@
     });
   }
 
-  // --- ПОСТЫ ---
-  function loadPosts() {
-    fetch('/api/posts').then(res => res.json()).then(data => {
-      const c = document.getElementById('home-posts'); c.innerHTML = '';
-      if(data.length === 0) return c.innerHTML = '<p>Пока нет постов.</p>';
-      data.forEach(p => {
-        c.innerHTML += `<div class="post"><div class="post-author">${p.author_name}</div><p>${p.message}</p><small style="color:#555">${p.created_at}</small></div>`;
-      });
+  // --- СКИНЫ ---
+  function loadSkins() {
+    fetch('/api/skins').then(res => res.json()).then(data => {
+        const c = document.getElementById('skins-list'); c.innerHTML = '';
+        if(data.length === 0) return c.innerHTML = '<p>Пока нет скинов.</p>';
+        data.forEach(s => {
+            const img = s.image_url ? s.image_url : 'resources/images/banner-bg.jpg';
+            c.innerHTML += `
+                <div class="card">
+                    <img src="${img}">
+                    <div class="card-info">
+                        <div class="card-title">${s.title}</div>
+                        <div class="card-meta">Автор: ${s.author_name} | Скачиваний: ${s.downloads}</div>
+                        <p style="font-size:11px;">${s.description}</p>
+                        <a href="${s.skin_file_url}" class="btn" download style="padding:4px 10px; font-size:12px;" onclick="downloadSkin(${s.id})">Скачать скин</a>
+                    </div>
+                </div>
+            `;
+        });
     });
   }
 
-  function createPost() {
-    if(!currentUser) return;
-    const text = document.getElementById('post-text').value;
-    if(!text) return;
-    fetch('/api/posts', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ author: currentUser.name, message: text }) })
-    .then(() => { document.getElementById('post-text').value = ''; loadPosts(); });
-  }
-
-  // --- ГАЛЕРЕЯ ---
-  function loadGallery() {
-    fetch('/api/gallery').then(res => res.json()).then(data => {
-      const c = document.getElementById('gallery-list'); c.innerHTML = '';
-      data.forEach(g => {
-        c.innerHTML += `
-          <div class="gallery-item">
-            <img src="${g.image_url}">
-            <div class="gallery-info">
-              <span style="font-size:10px;">${g.author_name}</span>
-              <button class="btn" style="padding:2px 5px; font-size:10px;" onclick="likeImage(${g.id})">❤ ${g.likes}</button>
-            </div>
-          </div>`;
-      });
-    });
-  }
-
-  function uploadGallery() {
-    if(!currentUser) return;
-    const file = document.getElementById('gallery-image').files[0];
-    if(!file) return;
+  function uploadSkin() {
+    if(!currentUser) return alert('Войдите!');
+    const title = document.getElementById('skin-title').value;
+    const desc = document.getElementById('skin-desc').value;
+    const img = document.getElementById('skin-image').files[0];
+    const file = document.getElementById('skin-file').files[0];
+    if(!title || !img || !file) return alert('Заполните поля и прикрепите файлы!');
+    
     const fd = new FormData();
     fd.append('author', currentUser.name);
-    fd.append('gallery_image', file);
-    fetch('/api/gallery/upload', { method: 'POST', body: fd }).then(() => loadGallery());
+    fd.append('title', title);
+    fd.append('desc', desc);
+    fd.append('skin_image', img);
+    fd.append('skin_file', file);
+    
+    fetch('/api/skins/upload', { method: 'POST', body: fd })
+    .then(res => res.json()).then(data => {
+        if(data.success) { alert('Скин загружен!'); showPage('skins'); }
+    });
   }
 
-  function likeImage(id) {
-    fetch(`/api/gallery/${id}/like`, { method: 'POST' }).then(() => loadGallery());
-  }
+  function downloadSkin(id) { fetch(`/api/skins/${id}/download`, { method: 'POST' }); }
 
   // --- АДДОНЫ ---
   function loadAddons() {
@@ -380,57 +393,24 @@
       data.forEach(a => {
         const cover = a.cover_url ? a.cover_url : 'resources/images/banner-bg.jpg';
         c.innerHTML += `
-          <div class="addon-card">
-            <div style="display:flex; gap:10px;">
-              <img src="${cover}" style="width:100px; height:100px; object-fit:cover;">
-              <div>
-                <div class="addon-title">${a.title}</div>
-                <p style="font-size:11px;">${a.description}</p>
-                <a href="${a.py_file_url}" class="btn" download style="padding:4px 10px; font-size:12px;" onclick="downloadAddon(${a.id})">Скачать .py</a>
+          <div class="card">
+            <img src="${cover}">
+            <div class="card-info">
+              <div class="card-title">${a.title}</div>
+              <div class="card-meta">Автор: ${a.author_name} | Скачиваний: ${a.downloads}</div>
+              <p style="font-size:11px;">${a.description}</p>
+              <a href="${a.py_file_url}" class="btn" download style="padding:4px 10px; font-size:12px;" onclick="downloadAddon(${a.id})">Скачать .py</a>
+              <button class="btn" style="padding:2px 5px; font-size:10px;" onclick="toggleComments(${a.id})">Комментарии</button>
+              <div id="comment-list-${a.id}" style="display:none; margin-top:5px;"></div>
+              <div id="comment-form-${a.id}" style="display:none; margin-top:5px;">
+                  <input type="text" id="comment-input-${a.id}" class="form-control" style="padding:2px;" placeholder="Написать...">
+                  <button class="btn" style="padding:2px 5px; font-size:10px;" onclick="addComment(${a.id})">ОК</button>
               </div>
-            </div>
-            <div class="comment-box" id="comments-${a.id}">
-                <!-- Сюда грузятся комменты -->
-                <button class="btn" style="padding:2px 5px; font-size:10px;" onclick="toggleComments(${a.id})">Комментарии</button>
-                <div id="comment-list-${a.id}" style="display:none; margin-top:5px;"></div>
-                <div id="comment-form-${a.id}" style="display:none; margin-top:5px;">
-                    <input type="text" id="comment-input-${a.id}" class="form-control" style="padding:2px;" placeholder="Написать...">
-                    <button class="btn" style="padding:2px 5px; font-size:10px;" onclick="addComment(${a.id})">ОК</button>
-                </div>
             </div>
           </div>
         `;
       });
     });
-  }
-
-  function downloadAddon(id) { fetch(`/api/addons/${id}/download`, { method: 'POST' }); }
-
-  function toggleComments(id) {
-    const list = document.getElementById(`comment-list-${id}`);
-    const form = document.getElementById(`comment-form-${id}`);
-    if(list.style.display === 'none') {
-        list.style.display = 'block'; form.style.display = 'block';
-        loadComments(id);
-    } else {
-        list.style.display = 'none'; form.style.display = 'none';
-    }
-  }
-
-  function loadComments(id) {
-    fetch(`/api/addons/${id}/comments`).then(res => res.json()).then(data => {
-        const c = document.getElementById(`comment-list-${id}`);
-        c.innerHTML = '';
-        data.forEach(cmt => c.innerHTML += `<div class="comment"><span style="color:#ff6600">${cmt.author_name}:</span> ${cmt.message}</div>`);
-    });
-  }
-
-  function addComment(id) {
-    if(!currentUser) return alert('Войдите!');
-    const text = document.getElementById(`comment-input-${id}`).value;
-    if(!text) return;
-    fetch(`/api/addons/${id}/comments`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ author: currentUser.name, message: text }) })
-    .then(() => { document.getElementById(`comment-input-${id}`).value = ''; loadComments(id); });
   }
 
   function uploadAddon() {
@@ -450,9 +430,70 @@
     .then(res => res.json()).then(data => { if (data.success) { alert('Загружено!'); showPage('addons'); } });
   }
 
+  function downloadAddon(id) { fetch(`/api/addons/${id}/download`, { method: 'POST' }); }
+  function toggleComments(id) {
+    const list = document.getElementById(`comment-list-${id}`);
+    const form = document.getElementById(`comment-form-${id}`);
+    if(list.style.display === 'none') { list.style.display = 'block'; form.style.display = 'block'; loadComments(id); }
+    else { list.style.display = 'none'; form.style.display = 'none'; }
+  }
+  function loadComments(id) {
+    fetch(`/api/addons/${id}/comments`).then(res => res.json()).then(data => {
+        const c = document.getElementById(`comment-list-${id}`); c.innerHTML = '';
+        data.forEach(cmt => c.innerHTML += `<div class="comment"><span style="color:#ff6600">${cmt.author_name}:</span> ${cmt.message}</div>`);
+    });
+  }
+  function addComment(id) {
+    if(!currentUser) return alert('Войдите!');
+    const text = document.getElementById(`comment-input-${id}`).value;
+    if(!text) return;
+    fetch(`/api/addons/${id}/comments`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ author: currentUser.name, message: text }) })
+    .then(() => { document.getElementById(`comment-input-${id}`).value = ''; loadComments(id); });
+  }
+
+  // --- ПОСТЫ ---
+  function loadPosts() {
+    fetch('/api/posts').then(res => res.json()).then(data => {
+      const c = document.getElementById('home-posts'); c.innerHTML = '';
+      if(data.length === 0) return c.innerHTML = '<p>Пока нет постов.</p>';
+      data.forEach(p => c.innerHTML += `<div class="post"><div class="post-author">${p.author_name}</div><p>${p.message}</p><small style="color:#555">${p.created_at}</small></div>`);
+    });
+  }
+  function createPost() {
+    if(!currentUser) return;
+    const text = document.getElementById('post-text').value;
+    if(!text) return;
+    fetch('/api/posts', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ author: currentUser.name, message: text }) })
+    .then(() => { document.getElementById('post-text').value = ''; loadPosts(); });
+  }
+
+  // --- ГАЛЕРЕЯ ---
+  function loadGallery() {
+    fetch('/api/gallery').then(res => res.json()).then(data => {
+      const c = document.getElementById('gallery-list'); c.innerHTML = '';
+      data.forEach(g => c.innerHTML += `
+          <div class="gallery-item">
+            <img src="${g.image_url}">
+            <div class="gallery-info">
+              <span style="font-size:10px;">${g.author_name}</span>
+              <button class="btn" style="padding:2px 5px; font-size:10px;" onclick="likeImage(${g.id})">❤ ${g.likes}</button>
+            </div>
+          </div>`);
+    });
+  }
+  function uploadGallery() {
+    if(!currentUser) return;
+    const file = document.getElementById('gallery-image').files[0];
+    if(!file) return;
+    const fd = new FormData();
+    fd.append('author', currentUser.name);
+    fd.append('gallery_image', file);
+    fetch('/api/gallery/upload', { method: 'POST', body: fd }).then(() => loadGallery());
+  }
+  function likeImage(id) { fetch(`/api/gallery/${id}/like`, { method: 'POST' }).then(() => loadGallery()); }
+
   // --- СЕРВЕРА ---
   function selectTariff(t) { selectedTariff = t; alert('Выбран тариф: ' + t.toUpperCase()); }
-  
   function loadServers() {
     fetch('/api/servers').then(res => res.json()).then(data => {
       const c = document.getElementById('servers-list'); c.innerHTML = '';
@@ -476,7 +517,6 @@
       document.getElementById('online-count').innerText = totalPlayers;
     });
   }
-
   function createServer() {
     if (!currentUser) return alert('Войдите!');
     const name = document.getElementById('srv-name').value;
@@ -485,14 +525,11 @@
     fetch('/api/servers', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ name: name, map: map, tariff: selectedTariff, owner: currentUser.name }) })
     .then(() => { showPage('servers'); });
   }
-
-  // КОНСОЛЬ
   function openConsole(serverName) {
     currentServerName = serverName;
     document.getElementById('console-srv-name').innerText = "Сервер: " + serverName;
     showPage('console');
   }
-
   function loadConsole() {
     fetch('/api/servers').then(res => res.json()).then(data => {
         const srv = data.find(s => s.name === currentServerName);
@@ -502,7 +539,6 @@
         }
     });
   }
-
   function sendCommand() {
     const cmd = document.getElementById('console-input').value;
     if(!cmd) return;
@@ -516,22 +552,7 @@
     });
   }
 
-  // ГОСТЕВАЯ
+  // --- ГОСТЕВАЯ ---
   function loadGuestbook() {
     fetch('/api/guestbook').then(res => res.json()).then(data => {
-      const c = document.getElementById('guestbook-list'); c.innerHTML = '';
-      data.forEach(m => c.innerHTML += `<div style="border-bottom:1px dashed #440; padding:10px 0;"><span style="color:#ff6600">${m.user_name}</span>: ${m.message}</div>`);
-    });
-  }
-
-  function submitReview() {
-    if (!currentUser) return alert('Войдите!');
-    const text = document.getElementById('review-text').value;
-    if (!text) return;
-    fetch('/api/guestbook', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ name: currentUser.name, message: text }) })
-    .then(() => { document.getElementById('review-text').value = ''; loadGuestbook(); });
-  }
-</script>
-
-</body>
-</html>
+      const c =
