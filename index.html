@@ -10,11 +10,13 @@
   body { font-family: Verdana, sans-serif; font-size: 12px; color: #ccc; background: #0a0a0a url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="%230a0a0a"/><circle cx="3" cy="3" r="1" fill="%231a1a1a"/></svg>'); background-attachment: fixed; overflow-x: hidden; }
   a { color: #ff3333; text-decoration: none; } a:hover { color: #fff; background: #ff0000; }
 
+  /* ШАПКА */
   #header { height: 140px; background: linear-gradient(#3a0000, #000); border-bottom: 3px solid #ff0000; position: relative; z-index: 10; box-shadow: 0 5px 15px rgba(255,0,0,0.3); }
   #logo { position: absolute; left: 20px; top: 20px; font-family: Impact, sans-serif; font-size: 42px; color: #fff; text-shadow: 3px 3px 0 #ff0000, -1px -1px 0 #000, 0 0 15px #ff0000; letter-spacing: 2px; transform: rotate(-2deg); cursor: pointer; }
   #logo span { color: #ff0000; }
   #slogan { position: absolute; left: 22px; top: 78px; color: #ff6666; font-size: 12px; font-style: italic; font-weight: bold; letter-spacing: 1px; }
 
+  /* МЕНЮ */
   #menu { height: 38px; background: linear-gradient(#550000, #220000); border-bottom: 2px solid #ff0000; display: flex; align-items: center; justify-content: space-between; padding: 0 20px 0 10px; position: relative; z-index: 20; }
   #menu ul { list-style: none; display: flex; flex-wrap: wrap; }
   #menu a { display: block; padding: 0 12px; line-height: 38px; color: #fff; font-family: Impact, sans-serif; font-size: 14px; letter-spacing: 1px; text-decoration: none; text-shadow: 2px 2px 0 #000; border-right: 1px solid #000; border-left: 1px solid #880000; cursor: pointer; }
@@ -22,6 +24,7 @@
   #user-info { display: none; align-items: center; color: #fff; font-family: Impact, sans-serif; font-size: 14px; letter-spacing: 1px; text-shadow: 1px 1px 0 #000; cursor: pointer; }
   #user-info img { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #ff0000; margin-right: 8px; }
 
+  /* КОНТЕНТ */
   #wrapper { width: 980px; margin: 20px auto; display: flex; gap: 20px; position: relative; z-index: 5; }
   #content { flex: 1; background: #1a1a1a; border: 2px solid #440000; padding: 20px; min-height: 500px; box-shadow: 0 0 15px rgba(255,0,0,0.2); }
   #sidebar { width: 270px; }
@@ -44,26 +47,34 @@
   .page { display: none; }
   .page.active { display: block; }
   
+  /* КАРТОЧКИ */
   .card { display: flex; background: #111; border: 1px solid #440000; margin-bottom: 15px; padding: 10px; gap: 10px; }
   .card img { width: 150px; height: 100px; object-fit: cover; border: 1px solid #ff0000; }
   .card-info { flex: 1; }
   .card-title { font-family: Impact; font-size: 20px; color: #ff0000; }
   .card-meta { font-size: 10px; color: #666; margin-bottom: 5px; }
   
+  /* ГАЛЕРЕЯ */
   .gallery-grid { display: flex; flex-wrap: wrap; gap: 10px; }
   .gallery-item { width: 180px; background: #111; border: 1px solid #440000; padding: 5px; }
   .gallery-item img { width: 100%; height: 120px; object-fit: cover; border: 1px solid #000; }
   .gallery-info { padding: 5px; display: flex; justify-content: space-between; align-items: center; }
   
+  /* ПОСТЫ */
   .post { background: #111; border: 1px solid #440000; padding: 10px; margin-bottom: 10px; }
   .post-author { color: #ff6600; font-weight: bold; margin-bottom: 5px; }
   
+  /* СЕРВЕРА */
   .server-item { background: #111; border: 1px solid #440000; padding: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
   .status-online { color: #00ff00; font-weight: bold; }
   .status-offline { color: #ff0000; font-weight: bold; }
   
+  /* КОНСОЛЬ */
   .console-box { background: black; border: 1px solid #333; padding: 10px; font-family: 'Courier New', monospace; color: #00ff00; height: 200px; overflow-y: auto; margin-bottom: 10px; white-space: pre-wrap; }
   .console-input { background: black; border: 1px solid #00ff00; color: #00ff00; width: 100%; padding: 5px; font-family: 'Courier New', monospace; }
+
+  /* ПЛАГИНЫ */
+  .plugin-checkbox { transform: scale(1.2); margin-right: 8px; }
 </style>
 </head>
 <body>
@@ -79,6 +90,7 @@
     <li><a id="nav-gallery" onclick="showPage('gallery')">Галерея</a></li>
     <li><a id="nav-skins" onclick="showPage('skins')">Скины</a></li>
     <li><a id="nav-addons" onclick="showPage('addons')">Аддоны</a></li>
+    <li><a id="nav-plugins" onclick="showPage('plugins')">Плагины</a></li>
     <li><a id="nav-servers" onclick="showPage('servers')">Хостинг</a></li>
     <li><a id="nav-guestbook" onclick="showPage('guestbook')">Гостевая</a></li>
     <li><a id="nav-cabinet" onclick="showPage('cabinet')">Кабинет</a></li>
@@ -159,6 +171,24 @@
       <button class="btn" onclick="showPage('addons')" style="background:#333;">Назад</button>
     </div>
 
+    <!-- ПЛАГИНЫ -->
+    <div id="page-plugins" class="page">
+      <h1 class="page-title">Плагины для серверов</h1>
+      <button class="btn btn-green" onclick="showPage('upload-plugin')" style="margin-bottom:15px;">Загрузить плагин</button>
+      <div id="plugins-list"></div>
+    </div>
+
+    <!-- ЗАГРУЗКА ПЛАГИНА -->
+    <div id="page-upload-plugin" class="page">
+      <h1 class="page-title">Загрузка плагина</h1>
+      <input type="text" id="plug-title" class="form-control" placeholder="Название плагина">
+      <textarea id="plug-desc" class="form-control" style="height:60px;" placeholder="Описание (что делает?)"></textarea>
+      <label style="color:#ff6600;">Скрипт (.py):</label>
+      <input type="file" id="plug-file" class="form-control" accept=".py">
+      <button class="btn" onclick="uploadPlugin()">Опубликовать</button>
+      <button class="btn" onclick="showPage('plugins')" style="background:#333;">Назад</button>
+    </div>
+
     <!-- СЕРВЕРА -->
     <div id="page-servers" class="page">
       <h1 class="page-title">Хостинг серверов</h1>
@@ -166,14 +196,15 @@
       <div id="servers-list"></div>
     </div>
 
-    <!-- СОЗДАНИЕ СЕРВЕРА -->
+    <!-- СОЗДАНИЕ СЕРВЕРА (С ПЛАГИНАМИ) -->
     <div id="page-create-server" class="page">
-      <h1 class="page-title">Выберите тариф</h1>
-      <input type="text" id="srv-name" class="form-control" placeholder="Название сервера">
+      <h1 class="page-title">Выберите тариф и плагины</h1>
+      <input type="text" id="srv-name" class="form-control" placeholder="Название сервера (например: MyBloodServer)">
       <select id="srv-map" class="form-control">
         <option value="Мясная фабрика">Мясная фабрика</option>
         <option value="Адский переулок">Адский переулок</option>
       </select>
+      
       <div style="background:#111; border:1px solid #440; padding:15px; margin-bottom:10px; cursor:pointer;" onclick="selectTariff('free')">
         <h3 style="color:#00ff00;">512 MB - БЕСПЛАТНО</h3><p>До 10 игроков.</p>
       </div>
@@ -183,6 +214,12 @@
       <div style="background:#111; border:1px solid #440; padding:15px; margin-bottom:10px; cursor:pointer;" onclick="selectTariff('3gb')">
         <h3 style="color:red;">3 GB - 50 РУБ / 500 ТЕНГЕ</h3><p>До 50 игроков. Все плагины.</p>
       </div>
+
+      <h3 style="color:#ff6600; margin-bottom:10px;">Выберите плагины для сервера:</h3>
+      <div id="plugins-checkboxes" style="background:#111; border:1px solid #440; padding:10px; margin-bottom:15px;">
+          <p style="color:#888;">Загрузка списка...</p>
+      </div>
+
       <button class="btn" onclick="createServer()">Запустить</button>
       <button class="btn" onclick="showPage('servers')" style="background:#333;">Назад</button>
     </div>
@@ -257,6 +294,7 @@
     if(pageId === 'create-server' || pageId === 'console') navId = 'servers';
     if(pageId === 'upload-addon') navId = 'addons';
     if(pageId === 'upload-skin') navId = 'skins';
+    if(pageId === 'upload-plugin') navId = 'plugins';
     
     let nav = document.getElementById('nav-' + navId);
     if(nav) nav.classList.add('active');
@@ -264,10 +302,12 @@
     if(pageId === 'home') loadPosts();
     if(pageId === 'gallery') loadGallery();
     if(pageId === 'skins') loadSkins();
+    if(pageId === 'plugins') loadPlugins();
     if(pageId === 'guestbook') loadGuestbook();
     if(pageId === 'addons') loadAddons();
     if(pageId === 'servers') loadServers();
     if(pageId === 'console') loadConsole();
+    if(pageId === 'create-server') loadCreateServerPlugins();
   }
 
   window.onload = () => {
@@ -334,6 +374,63 @@
     });
   }
 
+  // --- ПЛАГИНЫ ---
+  function loadPlugins() {
+    fetch('/api/plugins').then(res => res.json()).then(data => {
+        const c = document.getElementById('plugins-list'); c.innerHTML = '';
+        if(data.length === 0) return c.innerHTML = '<p>Пока нет плагинов.</p>';
+        data.forEach(p => {
+            c.innerHTML += `
+                <div class="card">
+                    <div class="card-info">
+                        <div class="card-title">${p.title}</div>
+                        <div class="card-meta">Автор: ${p.author_name}</div>
+                        <p style="font-size:11px;">${p.description}</p>
+                        <a href="${p.py_file_url}" class="btn" download style="padding:4px 10px; font-size:12px;">Скачать .py</a>
+                    </div>
+                </div>
+            `;
+        });
+    });
+  }
+
+  function uploadPlugin() {
+    if(!currentUser) return alert('Войдите!');
+    const title = document.getElementById('plug-title').value;
+    const desc = document.getElementById('plug-desc').value;
+    const file = document.getElementById('plug-file').files[0];
+    if(!title || !file) return alert('Заполните поля и прикрепите .py!');
+    
+    const fd = new FormData();
+    fd.append('author', currentUser.name);
+    fd.append('title', title);
+    fd.append('desc', desc);
+    fd.append('plugin_file', file);
+    
+    fetch('/api/plugins/upload', { method: 'POST', body: fd })
+    .then(async res => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Ошибка');
+        alert('Плагин загружен!'); showPage('plugins');
+    })
+    .catch(err => alert('ОШИБКА: ' + err.message));
+  }
+
+  function loadCreateServerPlugins() {
+      fetch('/api/plugins').then(res => res.json()).then(data => {
+          const container = document.getElementById('plugins-checkboxes');
+          container.innerHTML = '';
+          if(data.length === 0) { container.innerHTML = '<p>Нет доступных плагинов.</p>'; return; }
+          data.forEach(p => {
+              container.innerHTML += `
+                  <label style="display:block; margin-bottom:8px; cursor:pointer; color:#ddd;">
+                      <input type="checkbox" class="plugin-checkbox" value="${p.id}"> ${p.title}
+                  </label>
+              `;
+          });
+      });
+  }
+
   // --- СКИНЫ ---
   function loadSkins() {
     fetch('/api/skins').then(res => res.json()).then(data => {
@@ -372,9 +469,12 @@
     fd.append('skin_file', file);
     
     fetch('/api/skins/upload', { method: 'POST', body: fd })
-    .then(res => res.json()).then(data => {
-        if(data.success) { alert('Скин загружен!'); showPage('skins'); }
-    });
+    .then(async res => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Ошибка');
+        alert('Скин загружен!'); showPage('skins');
+    })
+    .catch(err => alert('ОШИБКА: ' + err.message));
   }
 
   function downloadSkin(id) { fetch(`/api/skins/${id}/download`, { method: 'POST' }); }
@@ -420,7 +520,12 @@
     if (cover) formData.append('cover', cover);
     formData.append('py_file', py);
     fetch('/api/addons/upload', { method: 'POST', body: formData })
-    .then(res => res.json()).then(data => { if (data.success) { alert('Загружено!'); showPage('addons'); } });
+    .then(async res => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Ошибка');
+        alert('Аддон загружен!'); showPage('addons');
+    })
+    .catch(err => alert('ОШИБКА: ' + err.message));
   }
 
   function downloadAddon(id) { fetch(`/api/addons/${id}/download`, { method: 'POST' }); }
@@ -442,7 +547,6 @@
     const text = input.value.trim();
     if(!text) return;
 
-    // Мгновенно показываем коммент (оптимистичный UI)
     const c = document.getElementById(`comment-list-${id}`);
     const newCmt = document.createElement('div');
     newCmt.className = 'comment';
@@ -450,11 +554,8 @@
     c.prepend(newCmt);
     input.value = '';
 
-    fetch(`/api/addons/${id}/comments`, { 
-        method: 'POST', 
-        headers: {'Content-Type': 'application/json'}, 
-        body: JSON.stringify({ author: currentUser.name, message: text }) 
-    }).catch(err => console.log("Ошибка сохранения комментария", err));
+    fetch(`/api/addons/${id}/comments`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ author: currentUser.name, message: text }) })
+    .catch(err => console.log(err));
   }
 
   // --- ПОСТЫ ---
@@ -470,7 +571,6 @@
     const text = document.getElementById('post-text').value.trim();
     if(!text) return;
 
-    // Мгновенно показываем пост (оптимистичный UI)
     const c = document.getElementById('home-posts');
     const newPost = document.createElement('div');
     newPost.className = 'post';
@@ -478,11 +578,8 @@
     c.prepend(newPost);
     document.getElementById('post-text').value = '';
 
-    fetch('/api/posts', { 
-        method: 'POST', 
-        headers: {'Content-Type': 'application/json'}, 
-        body: JSON.stringify({ author: currentUser.name, message: text }) 
-    }).catch(err => console.log("Ошибка сохранения поста", err));
+    fetch('/api/posts', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ author: currentUser.name, message: text }) })
+    .catch(err => console.log(err));
   }
 
   // --- ГАЛЕРЕЯ ---
@@ -512,6 +609,7 @@
 
   // --- СЕРВЕРА ---
   function selectTariff(t) { selectedTariff = t; alert('Выбран тариф: ' + t.toUpperCase()); }
+  
   function loadServers() {
     fetch('/api/servers').then(res => res.json()).then(data => {
       const c = document.getElementById('servers-list'); c.innerHTML = '';
@@ -535,14 +633,24 @@
       document.getElementById('online-count').innerText = totalPlayers;
     });
   }
+
   function createServer() {
     if (!currentUser) return alert('Войдите!');
     const name = document.getElementById('srv-name').value;
     const map = document.getElementById('srv-map').value;
     if (!name) return alert('Введите название!');
-    fetch('/api/servers', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ name: name, map: map, tariff: selectedTariff, owner: currentUser.name }) })
-    .then(() => { showPage('servers'); });
+
+    const selectedPlugins = [];
+    document.querySelectorAll('.plugin-checkbox:checked').forEach(cb => {
+        selectedPlugins.push(cb.value);
+    });
+
+    fetch('/api/servers', { 
+        method: 'POST', headers: {'Content-Type': 'application/json'}, 
+        body: JSON.stringify({ name: name, map: map, tariff: selectedTariff, owner: currentUser.name, plugins: selectedPlugins }) 
+    }).then(() => { showPage('servers'); });
   }
+
   function openConsole(serverName) {
     currentServerName = serverName;
     document.getElementById('console-srv-name').innerText = "Сервер: " + serverName;
@@ -582,7 +690,6 @@
     const text = document.getElementById('review-text').value.trim();
     if (!text) return;
 
-    // Мгновенно показываем отзыв (оптимистичный UI)
     const c = document.getElementById('guestbook-list');
     const newMsg = document.createElement('div');
     newMsg.style.cssText = "border-bottom:1px dashed #440; padding:10px 0;";
@@ -590,11 +697,8 @@
     c.prepend(newMsg);
     document.getElementById('review-text').value = '';
 
-    fetch('/api/guestbook', { 
-        method: 'POST', 
-        headers: {'Content-Type': 'application/json'}, 
-        body: JSON.stringify({ name: currentUser.name, message: text }) 
-    }).catch(err => console.log("Ошибка сохранения отзыва", err));
+    fetch('/api/guestbook', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ name: currentUser.name, message: text }) })
+    .catch(err => console.log(err));
   }
 </script>
 
