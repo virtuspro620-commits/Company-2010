@@ -10,13 +10,11 @@
   body { font-family: Verdana, sans-serif; font-size: 12px; color: #ccc; background: #0a0a0a url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="%230a0a0a"/><circle cx="3" cy="3" r="1" fill="%231a1a1a"/></svg>'); background-attachment: fixed; overflow-x: hidden; }
   a { color: #ff3333; text-decoration: none; } a:hover { color: #fff; background: #ff0000; }
 
-  /* ШАПКА */
   #header { height: 140px; background: linear-gradient(#3a0000, #000); border-bottom: 3px solid #ff0000; position: relative; z-index: 10; box-shadow: 0 5px 15px rgba(255,0,0,0.3); }
   #logo { position: absolute; left: 20px; top: 20px; font-family: Impact, sans-serif; font-size: 42px; color: #fff; text-shadow: 3px 3px 0 #ff0000, -1px -1px 0 #000, 0 0 15px #ff0000; letter-spacing: 2px; transform: rotate(-2deg); cursor: pointer; }
   #logo span { color: #ff0000; }
   #slogan { position: absolute; left: 22px; top: 78px; color: #ff6666; font-size: 12px; font-style: italic; font-weight: bold; letter-spacing: 1px; }
 
-  /* МЕНЮ */
   #menu { height: 38px; background: linear-gradient(#550000, #220000); border-bottom: 2px solid #ff0000; display: flex; align-items: center; justify-content: space-between; padding: 0 20px 0 10px; position: relative; z-index: 20; }
   #menu ul { list-style: none; display: flex; flex-wrap: wrap; }
   #menu a { display: block; padding: 0 12px; line-height: 38px; color: #fff; font-family: Impact, sans-serif; font-size: 14px; letter-spacing: 1px; text-decoration: none; text-shadow: 2px 2px 0 #000; border-right: 1px solid #000; border-left: 1px solid #880000; cursor: pointer; }
@@ -24,7 +22,6 @@
   #user-info { display: none; align-items: center; color: #fff; font-family: Impact, sans-serif; font-size: 14px; letter-spacing: 1px; text-shadow: 1px 1px 0 #000; cursor: pointer; }
   #user-info img { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #ff0000; margin-right: 8px; }
 
-  /* КОНТЕНТ */
   #wrapper { width: 980px; margin: 20px auto; display: flex; gap: 20px; position: relative; z-index: 5; }
   #content { flex: 1; background: #1a1a1a; border: 2px solid #440000; padding: 20px; min-height: 500px; box-shadow: 0 0 15px rgba(255,0,0,0.2); }
   #sidebar { width: 270px; }
@@ -47,29 +44,24 @@
   .page { display: none; }
   .page.active { display: block; }
   
-  /* КАРТОЧКИ */
   .card { display: flex; background: #111; border: 1px solid #440000; margin-bottom: 15px; padding: 10px; gap: 10px; }
   .card img { width: 150px; height: 100px; object-fit: cover; border: 1px solid #ff0000; }
   .card-info { flex: 1; }
   .card-title { font-family: Impact; font-size: 20px; color: #ff0000; }
   .card-meta { font-size: 10px; color: #666; margin-bottom: 5px; }
   
-  /* ГАЛЕРЕЯ */
   .gallery-grid { display: flex; flex-wrap: wrap; gap: 10px; }
   .gallery-item { width: 180px; background: #111; border: 1px solid #440000; padding: 5px; }
   .gallery-item img { width: 100%; height: 120px; object-fit: cover; border: 1px solid #000; }
   .gallery-info { padding: 5px; display: flex; justify-content: space-between; align-items: center; }
   
-  /* ПОСТЫ */
   .post { background: #111; border: 1px solid #440000; padding: 10px; margin-bottom: 10px; }
   .post-author { color: #ff6600; font-weight: bold; margin-bottom: 5px; }
   
-  /* СЕРВЕРА */
   .server-item { background: #111; border: 1px solid #440000; padding: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
   .status-online { color: #00ff00; font-weight: bold; }
   .status-offline { color: #ff0000; font-weight: bold; }
   
-  /* КОНСОЛЬ */
   .console-box { background: black; border: 1px solid #333; padding: 10px; font-family: 'Courier New', monospace; color: #00ff00; height: 200px; overflow-y: auto; margin-bottom: 10px; white-space: pre-wrap; }
   .console-input { background: black; border: 1px solid #00ff00; color: #00ff00; width: 100%; padding: 5px; font-family: 'Courier New', monospace; }
 </style>
@@ -129,7 +121,7 @@
       <div class="gallery-grid" id="gallery-list"></div>
     </div>
 
-    <!-- СКИНЫ (СПИСОК) -->
+    <!-- СКИНЫ -->
     <div id="page-skins" class="page">
       <h1 class="page-title">Скины сообщества</h1>
       <button class="btn btn-green" onclick="showPage('upload-skin')" style="margin-bottom:15px;">Загрузить свой скин</button>
@@ -269,7 +261,6 @@
     let nav = document.getElementById('nav-' + navId);
     if(nav) nav.classList.add('active');
 
-    // Мгновенная загрузка данных без надписи "Загрузка..."
     if(pageId === 'home') loadPosts();
     if(pageId === 'gallery') loadGallery();
     if(pageId === 'skins') loadSkins();
@@ -282,7 +273,7 @@
   window.onload = () => {
     let saved = localStorage.getItem('u2010');
     if (saved) { currentUser = JSON.parse(saved); updateUI(); }
-    loadPosts(); // Загружаем посты сразу при открытии
+    loadPosts();
     setInterval(() => {
         if(document.getElementById('page-servers').classList.contains('active')) loadServers();
     }, 5000);
@@ -447,10 +438,23 @@
   }
   function addComment(id) {
     if(!currentUser) return alert('Войдите!');
-    const text = document.getElementById(`comment-input-${id}`).value;
+    const input = document.getElementById(`comment-input-${id}`);
+    const text = input.value.trim();
     if(!text) return;
-    fetch(`/api/addons/${id}/comments`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ author: currentUser.name, message: text }) })
-    .then(() => { document.getElementById(`comment-input-${id}`).value = ''; loadComments(id); });
+
+    // Мгновенно показываем коммент (оптимистичный UI)
+    const c = document.getElementById(`comment-list-${id}`);
+    const newCmt = document.createElement('div');
+    newCmt.className = 'comment';
+    newCmt.innerHTML = `<span style="color:#ff6600">${currentUser.name}:</span> ${text}`;
+    c.prepend(newCmt);
+    input.value = '';
+
+    fetch(`/api/addons/${id}/comments`, { 
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'}, 
+        body: JSON.stringify({ author: currentUser.name, message: text }) 
+    }).catch(err => console.log("Ошибка сохранения комментария", err));
   }
 
   // --- ПОСТЫ ---
@@ -462,11 +466,23 @@
     });
   }
   function createPost() {
-    if(!currentUser) return;
-    const text = document.getElementById('post-text').value;
+    if(!currentUser) return alert('Войдите!');
+    const text = document.getElementById('post-text').value.trim();
     if(!text) return;
-    fetch('/api/posts', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ author: currentUser.name, message: text }) })
-    .then(() => { document.getElementById('post-text').value = ''; loadPosts(); });
+
+    // Мгновенно показываем пост (оптимистичный UI)
+    const c = document.getElementById('home-posts');
+    const newPost = document.createElement('div');
+    newPost.className = 'post';
+    newPost.innerHTML = `<div class="post-author">${currentUser.name}</div><p>${text}</p><small style="color:#555">Только что</small>`;
+    c.prepend(newPost);
+    document.getElementById('post-text').value = '';
+
+    fetch('/api/posts', { 
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'}, 
+        body: JSON.stringify({ author: currentUser.name, message: text }) 
+    }).catch(err => console.log("Ошибка сохранения поста", err));
   }
 
   // --- ГАЛЕРЕЯ ---
@@ -563,10 +579,22 @@
   }
   function submitReview() {
     if (!currentUser) return alert('Войдите!');
-    const text = document.getElementById('review-text').value;
+    const text = document.getElementById('review-text').value.trim();
     if (!text) return;
-    fetch('/api/guestbook', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ name: currentUser.name, message: text }) })
-    .then(() => { document.getElementById('review-text').value = ''; loadGuestbook(); });
+
+    // Мгновенно показываем отзыв (оптимистичный UI)
+    const c = document.getElementById('guestbook-list');
+    const newMsg = document.createElement('div');
+    newMsg.style.cssText = "border-bottom:1px dashed #440; padding:10px 0;";
+    newMsg.innerHTML = `<span style="color:#ff6600">${currentUser.name}</span>: ${text}`;
+    c.prepend(newMsg);
+    document.getElementById('review-text').value = '';
+
+    fetch('/api/guestbook', { 
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'}, 
+        body: JSON.stringify({ name: currentUser.name, message: text }) 
+    }).catch(err => console.log("Ошибка сохранения отзыва", err));
   }
 </script>
 
