@@ -555,4 +555,18 @@
   // --- ГОСТЕВАЯ ---
   function loadGuestbook() {
     fetch('/api/guestbook').then(res => res.json()).then(data => {
-      const c =
+      const c = document.getElementById('guestbook-list'); c.innerHTML = '';
+      data.forEach(m => c.innerHTML += `<div style="border-bottom:1px dashed #440; padding:10px 0;"><span style="color:#ff6600">${m.user_name}</span>: ${m.message}</div>`);
+    });
+  }
+  function submitReview() {
+    if (!currentUser) return alert('Войдите!');
+    const text = document.getElementById('review-text').value;
+    if (!text) return;
+    fetch('/api/guestbook', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ name: currentUser.name, message: text }) })
+    .then(() => { document.getElementById('review-text').value = ''; loadGuestbook(); });
+  }
+</script>
+
+</body>
+</html>
