@@ -110,7 +110,7 @@
     <!-- ГЛАВНАЯ -->
     <div id="page-home" class="page active">
       <h1 class="page-title">Новости сообщества</h1>
-      <div id="home-posts" style="margin-bottom: 20px;">Загрузка...</div>
+      <div id="home-posts" style="margin-bottom: 20px;"></div>
       
       <div id="post-form" style="display:none; background:#111; padding:10px; border:1px solid #440; margin-bottom:20px;">
         <textarea id="post-text" class="form-control" style="height:60px;" placeholder="Что у вас нового?"></textarea>
@@ -126,14 +126,14 @@
         <input type="file" id="gallery-image" class="form-control" accept="image/*">
         <button class="btn" onclick="uploadGallery()">Загрузить скриншот</button>
       </div>
-      <div class="gallery-grid" id="gallery-list">Загрузка...</div>
+      <div class="gallery-grid" id="gallery-list"></div>
     </div>
 
     <!-- СКИНЫ (СПИСОК) -->
     <div id="page-skins" class="page">
       <h1 class="page-title">Скины сообщества</h1>
       <button class="btn btn-green" onclick="showPage('upload-skin')" style="margin-bottom:15px;">Загрузить свой скин</button>
-      <div id="skins-list">Загрузка...</div>
+      <div id="skins-list"></div>
     </div>
 
     <!-- ЗАГРУЗКА СКИНА -->
@@ -153,7 +153,7 @@
     <div id="page-addons" class="page">
       <h1 class="page-title">Аддоны сообщества</h1>
       <button class="btn btn-green" onclick="showPage('upload-addon')" style="margin-bottom:15px;">Загрузить аддон</button>
-      <div id="addons-list">Загрузка...</div>
+      <div id="addons-list"></div>
     </div>
 
     <!-- ЗАГРУЗКА АДДОНА -->
@@ -171,7 +171,7 @@
     <div id="page-servers" class="page">
       <h1 class="page-title">Хостинг серверов</h1>
       <button class="btn btn-green" onclick="showPage('create-server')" style="margin-bottom: 15px;">Арендовать сервер</button>
-      <div id="servers-list">Загрузка...</div>
+      <div id="servers-list"></div>
     </div>
 
     <!-- СОЗДАНИЕ СЕРВЕРА -->
@@ -199,7 +199,7 @@
     <div id="page-console" class="page">
       <h1 class="page-title">Консоль сервера</h1>
       <h3 id="console-srv-name" style="color:#ff6600; margin-bottom:10px;"></h3>
-      <div class="console-box" id="console-output">Загрузка...</div>
+      <div class="console-box" id="console-output"></div>
       <input type="text" class="console-input" id="console-input" placeholder="Введите команду (help)..." onkeydown="if(event.key==='Enter') sendCommand()">
       <button class="btn" onclick="showPage('servers')" style="margin-top:10px; background:#333;">Назад</button>
     </div>
@@ -207,7 +207,7 @@
     <!-- ГОСТЕВАЯ -->
     <div id="page-guestbook" class="page">
       <h1 class="page-title">Гостевая книга</h1>
-      <div id="guestbook-list" style="margin-bottom: 20px;">Загрузка...</div>
+      <div id="guestbook-list" style="margin-bottom: 20px;"></div>
       <textarea id="review-text" class="form-control" style="height: 80px;" placeholder="Ваш отзыв..."></textarea>
       <button class="btn" onclick="submitReview()">Отправить</button>
     </div>
@@ -269,6 +269,7 @@
     let nav = document.getElementById('nav-' + navId);
     if(nav) nav.classList.add('active');
 
+    // Мгновенная загрузка данных без надписи "Загрузка..."
     if(pageId === 'home') loadPosts();
     if(pageId === 'gallery') loadGallery();
     if(pageId === 'skins') loadSkins();
@@ -281,7 +282,7 @@
   window.onload = () => {
     let saved = localStorage.getItem('u2010');
     if (saved) { currentUser = JSON.parse(saved); updateUI(); }
-    loadPosts();
+    loadPosts(); // Загружаем посты сразу при открытии
     setInterval(() => {
         if(document.getElementById('page-servers').classList.contains('active')) loadServers();
     }, 5000);
