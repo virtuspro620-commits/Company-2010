@@ -11,6 +11,16 @@ const CLIENT_ID = '457542589559-ngi47p1c12cbl2eid6u1epcdi2trcf7g.apps.googleuser
 const client = new OAuth2Client(CLIENT_ID);
 
 // ==========================================
+// ОТДАЧА SEO ФАЙЛОВ (ROBOTS И SITEMAP)
+// ==========================================
+app.get('/robots.txt', (req, res) => {
+    res.sendFile(path.join(__dirname, 'robots.txt'));
+});
+app.get('/sitemap.xml', (req, res) => {
+    res.sendFile(path.join(__dirname, 'sitemap.xml'));
+});
+
+// ==========================================
 // НАСТРОЙКА ЗАГРУЗКИ ФАЙЛОВ
 // ==========================================
 const storage = multer.diskStorage({
@@ -52,7 +62,6 @@ db.serialize(() => {
     db.run(`CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY AUTOINCREMENT, author_name TEXT, message TEXT, created_at DATETIME DEFAULT CURRENT_TIMESTAMP)`);
     db.run(`CREATE TABLE IF NOT EXISTS skins (id INTEGER PRIMARY KEY AUTOINCREMENT, author_name TEXT, title TEXT, description TEXT, image_url TEXT, skin_file_url TEXT, downloads INTEGER DEFAULT 0)`);
     
-    // Сервера
     db.run(`CREATE TABLE IF NOT EXISTS servers (
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         name TEXT, map TEXT, tariff TEXT, max_players INTEGER, 
@@ -60,7 +69,6 @@ db.serialize(() => {
         console_logs TEXT DEFAULT '', plugins TEXT DEFAULT '[]'
     )`);
 
-    // Плагины
     db.run(`CREATE TABLE IF NOT EXISTS plugins (
         id INTEGER PRIMARY KEY AUTOINCREMENT, 
         author_name TEXT, title TEXT, description TEXT, py_file_url TEXT
@@ -198,7 +206,6 @@ app.post('/api/servers', (req, res) => {
 
 app.post('/api/servers/ping', (req, res) => db.run(`UPDATE servers SET last_ping = ? WHERE name = ?`, [Date.now(), req.body.name], () => res.json({ success: true })));
 
-// Получение конфига плагинов для игры
 app.get('/api/servers/:name/config', (req, res) => {
     db.get(`SELECT plugins FROM servers WHERE name = ?`, [req.params.name], (err, row) => {
         if (!row) return res.status(404).json({ error: 'Server not found' });
