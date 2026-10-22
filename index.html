@@ -2,92 +2,209 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Company 2010 - Very Very Blood</title>
+<title>Company 2010 - Very Very Blood | Официальный сайт</title>
+<meta name="description" content="Company 2010 — независимая студия. Скачать игры Very Very Blood и HellWar бесплатно. Плагины, скины, моды, аддоны и хостинг серверов для кровавых игр.">
+<meta name="keywords" content="Very Very Blood, HellWar, скачать игру, хоррор шутер, плагины для игр, скины, аддоны, Company 2010, хостинг серверов">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Company 2010 - Официальный сайт">
+<meta property="og:description" content="Простые игры. Много крови. Никакой пощады. Скачивай игры, моды и арендуй сервера.">
+<meta property="og:image" content="https://company-2010.onrender.com/resources/images/banner-bg.jpg">
+<meta property="og:url" content="https://company-2010.onrender.com/">
+<meta property="og:type" content="website">
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+
 <style>
-  /* ===== ХОРРОР СТИЛЬ ===== */
+  /* ===== БАЗА 2011 ГОДА ===== */
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: Verdana, sans-serif; font-size: 12px; color: #ccc; background: #0a0a0a url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="%230a0a0a"/><circle cx="3" cy="3" r="1" fill="%231a1a1a"/></svg>'); background-attachment: fixed; overflow-x: hidden; }
+  body { 
+    font-family: Tahoma, Arial, sans-serif; 
+    font-size: 12px; 
+    color: #ccc; 
+    background: #0a0a0a url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="%230a0a0a"/><circle cx="3" cy="3" r="1" fill="%231a1a1a"/></svg>'); 
+    background-attachment: fixed; 
+    overflow-x: hidden; 
+  }
   a { color: #ff3333; text-decoration: none; } a:hover { color: #fff; background: #ff0000; }
 
-  /* ШАПКА */
-  #header { height: 140px; background: linear-gradient(#3a0000, #000); border-bottom: 3px solid #ff0000; position: relative; z-index: 10; box-shadow: 0 5px 15px rgba(255,0,0,0.3); }
-  #logo { position: absolute; left: 20px; top: 20px; font-family: Impact, sans-serif; font-size: 42px; color: #fff; text-shadow: 3px 3px 0 #ff0000, -1px -1px 0 #000, 0 0 15px #ff0000; letter-spacing: 2px; transform: rotate(-2deg); cursor: pointer; }
+  /* ===== ШАПКА С ГРАДИЕНТОМ И ТЕНЯМИ ===== */
+  #header { 
+    height: 140px; 
+    background: linear-gradient(#3a0000, #000); 
+    border-bottom: 3px solid #ff0000; 
+    position: relative; 
+    z-index: 10; 
+    box-shadow: 0 5px 15px rgba(255,0,0,0.3); 
+  }
+  #logo { 
+    position: absolute; left: 20px; top: 20px; 
+    font-family: Impact, sans-serif; font-size: 42px; 
+    color: #fff; text-shadow: 3px 3px 0 #ff0000, -1px -1px 0 #000, 0 0 15px #ff0000; 
+    letter-spacing: 2px; transform: rotate(-2deg); cursor: pointer; 
+  }
   #logo span { color: #ff0000; }
-  #slogan { position: absolute; left: 22px; top: 78px; color: #ff6666; font-size: 12px; font-style: italic; font-weight: bold; letter-spacing: 1px; }
+  #slogan { 
+    position: absolute; left: 22px; top: 78px; 
+    color: #ff6666; font-size: 12px; font-style: italic; font-weight: bold; letter-spacing: 1px; 
+    text-shadow: 1px 1px 0 #000;
+  }
 
-  /* МЕНЮ */
-  #menu { height: 38px; background: linear-gradient(#550000, #220000); border-bottom: 2px solid #ff0000; display: flex; align-items: center; justify-content: space-between; padding: 0 20px 0 10px; position: relative; z-index: 20; }
+  /* ===== СТАРОЕ МЕНЮ 2011 (С БЛИКАМИ) ===== */
+  #menu { 
+    height: 38px; 
+    background: linear-gradient(#550000, #220000); 
+    border-bottom: 2px solid #ff0000; 
+    display: flex; align-items: center; justify-content: space-between; 
+    padding: 0 20px 0 10px; 
+    position: relative; z-index: 20; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.8);
+  }
   #menu ul { list-style: none; display: flex; flex-wrap: wrap; }
-  #menu a { display: block; padding: 0 12px; line-height: 38px; color: #fff; font-family: Impact, sans-serif; font-size: 14px; letter-spacing: 1px; text-decoration: none; text-shadow: 2px 2px 0 #000; border-right: 1px solid #000; border-left: 1px solid #880000; cursor: pointer; }
-  #menu a:hover, #menu a.active { background: #ff0000; color: #000; text-shadow: none; }
+  #menu a { 
+    display: block; padding: 0 12px; line-height: 38px; 
+    color: #fff; font-family: Impact, sans-serif; font-size: 14px; 
+    letter-spacing: 1px; text-decoration: none; text-shadow: 2px 2px 0 #000; 
+    border-right: 1px solid #000; border-left: 1px solid #880000; 
+    cursor: pointer; 
+    /* Глянцевый блик на ссылках */
+    background: linear-gradient(rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%);
+  }
+  #menu a:hover, #menu a.active { 
+    background: #ff0000; color: #000; text-shadow: none; 
+  }
   #user-info { display: none; align-items: center; color: #fff; font-family: Impact, sans-serif; font-size: 14px; letter-spacing: 1px; text-shadow: 1px 1px 0 #000; cursor: pointer; }
   #user-info img { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #ff0000; margin-right: 8px; }
 
-  /* КОНТЕНТ */
+  /* ===== КОНТЕНТ ===== */
   #wrapper { width: 980px; margin: 20px auto; display: flex; gap: 20px; position: relative; z-index: 5; }
   #content { flex: 1; background: #1a1a1a; border: 2px solid #440000; padding: 20px; min-height: 500px; box-shadow: 0 0 15px rgba(255,0,0,0.2); }
   #sidebar { width: 270px; }
   .box { background: #1a1a1a; border: 2px solid #440000; margin-bottom: 15px; box-shadow: 0 0 10px rgba(255,0,0,0.1); }
-  .box h3 { background: linear-gradient(#550000, #220000); color: #ff3333; font-family: Impact, sans-serif; font-size: 16px; padding: 6px 10px; text-shadow: 1px 1px 0 #000; border-bottom: 2px solid #ff0000; letter-spacing: 1px; }
+  .box h3 { 
+    background: linear-gradient(#550000, #220000); color: #ff3333; 
+    font-family: Impact, sans-serif; font-size: 16px; padding: 6px 10px; 
+    text-shadow: 1px 1px 0 #000; border-bottom: 2px solid #ff0000; letter-spacing: 1px; 
+  }
   .box .box-content { padding: 12px; }
 
-  .page-title { font-family: Impact, sans-serif; font-size: 28px; color: #ff0000; border-bottom: 2px solid #ff0000; padding-bottom: 6px; margin-bottom: 15px; text-shadow: 2px 2px 0 #000; letter-spacing: 1px; }
+  .page-title { 
+    font-family: Impact, sans-serif; font-size: 28px; color: #ff0000; 
+    border-bottom: 2px solid #ff0000; padding-bottom: 6px; margin-bottom: 15px; 
+    text-shadow: 2px 2px 0 #000; letter-spacing: 1px; 
+  }
   p { line-height: 1.6; margin-bottom: 10px; color: #bbb; }
   
-  .btn { display: inline-block; padding: 8px 22px; font-family: Impact, sans-serif; font-size: 16px; color: #fff !important; text-decoration: none !important; text-shadow: 1px 1px 0 #000; background: linear-gradient(#cc0000 0%, #880000 48%, #550000 52%, #220000 100%); border: 1px solid #ff0000; border-radius: 2px; box-shadow: 0 1px 0 #ff6666 inset, 0 2px 4px rgba(0,0,0,0.5); cursor: pointer; margin: 5px 5px 5px 0; transition: all 0.1s; }
-  .btn:hover { background: linear-gradient(#ff3333 0%, #cc0000 48%, #aa0000 52%, #660000 100%); box-shadow: 0 0 15px #ff0000; }
+  /* ===== ГЛЯНЦЕВЫЕ КНОПКИ СТАРОГО СТИЛЯ ===== */
+  .btn { 
+    display: inline-block; padding: 8px 22px; 
+    font-family: Impact, sans-serif; font-size: 16px; 
+    color: #fff !important; text-decoration: none !important; 
+    text-shadow: 1px 1px 0 #000; 
+    background: linear-gradient(#cc0000 0%, #880000 48%, #550000 52%, #220000 100%); 
+    border: 1px solid #ff0000; border-radius: 2px; 
+    box-shadow: 0 1px 0 #ff6666 inset, 0 2px 4px rgba(0,0,0,0.5); 
+    cursor: pointer; margin: 5px 5px 5px 0; 
+    transition: all 0.1s;
+  }
+  .btn:hover { 
+    background: linear-gradient(#ff3333 0%, #cc0000 48%, #aa0000 52%, #660000 100%); 
+    box-shadow: 0 0 15px #ff0000; 
+  }
   .btn:active { transform: translateY(1px); }
-  .btn-green { background: linear-gradient(#00cc00 0%, #008800 48%, #006600 52%, #003300 100%); border-color: #00ff00; }
-  .btn-green:hover { background: linear-gradient(#00ff00 0%, #00cc00 48%, #009900 52%, #006600 100%); box-shadow: 0 0 15px #00ff00; }
+  
+  .btn-green { 
+    background: linear-gradient(#00cc00 0%, #008800 48%, #006600 52%, #003300 100%); 
+    border-color: #00ff00; 
+  }
+  .btn-green:hover { 
+    background: linear-gradient(#00ff00 0%, #00cc00 48%, #009900 52%, #006600 100%); 
+    box-shadow: 0 0 15px #00ff00; 
+  }
 
-  .form-control { width: 100%; padding: 8px; background: #111; border: 1px solid #ff0000; color: #fff; margin-bottom: 10px; }
+  .form-control { 
+    width: 100%; padding: 8px; 
+    background: #111; border: 1px solid #ff0000; 
+    color: #fff; margin-bottom: 10px; 
+    font-family: Tahoma;
+  }
   .form-control:focus { border-color: #ff3333; outline: none; box-shadow: 0 0 5px #ff0000; }
 
   .page { display: none; }
   .page.active { display: block; }
   
-  /* КАРТОЧКИ */
-  .card { display: flex; background: #111; border: 1px solid #440000; margin-bottom: 15px; padding: 10px; gap: 10px; }
+  /* ===== КАРТОЧКИ В СТИЛЕ 2011 ===== */
+  .card { 
+    display: flex; background: #111; 
+    border: 1px solid #440000; 
+    margin-bottom: 15px; padding: 10px; gap: 10px; 
+    box-shadow: inset 0 0 10px #000;
+  }
   .card img { width: 150px; height: 100px; object-fit: cover; border: 1px solid #ff0000; }
   .card-info { flex: 1; }
   .card-title { font-family: Impact; font-size: 20px; color: #ff0000; }
   .card-meta { font-size: 10px; color: #666; margin-bottom: 5px; }
   
-  /* ГАЛЕРЕЯ */
+  /* ===== ГАЛЕРЕЯ ===== */
   .gallery-grid { display: flex; flex-wrap: wrap; gap: 10px; }
   .gallery-item { width: 180px; background: #111; border: 1px solid #440000; padding: 5px; }
   .gallery-item img { width: 100%; height: 120px; object-fit: cover; border: 1px solid #000; }
   .gallery-info { padding: 5px; display: flex; justify-content: space-between; align-items: center; }
   
-  /* ПОСТЫ */
+  /* ===== ПОСТЫ ===== */
   .post { background: #111; border: 1px solid #440000; padding: 10px; margin-bottom: 10px; }
   .post-author { color: #ff6600; font-weight: bold; margin-bottom: 5px; }
   
-  /* СЕРВЕРА */
-  .server-item { background: #111; border: 1px solid #440000; padding: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-  .status-online { color: #00ff00; font-weight: bold; }
+  /* ===== СЕРВЕРА ===== */
+  .server-item { 
+    background: #111; border: 1px solid #440000; 
+    padding: 10px; margin-bottom: 10px; 
+    display: flex; justify-content: space-between; align-items: center; 
+  }
+  .status-online { color: #00ff00; font-weight: bold; text-shadow: 0 0 5px #00ff00; }
   .status-offline { color: #ff0000; font-weight: bold; }
   
-  /* КОНСОЛЬ */
-  .console-box { background: black; border: 1px solid #333; padding: 10px; font-family: 'Courier New', monospace; color: #00ff00; height: 200px; overflow-y: auto; margin-bottom: 10px; white-space: pre-wrap; }
-  .console-input { background: black; border: 1px solid #00ff00; color: #00ff00; width: 100%; padding: 5px; font-family: 'Courier New', monospace; }
+  /* ===== КОНСОЛЬ ===== */
+  .console-box { 
+    background: black; border: 1px solid #333; 
+    padding: 10px; font-family: 'Courier New', monospace; 
+    color: #00ff00; height: 200px; overflow-y: auto; 
+    margin-bottom: 10px; white-space: pre-wrap; 
+    box-shadow: inset 0 0 20px rgba(0,255,0,0.1);
+  }
+  .console-input { 
+    background: black; border: 1px solid #00ff00; 
+    color: #00ff00; width: 100%; padding: 5px; 
+    font-family: 'Courier New', monospace; 
+  }
 
-  /* ПЛАГИНЫ */
-  .plugin-checkbox { transform: scale(1.2); margin-right: 8px; }
+  /* ===== СТАРЫЕ ШУТКИ И БЕГУЩАЯ СТРОКА ===== */
+  .marquee-box {
+    background: #000; border: 1px solid #ff0000; 
+    padding: 5px; margin-bottom: 15px; 
+    overflow: hidden; white-space: nowrap; 
+    box-shadow: inset 0 0 10px #ff0000;
+  }
+  .marquee-text {
+    display: inline-block;
+    font-family: Impact; font-size: 14px; color: #ff3333; 
+    animation: scroll 15s linear infinite;
+  }
+  @keyframes scroll {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
 </style>
 </head>
 <body>
 
 <div id="header">
   <div id="logo" onclick="showPage('home')">COMPANY <span>2010</span></div>
-  <div id="slogan">Простые игры. Много крови. Никакой пощады.</div>
+  <div id="slogan">Простые игры. Много крови. Никакой пощады. (C) 2011</div>
 </div>
 
 <div id="menu">
   <ul>
     <li><a id="nav-home" class="active" onclick="showPage('home')">Главная</a></li>
-    <li><a id="nav-games" onclick="showPage('games')">Игры</a></li> <!-- ВЕРНУЛИ ВКЛАДКУ -->
+    <li><a id="nav-games" onclick="showPage('games')">Игры</a></li>
     <li><a id="nav-gallery" onclick="showPage('gallery')">Галерея</a></li>
     <li><a id="nav-skins" onclick="showPage('skins')">Скины</a></li>
     <li><a id="nav-addons" onclick="showPage('addons')">Аддоны</a></li>
@@ -112,29 +229,36 @@
 <div id="wrapper">
   <div id="content">
     
+    <!-- БЕГУЩАЯ СТРОКА (ШУТКИ СТАРЫХ ЛЕТ) -->
+    <div class="marquee-box">
+      <div class="marquee-text">
+        ★ ВНИМАНИЕ! В игре Very Very Blood можно убивать зомби бензопилой! ★ HellWar: сервера перегружены, но мы работаем над этим! ★ Не забудьте скачать наши скины! ★
+      </div>
+    </div>
+
     <!-- ГЛАВНАЯ -->
     <div id="page-home" class="page active">
-      <h1 class="page-title">Новости сообщества</h1>
+      <h1 class="page-title">Новости студии</h1>
       <div id="home-posts" style="margin-bottom: 20px;"></div>
       
       <div id="post-form" style="display:none; background:#111; padding:10px; border:1px solid #440; margin-bottom:20px;">
-        <textarea id="post-text" class="form-control" style="height:60px;" placeholder="Что у вас нового?"></textarea>
+        <textarea id="post-text" class="form-control" style="height:60px;" placeholder="Что у вас нового? (Только не пишите про политику)"></textarea>
         <button class="btn" onclick="createPost()">Отправить</button>
       </div>
       <p id="post-msg" style="color:#ff0000; display:none;">Войдите, чтобы писать посты.</p>
     </div>
 
-    <!-- ИГРЫ (ВЕРНУЛИ СТРАНИЦУ) -->
+    <!-- ИГРЫ -->
     <div id="page-games" class="page">
       <h1 class="page-title">Скачать игры</h1>
       <div style="border-bottom:1px dashed #440; padding:10px 0;">
         <div style="font-family:Impact; font-size:18px; color:red;">Very Very Blood (v1.2)</div>
-        <p>У вас есть только дробовик и ярость.</p>
+        <p>У вас есть только дробовик и ярость. (Да, это та самая игра, где вы отрываете головы).</p>
         <a href="https://drive.google.com/uc?export=download&id=13jpLyBL3bXlyG-RooTo_7o7O3Rmre7ce" target="_blank" class="btn">Скачать ZIP</a>
       </div>
       <div style="border-bottom:1px dashed #440; padding:10px 0; margin-top:15px;">
         <div style="font-family:Impact; font-size:18px; color:red;">HellWar (v0.3.1)</div>
-        <p>Адские гончие и орды нежити.</p>
+        <p>Адские гончие и орды нежити. Внимание: игра содержит сцены насилия (и это хорошо).</p>
         <a href="https://drive.google.com/uc?export=download&id=1qMAhKffbAyprNCFLqUHJ5U5fbaC_tBMf" target="_blank" class="btn">Скачать ZIP</a>
       </div>
     </div>
@@ -159,7 +283,7 @@
     <!-- ЗАГРУЗКА СКИНА -->
     <div id="page-upload-skin" class="page">
       <h1 class="page-title">Загрузка скина</h1>
-      <input type="text" id="skin-title" class="form-control" placeholder="Название скина">
+      <input type="text" id="skin-title" class="form-control" placeholder="Название скина (например: Кровавый дробовик)">
       <textarea id="skin-desc" class="form-control" style="height:60px;" placeholder="Описание"></textarea>
       <label style="color:#ff6600;">Картинка (Превью):</label>
       <input type="file" id="skin-image" class="form-control" accept="image/*">
@@ -180,7 +304,7 @@
     <div id="page-upload-addon" class="page">
       <h1 class="page-title">Публикация аддона</h1>
       <input type="text" id="addon-title" class="form-control" placeholder="Название мода">
-      <textarea id="addon-desc" class="form-control" style="height: 60px;" placeholder="Описание"></textarea>
+      <textarea id="addon-desc" class="form-control" style="height: 60px;" placeholder="Описание (что делает ваш мод?)"></textarea>
       <label>Обложка:</label><input type="file" id="addon-cover" class="form-control" accept="image/*">
       <label>Скрипт (.py):</label><input type="file" id="addon-py" class="form-control" accept=".py">
       <button class="btn" onclick="uploadAddon()">Опубликовать</button>
@@ -197,7 +321,7 @@
     <!-- ЗАГРУЗКА ПЛАГИНА -->
     <div id="page-upload-plugin" class="page">
       <h1 class="page-title">Загрузка плагина</h1>
-      <input type="text" id="plug-title" class="form-control" placeholder="Название плагина">
+      <input type="text" id="plug-title" class="form-control" placeholder="Название плагина (например: SuperSpeed)">
       <textarea id="plug-desc" class="form-control" style="height:60px;" placeholder="Описание (что делает?)"></textarea>
       <label style="color:#ff6600;">Скрипт (.py):</label>
       <input type="file" id="plug-file" class="form-control" accept=".py">
@@ -208,27 +332,28 @@
     <!-- СЕРВЕРА -->
     <div id="page-servers" class="page">
       <h1 class="page-title">Хостинг серверов</h1>
-      <button class="btn btn-green" onclick="showPage('create-server')" style="margin-bottom: 15px;">Арендовать сервер</button>
+      <button class="btn btn-green" onclick="showPage('create-server')" style="margin-bottom: 15px;">Арендовать сервер (Сервера 2011 года!)</button>
       <div id="servers-list"></div>
     </div>
 
-    <!-- СОЗДАНИЕ СЕРВЕРА (С ПЛАГИНАМИ) -->
+    <!-- СОЗДАНИЕ СЕРВЕРА -->
     <div id="page-create-server" class="page">
       <h1 class="page-title">Выберите тариф и плагины</h1>
       <input type="text" id="srv-name" class="form-control" placeholder="Название сервера (например: MyBloodServer)">
       <select id="srv-map" class="form-control">
         <option value="Мясная фабрика">Мясная фабрика</option>
         <option value="Адский переулок">Адский переулок</option>
+        <option value="Кровавая баня">Кровавая баня</option>
       </select>
       
       <div style="background:#111; border:1px solid #440; padding:15px; margin-bottom:10px; cursor:pointer;" onclick="selectTariff('free')">
-        <h3 style="color:#00ff00;">512 MB - БЕСПЛАТНО</h3><p>До 10 игроков.</p>
+        <h3 style="color:#00ff00;">512 MB - БЕСПЛАТНО</h3><p>До 10 игроков. Идеально для ленивых.</p>
       </div>
       <div style="background:#111; border:1px solid #440; padding:15px; margin-bottom:10px; cursor:pointer;" onclick="selectTariff('1gb')">
-        <h3 style="color:gold;">1 GB - 30 РУБ / 100 ТЕНГЕ</h3><p>До 20 игроков. VIP-чат.</p>
+        <h3 style="color:gold;">1 GB - 30 РУБ / 100 ТЕНГЕ</h3><p>До 20 игроков. VIP-чат. (Серьезно, у нас есть VIP-чат).</p>
       </div>
       <div style="background:#111; border:1px solid #440; padding:15px; margin-bottom:10px; cursor:pointer;" onclick="selectTariff('3gb')">
-        <h3 style="color:red;">3 GB - 50 РУБ / 500 ТЕНГЕ</h3><p>До 50 игроков. Все плагины.</p>
+        <h3 style="color:red;">3 GB - 50 РУБ / 500 ТЕНГЕ</h3><p>До 50 игроков. Все плагины. Ваш сервер будет летать.</p>
       </div>
 
       <h3 style="color:#ff6600; margin-bottom:10px;">Выберите плагины для сервера:</h3>
@@ -253,7 +378,7 @@
     <div id="page-guestbook" class="page">
       <h1 class="page-title">Гостевая книга</h1>
       <div id="guestbook-list" style="margin-bottom: 20px;"></div>
-      <textarea id="review-text" class="form-control" style="height: 80px;" placeholder="Ваш отзыв..."></textarea>
+      <textarea id="review-text" class="form-control" style="height: 80px;" placeholder="Ваш отзыв (пожалуйста, без мата)"></textarea>
       <button class="btn" onclick="submitReview()">Отправить</button>
     </div>
 
@@ -288,9 +413,17 @@
 
   <div id="sidebar">
     <div class="box">
-      <h3>Статус</h3>
+      <h3>Статус серверов</h3>
       <div class="box-content">
-        <p>Игроков в сети: <span id="online-count" style="color:lime; font-weight:bold;">0</span></p>
+        <p>Игроков в сети: <span id="online-count" style="color:lime; font-weight:bold; text-shadow: 0 0 5px lime;">0</span></p>
+        <p style="font-size:10px; color:#666; margin-top:5px;">* Если сервер не горит ONLINE — значит, он упал. (Это норма).</p>
+      </div>
+    </div>
+    <div class="box">
+      <h3>Реклама</h3>
+      <div class="box-content" style="text-align:center;">
+        <p style="color:#ff9900; font-weight:bold;">ХОЧЕШЬ СВОЙ СЕРВЕР?</p>
+        <p style="font-size:10px;">Пиши в ICQ: 666-666-666</p>
       </div>
     </div>
   </div>
@@ -394,7 +527,7 @@
   function loadPlugins() {
     fetch('/api/plugins').then(res => res.json()).then(data => {
         const c = document.getElementById('plugins-list'); c.innerHTML = '';
-        if(data.length === 0) return c.innerHTML = '<p>Пока нет плагинов.</p>';
+        if(data.length === 0) return c.innerHTML = '<p>Пока нет плагинов. (Будь первым, кто зальет SuperSpeed).</p>';
         data.forEach(p => {
             c.innerHTML += `
                 <div class="card">
@@ -451,7 +584,7 @@
   function loadSkins() {
     fetch('/api/skins').then(res => res.json()).then(data => {
         const c = document.getElementById('skins-list'); c.innerHTML = '';
-        if(data.length === 0) return c.innerHTML = '<p>Пока нет скинов.</p>';
+        if(data.length === 0) return c.innerHTML = '<p>Пока нет скинов. (Сделай свой в редакторе).</p>';
         data.forEach(s => {
             const img = s.image_url ? s.image_url : 'resources/images/banner-bg.jpg';
             c.innerHTML += `
@@ -578,7 +711,7 @@
   function loadPosts() {
     fetch('/api/posts').then(res => res.json()).then(data => {
       const c = document.getElementById('home-posts'); c.innerHTML = '';
-      if(data.length === 0) return c.innerHTML = '<p>Пока нет постов.</p>';
+      if(data.length === 0) return c.innerHTML = '<p>Пока нет постов. (Скучно...)</p>';
       data.forEach(p => c.innerHTML += `<div class="post"><div class="post-author">${p.author_name}</div><p>${p.message}</p><small style="color:#555">${p.created_at}</small></div>`);
     });
   }
