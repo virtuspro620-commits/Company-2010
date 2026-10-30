@@ -75,6 +75,8 @@ db.serialize(() => {
     )`);
 });
 
+const siteAuth = require('./auth')(app, db);
+
 // ==========================================
 // API: АВТОРИЗАЦИЯ И ПРОФИЛЬ
 // ==========================================
@@ -83,19 +85,20 @@ app.post('/api/login', async (req, res) => {
         const ticket = await client.verifyIdToken({ idToken: req.body.token, audience: CLIENT_ID });
         const payload = ticket.getPayload();
         db.get(`SELECT * FROM users WHERE google_id = ?`, [payload.sub], (err, row) => {
-            if (row) res.json({ success: true, user: row });
+            if (row) siteAuth.issue(res, row.google_id).then(() => res.json({ success: true, user: siteAuth.publicUser(row) })).catch(() => res.status(500).json({error:"Session error"}));
             else {
                 db.run(`INSERT INTO users (google_id, name, picture, bio, email, vk, discord) VALUES (?, ?, ?, '', '', '', '')`, 
                 [payload.sub, payload.given_name, payload.picture], () => {
-                    db.get(`SELECT * FROM users WHERE google_id = ?`, [payload.sub], (e, r) => res.json({ success: true, user: r }));
+                    db.get(`SELECT * FROM users WHERE google_id = ?`, [payload.sub], (e, r) => siteAuth.issue(res, payload.sub).then(() => res.json({success:true,user:siteAuth.publicUser(r)})).catch(() => res.status(500).json({error:"Session error"})));
                 });
             }
         });
     } catch (e) { res.status(401).json({ error: 'Auth failed' }); }
 });
 
-app.post('/api/update-profile', upload.single('avatar'), (req, res) => {
-    const { google_id, new_name, bio, email, vk, discord } = req.body;
+app.post('/api/update-profile', siteAuth.requireUser, upload.single('avatar'), (req, res) => {
+    const { new_name, bio, email, vk, discord } = req.body;
+    const google_id = req.siteUser.google_id;
     const new_pic = req.file ? `/uploads/${req.file.filename}` : null;
     let sql = `UPDATE users SET name = ?, bio = ?, email = ?, vk = ?, discord = ? WHERE google_id = ?`;
     let params = [new_name, bio, email, vk, discord, google_id];
@@ -180,6 +183,6 @@ app.post('/api/plugins/upload', upload.single('plugin_file'), (req, res) => {
 });
 
 // API серверов Very Very Blood: отдельный модуль, без фальшивого онлайна
-require('./vvb_servers')(app, db);
+require('./vvb_servers')(app, db, siteAuth.requireUser);
 
 app.listen(PORT, () => console.log(`СЕРВЕР ЗАПУЩЕН: http://localhost:${PORT}`));
