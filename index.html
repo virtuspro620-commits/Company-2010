@@ -114,11 +114,13 @@
   </ul>
   
   <div id="user-container">
+    <button id="logout-btn" class="btn" style="display:none" onclick="logoutAccount()">Выход</button>
     <div id="user-info" onclick="showPage('cabinet')">
       <img id="user-pic" src="" alt="avatar">
       <span id="user-name"></span>
     </div>
     <div id="google-btn-container">
+      <button class="btn" onclick="showPage('auth')">Вход / Регистрация</button>
       <div id="g_id_onload" data-client_id="457542589559-ngi47p1c12cbl2eid6u1epcdi2trcf7g.apps.googleusercontent.com" data-callback="handleCredentialResponse" data-auto_prompt="false"></div>
       <div class="g_id_signin" data-type="standard"></div>
     </div>
@@ -128,6 +130,22 @@
 <div id="wrapper">
   <div id="content">
     
+    <!-- РЕГИСТРАЦИЯ И ВХОД -->
+    <div id="page-auth" class="page">
+      <h1 class="page-title">Аккаунт Company 2010</h1>
+      <h3 style="color:#f44">Регистрация</h3>
+      <input id="reg-name" class="form-control" maxlength="40" placeholder="Никнейм">
+      <input id="reg-email" class="form-control" type="email" placeholder="Электронная почта">
+      <input id="reg-pass" class="form-control" type="password" minlength="10" placeholder="Пароль (от 10 символов)">
+      <button class="btn" onclick="registerAccount()">Зарегистрироваться</button>
+      <h3 style="color:#f44;margin-top:20px">Вход</h3>
+      <input id="login-email" class="form-control" type="email" placeholder="Электронная почта">
+      <input id="login-pass" class="form-control" type="password" placeholder="Пароль">
+      <button class="btn" onclick="signInAccount()">Войти</button>
+      <p id="auth-message" role="status"></p>
+      <p>Также можно войти через Google в верхней части сайта.</p>
+    </div>
+
     <!-- ГЛАВНАЯ -->
     <div id="page-home" class="page active">
       <h1 class="page-title">Новости сообщества</h1>
@@ -293,7 +311,7 @@
       <input id="srv-max" class="form-control" type="number" min="1" max="100" value="10" placeholder="Максимум игроков">
       <input id="srv-desc" class="form-control" maxlength="250" placeholder="Описание сервера">
       <input id="srv-password" class="form-control" type="password" placeholder="Пароль входа (необязательно; поддержка в игре отдельно)">
-      <input id="srv-admin" class="form-control" type="password" placeholder="Ключ администратора сайта (требуется для регистрации)">
+      <p>Для регистрации сервера достаточно войти в свой аккаунт Company 2010.</p>
       <p>Сервер должен быть запущен отдельно. Сайт только публикует адрес и проверяет регулярные отчёты запущенного сервера.</p>
       <h3 style="color:#ff6600; margin-bottom:10px;">Выберите плагины для сервера:</h3>
       <div id="plugins-checkboxes" style="background:#111; border:1px solid #440; padding:10px; margin-bottom:15px;"></div>
@@ -383,8 +401,7 @@
   }
 
   window.onload = () => {
-    let saved = localStorage.getItem('u2010');
-    if (saved) { currentUser = JSON.parse(saved); updateUI(); }
+    fetch('/api/auth/me',{cache:'no-store'}).then(r=>r.json()).then(d=>{if(d.user){currentUser=d.user;updateUI();}}).catch(()=>{});
     loadPosts();
     setInterval(() => {
         if(document.getElementById('page-servers').classList.contains('active')) loadServers();
@@ -396,7 +413,7 @@
     .then(res => res.json()).then(data => {
       if (data.success) {
         currentUser = data.user;
-        localStorage.setItem('u2010', JSON.stringify(currentUser));
+
         updateUI();
       }
     });
@@ -404,9 +421,10 @@
 
   function updateUI() {
     if (!currentUser) return;
-    document.getElementById('user-pic').src = currentUser.picture;
+    document.getElementById('user-pic').src = currentUser.picture || '/resources/images/banner-bg.jpg';
     document.getElementById('user-name').innerText = currentUser.name;
     document.getElementById('google-btn-container').style.display = 'none';
+    document.getElementById('logout-btn').style.display='inline-block';
     document.getElementById('user-info').style.display = 'flex';
     
     document.getElementById('cabinet-content').style.display = 'block';
@@ -439,7 +457,7 @@
     .then(res => res.json()).then(data => {
       if (data.success) {
         currentUser = data.user;
-        localStorage.setItem('u2010', JSON.stringify(currentUser));
+
         updateUI();
         alert('Профиль обновлен!');
       }
@@ -657,19 +675,29 @@
     const port=Number(document.getElementById('srv-port').value);
     const max_players=Number(document.getElementById('srv-max').value);
     const description=document.getElementById('srv-desc').value.trim();
-    const admin=document.getElementById('srv-admin').value;
-    if (!name || !ip || !admin || !Number.isInteger(port) || port<1024 || port>65535 || !Number.isInteger(max_players) || max_players<1 || max_players>100) return alert('Проверьте название, IP, порт, лимит игроков и ключ администратора.');
+    if(!currentUser) return alert('Сначала зарегистрируйтесь или войдите в аккаунт!');
+    if (!name || !ip || !Number.isInteger(port) || port<1024 || port>65535 || !Number.isInteger(max_players) || max_players<1 || max_players>100) return alert('Проверьте название, IP, порт, лимит игроков и ключ администратора.');
     const plugins=Array.from(document.querySelectorAll('.plugin-checkbox:checked')).map(cb=>cb.value);
     try {
-      const res=await fetch('/api/servers',{method:'POST',headers:{'Content-Type':'application/json','X-Admin-Key':admin},body:JSON.stringify({name,ip,port,max_players,description,plugins})});
+      const res=await fetch('/api/servers',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,ip,port,max_players,description,plugins})});
       const data=await res.json(); if(!res.ok) throw new Error(data.error||'Ошибка');
       alert('Сервер зарегистрирован! Сохраните секрет для heartbeat (показывается только один раз):\n'+data.heartbeat_token+'\n\nСервер будет OFFLINE до первого отчёта от запущенной игры.');
-      document.getElementById('srv-admin').value=''; showPage('servers');
+      showPage('servers');
     } catch(err) {alert('Ошибка регистрации: '+err.message);}
   }
   function openConsole(name) {alert('Удалённая консоль отключена: команды должны выполняться на игровом сервере с авторизацией.');}
   function loadConsole() {document.getElementById('console-output').textContent='Удалённая консоль не подключена.';}
   function sendCommand() {alert('Удалённая консоль пока недоступна.');}
+
+
+  async function accountRequest(url,body){
+    const response=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    const result=await response.json();if(!response.ok)throw Error(result.error||'Ошибка');
+    currentUser=result.user;updateUI();showPage('cabinet');
+  }
+  async function registerAccount(){try{await accountRequest('/api/auth/register',{name:document.getElementById('reg-name').value,email:document.getElementById('reg-email').value,password:document.getElementById('reg-pass').value});}catch(e){document.getElementById('auth-message').textContent=e.message;}}
+  async function signInAccount(){try{await accountRequest('/api/auth/signin',{email:document.getElementById('login-email').value,password:document.getElementById('login-pass').value});}catch(e){document.getElementById('auth-message').textContent=e.message;}}
+  async function logoutAccount(){await fetch('/api/auth/logout',{method:'POST'});location.reload();}
 
   // --- ГОСТЕВАЯ ---
   function loadGuestbook() {
