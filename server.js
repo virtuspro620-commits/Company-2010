@@ -58,7 +58,7 @@ app.use('/server_plugins', express.static('server_plugins'));
 // ==========================================
 // БАЗА ДАННЫХ
 // ==========================================
-const db = new sqlite3.Database('./database.db');
+const db = new sqlite3.Database(process.env.DATABASE_PATH || path.join(__dirname, 'database.db'));
 
 db.serialize(() => {
     db.run(`CREATE TABLE IF NOT EXISTS users (google_id TEXT UNIQUE, name TEXT, picture TEXT, bio TEXT, email TEXT, vk TEXT, discord TEXT)`);
