@@ -279,25 +279,25 @@
 
     <!-- СЕРВЕРА -->
     <div id="page-servers" class="page">
-      <h1 class="page-title">Хостинг серверов</h1>
-      <button class="btn btn-green" onclick="showPage('create-server')" style="margin-bottom: 15px;">Арендовать сервер</button>
-      <div id="servers-list"></div>
+      <h1 class="page-title">Список игровых серверов</h1>
+      <button class="btn btn-green" onclick="showPage('create-server')" style="margin-bottom: 15px;">Зарегистрировать сервер</button>
+      <p>ONLINE означает, что запущенный сервер присылал отчёт недавно. Онлайн игроков сообщается игровым сервером.</p><div id="servers-list"></div>
     </div>
 
     <!-- СОЗДАНИЕ СЕРВЕРА -->
     <div id="page-create-server" class="page">
-      <h1 class="page-title">Выберите тариф и плагины</h1>
+      <h1 class="page-title">Настройки игрового сервера</h1>
       <input type="text" id="srv-name" class="form-control" placeholder="Название сервера">
-      <select id="srv-map" class="form-control">
-        <option value="Мясная фабрика">Мясная фабрика</option>
-        <option value="Адский переулок">Адский переулок</option>
-      </select>
-      <div style="background:#111; border:1px solid #440; padding:15px; margin-bottom:10px; cursor:pointer;" onclick="selectTariff('free')"><h3 style="color:#00ff00;">512 MB - БЕСПЛАТНО</h3><p>До 10 игроков.</p></div>
-      <div style="background:#111; border:1px solid #440; padding:15px; margin-bottom:10px; cursor:pointer;" onclick="selectTariff('1gb')"><h3 style="color:gold;">1 GB - 30 РУБ / 100 ТЕНГЕ</h3><p>До 20 игроков. VIP-чат.</p></div>
-      <div style="background:#111; border:1px solid #440; padding:15px; margin-bottom:10px; cursor:pointer;" onclick="selectTariff('3gb')"><h3 style="color:red;">3 GB - 50 РУБ / 500 ТЕНГЕ</h3><p>До 50 игроков. Все плагины.</p></div>
+      <input id="srv-ip" class="form-control" placeholder="Публичный IP или домен (например, game.example.com)">
+      <input id="srv-port" class="form-control" type="number" min="1024" max="65535" value="5555" placeholder="TCP-порт">
+      <input id="srv-max" class="form-control" type="number" min="1" max="100" value="10" placeholder="Максимум игроков">
+      <input id="srv-desc" class="form-control" maxlength="250" placeholder="Описание сервера">
+      <input id="srv-password" class="form-control" type="password" placeholder="Пароль входа (необязательно; поддержка в игре отдельно)">
+      <input id="srv-admin" class="form-control" type="password" placeholder="Ключ администратора сайта (требуется для регистрации)">
+      <p>Сервер должен быть запущен отдельно. Сайт только публикует адрес и проверяет регулярные отчёты запущенного сервера.</p>
       <h3 style="color:#ff6600; margin-bottom:10px;">Выберите плагины для сервера:</h3>
       <div id="plugins-checkboxes" style="background:#111; border:1px solid #440; padding:10px; margin-bottom:15px;"></div>
-      <button class="btn" onclick="createServer()">Запустить</button>
+      <button class="btn" onclick="createServer()">Зарегистрировать сервер</button>
       <button class="btn" onclick="showPage('servers')" style="background:#333;">Назад</button>
     </div>
 
@@ -619,43 +619,57 @@
   }
   function likeImage(id) { fetch(`/api/gallery/${id}/like`, { method: 'POST' }).then(() => loadGallery()); }
 
-  // --- СЕРВЕРА ---
-  function selectTariff(t) { selectedTariff = t; alert('Выбран тариф: ' + t.toUpperCase()); }
-  function loadServers() {
-    fetch('/api/servers').then(res => res.json()).then(data => {
-      const c = document.getElementById('servers-list'); c.innerHTML = '';
-      let totalPlayers = 0;
-      data.forEach(s => {
-        totalPlayers += s.current_players;
-        const statusHtml = s.status === 'ONLINE' ? '<span class="status-online">[ONLINE]</span>' : '<span class="status-offline">[OFFLINE]</span>';
-        c.innerHTML += `<div class="server-item"><div><span style="color:#00ff00; font-weight:bold; font-size:14px;">${s.name}</span> ${statusHtml}<div style="font-size:10px; color:#666;">Карта: ${s.map} | Тариф: ${s.tariff || 'free'}</div></div><div style="text-align:right;"><div style="font-family:Impact; color:#fff; font-size:18px;">${s.current_players} / ${s.max_players}</div><button class="btn" style="padding:2px 8px; font-size:10px; margin-top:5px;" onclick="openConsole('${s.name}')">Консоль</button></div></div>`;
-      });
-      document.getElementById('online-count').innerText = totalPlayers;
-    });
+  // --- REAL SERVERS (Company 2010) ---
+  function selectTariff(t) { selectedTariff = t; }
+  function escapeText(value) { return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  async function loadServers() {
+    const c = document.getElementById('servers-list');
+    try {
+      const res = await fetch('/api/servers', {cache:'no-store'});
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      if (!Array.isArray(data)) throw new Error('Неверный ответ API');
+      c.replaceChildren(); let total = 0;
+      for (const srv of data) {
+        const online = srv.status === 'ONLINE';
+        if (online) total += Number(srv.current_players || 0);
+        const row = document.createElement('div'); row.className = 'server-item';
+        const info = document.createElement('div');
+        const name = document.createElement('div'); name.style.cssText='font-size:15px;color:#ff5555;font-weight:bold'; name.textContent=srv.name;
+        const address = document.createElement('div'); address.style.color='#ddd'; address.textContent=`${srv.ip}:${srv.port}`;
+        const description = document.createElement('div'); description.style.color='#888'; description.textContent=srv.description || '';
+        const status = document.createElement('div'); status.className=online?'status-online':'status-offline'; status.textContent=online?'● ONLINE':'● OFFLINE';
+        info.append(name,address,description,status);
+        const right=document.createElement('div'); right.style.textAlign='right';
+        const count=document.createElement('div'); count.style.cssText='font-family:Impact;color:white;font-size:18px';
+        count.textContent=online?`${srv.current_players} / ${srv.max_players}`:`— / ${srv.max_players}`;
+        const copy=document.createElement('button'); copy.className='btn'; copy.textContent='Скопировать IP';
+        copy.onclick=()=>navigator.clipboard.writeText(`${srv.ip}:${srv.port}`).catch(()=>prompt('Адрес сервера:',`${srv.ip}:${srv.port}`));
+        right.append(count,copy); row.append(info,right); c.append(row);
+      }
+      if (!data.length) c.textContent='Зарегистрированных серверов пока нет.';
+      document.getElementById('online-count').textContent=total;
+    } catch(err) { c.textContent='Не удалось загрузить серверы: '+err.message; document.getElementById('online-count').textContent='—'; }
   }
-  function createServer() {
-    if (!currentUser) return alert('Войдите!');
-    const name = document.getElementById('srv-name').value;
-    const map = document.getElementById('srv-map').value;
-    if (!name) return alert('Введите название!');
-    const selectedPlugins = [];
-    document.querySelectorAll('.plugin-checkbox:checked').forEach(cb => { selectedPlugins.push(cb.value); });
-    fetch('/api/servers', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ name: name, map: map, tariff: selectedTariff, owner: currentUser.name, plugins: selectedPlugins }) }).then(() => { showPage('servers'); });
+  async function createServer() {
+    const name=document.getElementById('srv-name').value.trim();
+    const ip=document.getElementById('srv-ip').value.trim();
+    const port=Number(document.getElementById('srv-port').value);
+    const max_players=Number(document.getElementById('srv-max').value);
+    const description=document.getElementById('srv-desc').value.trim();
+    const admin=document.getElementById('srv-admin').value;
+    if (!name || !ip || !admin || !Number.isInteger(port) || port<1024 || port>65535 || !Number.isInteger(max_players) || max_players<1 || max_players>100) return alert('Проверьте название, IP, порт, лимит игроков и ключ администратора.');
+    const plugins=Array.from(document.querySelectorAll('.plugin-checkbox:checked')).map(cb=>cb.value);
+    try {
+      const res=await fetch('/api/servers',{method:'POST',headers:{'Content-Type':'application/json','X-Admin-Key':admin},body:JSON.stringify({name,ip,port,max_players,description,plugins})});
+      const data=await res.json(); if(!res.ok) throw new Error(data.error||'Ошибка');
+      alert('Сервер зарегистрирован! Сохраните секрет для heartbeat (показывается только один раз):\n'+data.heartbeat_token+'\n\nСервер будет OFFLINE до первого отчёта от запущенной игры.');
+      document.getElementById('srv-admin').value=''; showPage('servers');
+    } catch(err) {alert('Ошибка регистрации: '+err.message);}
   }
-  function openConsole(serverName) { currentServerName = serverName; document.getElementById('console-srv-name').innerText = "Сервер: " + serverName; showPage('console'); }
-  function loadConsole() {
-    fetch('/api/servers').then(res => res.json()).then(data => {
-        const srv = data.find(s => s.name === currentServerName);
-        if(srv) { document.getElementById('console-output').innerText = srv.console_logs || "Логи пусты..."; document.getElementById('console-output').scrollTop = document.getElementById('console-output').scrollHeight; }
-    });
-  }
-  function sendCommand() {
-    const cmd = document.getElementById('console-input').value;
-    if(!cmd) return; document.getElementById('console-input').value = '';
-    fetch('/api/servers/console', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ server_name: currentServerName, command: cmd }) }).then(res => res.json()).then(data => {
-        if(data.success) { document.getElementById('console-output').innerText = data.logs; document.getElementById('console-output').scrollTop = document.getElementById('console-output').scrollHeight; }
-    });
-  }
+  function openConsole(name) {alert('Удалённая консоль отключена: команды должны выполняться на игровом сервере с авторизацией.');}
+  function loadConsole() {document.getElementById('console-output').textContent='Удалённая консоль не подключена.';}
+  function sendCommand() {alert('Удалённая консоль пока недоступна.');}
 
   // --- ГОСТЕВАЯ ---
   function loadGuestbook() {
