@@ -41,7 +41,14 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.use(express.json());
-app.use(express.static(__dirname));
+// Expose only public website files. Never publish database.db or Node source code.
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+app.get('/index.html', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+app.use('/resources', express.static(path.join(__dirname, 'resources')));
+app.get(/^\/google[a-zA-Z0-9_-]+\.html$/, (req, res, next) => {
+    const file = path.join(__dirname, req.path.slice(1));
+    fs.access(file, fs.constants.R_OK, err => err ? next() : res.sendFile(file));
+});
 app.use('/uploads', express.static('uploads'));
 app.use('/addons_files', express.static('addons_files'));
 app.use('/gallery', express.static('gallery'));
