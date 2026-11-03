@@ -5,108 +5,156 @@
 <title>Company 2010 - Very Very Blood</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
-  /* ===== ХОРРОР СТИЛЬ ===== */
+  /* ===== БАЗА ===== */
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: Verdana, sans-serif; font-size: 12px; color: #ccc; background: #0a0a0a url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="%230a0a0a"/><circle cx="3" cy="3" r="1" fill="%231a1a1a"/></svg>'); background-attachment: fixed; overflow-x: hidden; }
+  body { 
+    font-family: Verdana, sans-serif; 
+    font-size: 12px; 
+    color: #ccc; 
+    background: #0a0a0a; 
+    overflow-x: hidden; 
+    position: relative;
+  }
+  
+  /* ===== КРОВАВЫЕ ПЯТНА НА ФОНЕ ===== */
+  .blood-splat {
+    position: fixed;
+    z-index: 0;
+    opacity: 0.15;
+    pointer-events: none;
+    animation: pulse-blood 4s infinite alternate;
+  }
+  @keyframes pulse-blood {
+    0% { opacity: 0.1; transform: scale(1); }
+    100% { opacity: 0.25; transform: scale(1.1); }
+  }
+
   a { color: #ff3333; text-decoration: none; } a:hover { color: #fff; background: #ff0000; }
 
   /* ШАПКА */
-  #header { height: 140px; background: linear-gradient(#3a0000, #000); border-bottom: 3px solid #ff0000; position: relative; z-index: 10; box-shadow: 0 5px 15px rgba(255,0,0,0.3); }
-  #logo { position: absolute; left: 20px; top: 20px; font-family: Impact, sans-serif; font-size: 42px; color: #fff; text-shadow: 3px 3px 0 #ff0000, -1px -1px 0 #000, 0 0 15px #ff0000; letter-spacing: 2px; transform: rotate(-2deg); cursor: pointer; }
+  #header { height: 140px; background: linear-gradient(#3a0000, #000); border-bottom: 3px solid #ff0000; position: relative; z-index: 10; box-shadow: 0 5px 25px rgba(255,0,0,0.5); }
+  #logo { position: absolute; left: 20px; top: 20px; font-family: Impact, sans-serif; font-size: 42px; color: #fff; text-shadow: 3px 3px 0 #ff0000, -1px -1px 0 #000, 0 0 20px #ff0000; letter-spacing: 2px; transform: rotate(-2deg); cursor: pointer; animation: flicker-logo 5s infinite; }
   #logo span { color: #ff0000; }
-  #slogan { position: absolute; left: 22px; top: 78px; color: #ff6666; font-size: 12px; font-style: italic; font-weight: bold; letter-spacing: 1px; }
+  @keyframes flicker-logo {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+    20%, 24%, 55% { opacity: 0.5; text-shadow: 0 0 5px #ff0000; }
+  }
+  #slogan { position: absolute; left: 22px; top: 78px; color: #ff6666; font-size: 12px; font-style: italic; font-weight: bold; letter-spacing: 1px; text-shadow: 1px 1px 0 #000; }
 
   /* МЕНЮ */
-  #menu { height: 38px; background: linear-gradient(#550000, #220000); border-bottom: 2px solid #ff0000; display: flex; align-items: center; justify-content: space-between; padding: 0 20px 0 10px; position: relative; z-index: 20; }
+  #menu { height: 38px; background: linear-gradient(#550000, #220000); border-bottom: 2px solid #ff0000; display: flex; align-items: center; justify-content: space-between; padding: 0 20px 0 10px; position: relative; z-index: 20; box-shadow: 0 2px 10px rgba(0,0,0,0.9); }
   #menu ul { list-style: none; display: flex; flex-wrap: wrap; }
-  #menu a { display: block; padding: 0 12px; line-height: 38px; color: #fff; font-family: Impact, sans-serif; font-size: 14px; letter-spacing: 1px; text-decoration: none; text-shadow: 2px 2px 0 #000; border-right: 1px solid #000; border-left: 1px solid #880000; cursor: pointer; }
-  #menu a:hover, #menu a.active { background: #ff0000; color: #000; text-shadow: none; }
+  #menu a { display: block; padding: 0 12px; line-height: 38px; color: #fff; font-family: Impact, sans-serif; font-size: 14px; letter-spacing: 1px; text-decoration: none; text-shadow: 2px 2px 0 #000; border-right: 1px solid #000; border-left: 1px solid #880000; cursor: pointer; transition: all 0.2s; }
+  #menu a:hover, #menu a.active { background: #ff0000; color: #000; text-shadow: none; box-shadow: 0 0 15px #ff0000 inset; }
   #user-info { display: none; align-items: center; color: #fff; font-family: Impact, sans-serif; font-size: 14px; letter-spacing: 1px; text-shadow: 1px 1px 0 #000; cursor: pointer; }
-  #user-info img { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #ff0000; margin-right: 8px; }
+  #user-info img { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #ff0000; margin-right: 8px; box-shadow: 0 0 10px #ff0000; }
 
   /* КОНТЕНТ */
   #wrapper { width: 980px; margin: 20px auto; display: flex; gap: 20px; position: relative; z-index: 5; }
-  #content { flex: 1; background: #1a1a1a; border: 2px solid #440000; padding: 20px; min-height: 500px; box-shadow: 0 0 15px rgba(255,0,0,0.2); }
+  #content { flex: 1; background: #1a1a1a; border: 2px solid #440000; padding: 20px; min-height: 500px; box-shadow: 0 0 25px rgba(255,0,0,0.3); position: relative; overflow: hidden; }
+  
+  /* КРОВАВЫЕ КАПЛИ В КОНТЕНТЕ */
+  #content::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at 10% 10%, rgba(255,0,0,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(255,0,0,0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  #content > * { position: relative; z-index: 1; }
+
   #sidebar { width: 270px; }
-  .box { background: #1a1a1a; border: 2px solid #440000; margin-bottom: 15px; box-shadow: 0 0 10px rgba(255,0,0,0.1); }
+  .box { background: #1a1a1a; border: 2px solid #440000; margin-bottom: 15px; box-shadow: 0 0 15px rgba(255,0,0,0.2); }
   .box h3 { background: linear-gradient(#550000, #220000); color: #ff3333; font-family: Impact, sans-serif; font-size: 16px; padding: 6px 10px; text-shadow: 1px 1px 0 #000; border-bottom: 2px solid #ff0000; letter-spacing: 1px; }
   .box .box-content { padding: 12px; }
 
-  .page-title { font-family: Impact, sans-serif; font-size: 28px; color: #ff0000; border-bottom: 2px solid #ff0000; padding-bottom: 6px; margin-bottom: 15px; text-shadow: 2px 2px 0 #000; letter-spacing: 1px; }
+  .page-title { font-family: Impact, sans-serif; font-size: 28px; color: #ff0000; border-bottom: 2px solid #ff0000; padding-bottom: 6px; margin-bottom: 15px; text-shadow: 2px 2px 0 #000, 0 0 10px #ff0000; letter-spacing: 1px; }
   p { line-height: 1.6; margin-bottom: 10px; color: #bbb; }
   
-  .btn { display: inline-block; padding: 8px 22px; font-family: Impact, sans-serif; font-size: 16px; color: #fff !important; text-decoration: none !important; text-shadow: 1px 1px 0 #000; background: linear-gradient(#cc0000 0%, #880000 48%, #550000 52%, #220000 100%); border: 1px solid #ff0000; border-radius: 2px; box-shadow: 0 1px 0 #ff6666 inset, 0 2px 4px rgba(0,0,0,0.5); cursor: pointer; margin: 5px 5px 5px 0; transition: all 0.1s; }
-  .btn:hover { background: linear-gradient(#ff3333 0%, #cc0000 48%, #aa0000 52%, #660000 100%); box-shadow: 0 0 15px #ff0000; }
-  .btn:active { transform: translateY(1px); }
+  /* ===== КРОВАВЫЕ КНОПКИ ===== */
+  .btn { 
+    display: inline-block; padding: 8px 22px; 
+    font-family: Impact, sans-serif; font-size: 16px; 
+    color: #fff !important; text-decoration: none !important; 
+    text-shadow: 1px 1px 0 #000; 
+    background: linear-gradient(#cc0000 0%, #880000 48%, #550000 52%, #220000 100%); 
+    border: 1px solid #ff0000; border-radius: 2px; 
+    box-shadow: 0 1px 0 #ff6666 inset, 0 2px 4px rgba(0,0,0,0.5); 
+    cursor: pointer; margin: 5px 5px 5px 0; 
+    transition: all 0.2s; 
+    position: relative;
+    overflow: hidden;
+  }
+  .btn:hover { 
+    background: linear-gradient(#ff3333 0%, #cc0000 48%, #aa0000 52%, #660000 100%); 
+    box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000; 
+    transform: scale(1.05);
+  }
+  .btn:active { transform: translateY(2px); }
   .btn-green { background: linear-gradient(#00cc00 0%, #008800 48%, #006600 52%, #003300 100%); border-color: #00ff00; }
-  .btn-green:hover { background: linear-gradient(#00ff00 0%, #00cc00 48%, #009900 52%, #006600 100%); box-shadow: 0 0 15px #00ff00; }
+  .btn-green:hover { background: linear-gradient(#00ff00 0%, #00cc00 48%, #009900 52%, #006600 100%); box-shadow: 0 0 20px #00ff00; }
 
-  .form-control { width: 100%; padding: 8px; background: #111; border: 1px solid #ff0000; color: #fff; margin-bottom: 10px; }
-  .form-control:focus { border-color: #ff3333; outline: none; box-shadow: 0 0 5px #ff0000; }
+  .form-control { width: 100%; padding: 8px; background: #111; border: 1px solid #ff0000; color: #fff; margin-bottom: 10px; transition: all 0.3s; }
+  .form-control:focus { border-color: #ff3333; outline: none; box-shadow: 0 0 10px #ff0000, inset 0 0 5px #ff0000; }
 
   .page { display: none; }
   .page.active { display: block; }
   
   /* КАРТОЧКИ */
-  .card { display: flex; background: #111; border: 1px solid #440000; margin-bottom: 15px; padding: 10px; gap: 10px; }
-  .card img { width: 150px; height: 100px; object-fit: cover; border: 1px solid #ff0000; }
+  .card { display: flex; background: #111; border: 1px solid #440000; margin-bottom: 15px; padding: 10px; gap: 10px; transition: all 0.3s; }
+  .card:hover { border-color: #ff0000; box-shadow: 0 0 15px rgba(255,0,0,0.5); transform: translateX(5px); }
+  .card img { width: 150px; height: 100px; object-fit: cover; border: 1px solid #ff0000; filter: contrast(1.2); }
   .card-info { flex: 1; }
-  .card-title { font-family: Impact; font-size: 20px; color: #ff0000; }
+  .card-title { font-family: Impact; font-size: 20px; color: #ff0000; text-shadow: 0 0 5px #ff0000; }
   .card-meta { font-size: 10px; color: #666; margin-bottom: 5px; }
   
   /* ГАЛЕРЕЯ */
   .gallery-grid { display: flex; flex-wrap: wrap; gap: 10px; }
-  .gallery-item { width: 180px; background: #111; border: 1px solid #440000; padding: 5px; }
+  .gallery-item { width: 180px; background: #111; border: 1px solid #440000; padding: 5px; transition: all 0.3s; }
+  .gallery-item:hover { border-color: #ff0000; box-shadow: 0 0 15px #ff0000; }
   .gallery-item img { width: 100%; height: 120px; object-fit: cover; border: 1px solid #000; }
   .gallery-info { padding: 5px; display: flex; justify-content: space-between; align-items: center; }
   
   /* ПОСТЫ */
-  .post { background: #111; border: 1px solid #440000; padding: 10px; margin-bottom: 10px; }
+  .post { background: #111; border: 1px solid #440000; padding: 10px; margin-bottom: 10px; transition: all 0.2s; }
+  .post:hover { border-color: #ff0000; }
   .post-author { color: #ff6600; font-weight: bold; margin-bottom: 5px; }
   
   /* СЕРВЕРА */
-  .server-item { background: #111; border: 1px solid #440000; padding: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-  .status-online { color: #00ff00; font-weight: bold; text-shadow: 0 0 5px #00ff00; }
-  .status-offline { color: #ff0000; font-weight: bold; }
+  .server-item { background: #111; border: 1px solid #440000; padding: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s; }
+  .server-item:hover { border-color: #ff0000; background: #1a0000; }
+  .status-online { color: #00ff00; font-weight: bold; text-shadow: 0 0 10px #00ff00; animation: blink-green 2s infinite; }
+  .status-offline { color: #ff0000; font-weight: bold; text-shadow: 0 0 10px #ff0000; }
+  @keyframes blink-green { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
   
   /* КОНСОЛЬ */
-  .console-box { background: black; border: 1px solid #333; padding: 10px; font-family: 'Courier New', monospace; color: #00ff00; height: 200px; overflow-y: auto; margin-bottom: 10px; white-space: pre-wrap; box-shadow: inset 0 0 20px rgba(0,255,0,0.1); }
+  .console-box { background: black; border: 1px solid #333; padding: 10px; font-family: 'Courier New', monospace; color: #00ff00; height: 200px; overflow-y: auto; margin-bottom: 10px; white-space: pre-wrap; box-shadow: inset 0 0 30px rgba(0,255,0,0.2); }
   .console-input { background: black; border: 1px solid #00ff00; color: #00ff00; width: 100%; padding: 5px; font-family: 'Courier New', monospace; }
+  .console-input:focus { outline: none; box-shadow: 0 0 10px #00ff00; }
 
-  /* ИНВЕНТАРЬ И МАГАЗИН */
-  .item-card {
-    width: 160px; min-height: 200px;
-    background: #222; border: 2px solid #555; border-radius: 5px;
-    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-    text-align: center; padding: 10px; position: relative;
+  /* КРОВАВЫЕ ВСПЫШКИ */
+  .flash-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: red;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: opacity 0.1s;
   }
-  .item-icon {
-    font-family: Impact; font-size: 14px; color: #ffcc00; margin-bottom: 10px;
-    border: 1px dashed #ffcc00; padding: 5px;
-  }
-  .item-name { font-family: Impact; font-size: 16px; color: #fff; margin-bottom: 5px; }
-  .item-desc { font-size: 10px; color: #999; margin-bottom: auto; }
-  .item-price { font-family: Impact; font-size: 18px; color: #00ff00; margin-top: 10px; }
-  .item-rarity-uncommon { border-color: #4a90e2; }
-  .item-rarity-rare { border-color: #9013fe; }
-  .item-rarity-legendary { border-color: #f5a623; }
-
-  /* CONTROL PANEL 2010: simple square frames, no modern overlays. */
-  .management-box {background:#101010;border:2px solid #650000;padding:12px;margin:10px 0 18px;}
-  .management-box h3 {font-family:Impact,sans-serif;letter-spacing:1px;color:#ff4040;font-size:19px;margin:0 0 10px;}
-  .manage-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
-  .manage-stat {background:#080808;border:1px solid #450000;padding:10px;overflow-wrap:anywhere;}
-  .manage-stat small {display:block;font-size:10px;color:#888;margin-bottom:6px;}
-  .manage-stat strong {font-family:Verdana,sans-serif;font-size:14px;color:white;}
-  .manage-danger {border-color:#b00;background:#1a0808;}
-  .manage-message {min-height:20px;color:#ddd;font-size:12px;margin:8px 0;white-space:pre-wrap;}
-  .manage-secret {white-space:pre-wrap;word-break:break-all;background:#050505;color:#ddd;padding:10px;border:1px solid #660000;max-height:280px;overflow:auto;}
-  .manage-label {display:block;color:#ff7777;margin:8px 0 4px;font-size:12px;}
-  .manage-btn-small {padding:5px 10px!important;font-size:12px!important;}
-  @media (max-width:640px) {#wrapper{width:100%;padding:8px;flex-direction:column}#sidebar{width:100%}.manage-grid{grid-template-columns:1fr}#menu{height:auto}#menu ul{flex-wrap:wrap}}
 </style>
 </head>
 <body>
+
+<!-- КРОВАВЫЕ ПЯТНА НА ФОНЕ -->
+<div class="blood-splat" style="top: 10%; left: 5%; width: 300px; height: 300px; background: radial-gradient(circle, #ff0000 0%, transparent 70%);"></div>
+<div class="blood-splat" style="bottom: 20%; right: 5%; width: 400px; height: 400px; background: radial-gradient(circle, #aa0000 0%, transparent 70%);"></div>
+<div class="blood-splat" style="top: 40%; right: 20%; width: 200px; height: 200px; background: radial-gradient(circle, #cc0000 0%, transparent 70%);"></div>
+
+<!-- Оверлей для вспышек -->
+<div class="flash-overlay" id="flashOverlay"></div>
 
 <div id="header">
   <div id="logo" onclick="showPage('home')">COMPANY <span>2010</span></div>
@@ -128,13 +176,11 @@
   </ul>
   
   <div id="user-container">
-    <button id="logout-btn" class="btn" style="display:none" onclick="logoutAccount()">Выход</button>
     <div id="user-info" onclick="showPage('cabinet')">
       <img id="user-pic" src="" alt="avatar">
       <span id="user-name"></span>
     </div>
     <div id="google-btn-container">
-      <button class="btn" onclick="showPage('auth')">Вход / Регистрация</button>
       <div id="g_id_onload" data-client_id="457542589559-ngi47p1c12cbl2eid6u1epcdi2trcf7g.apps.googleusercontent.com" data-callback="handleCredentialResponse" data-auto_prompt="false"></div>
       <div class="g_id_signin" data-type="standard"></div>
     </div>
@@ -144,22 +190,6 @@
 <div id="wrapper">
   <div id="content">
     
-    <!-- РЕГИСТРАЦИЯ И ВХОД -->
-    <div id="page-auth" class="page">
-      <h1 class="page-title">Аккаунт Company 2010</h1>
-      <h3 style="color:#f44">Регистрация</h3>
-      <input id="reg-name" class="form-control" maxlength="40" placeholder="Никнейм">
-      <input id="reg-email" class="form-control" type="email" placeholder="Электронная почта">
-      <input id="reg-pass" class="form-control" type="password" minlength="10" placeholder="Пароль (от 10 символов)">
-      <button class="btn" onclick="registerAccount()">Зарегистрироваться</button>
-      <h3 style="color:#f44;margin-top:20px">Вход</h3>
-      <input id="login-email" class="form-control" type="email" placeholder="Электронная почта">
-      <input id="login-pass" class="form-control" type="password" placeholder="Пароль">
-      <button class="btn" onclick="signInAccount()">Войти</button>
-      <p id="auth-message" role="status"></p>
-      <p>Также можно войти через Google в верхней части сайта.</p>
-    </div>
-
     <!-- ГЛАВНАЯ -->
     <div id="page-home" class="page active">
       <h1 class="page-title">Новости сообщества</h1>
@@ -181,7 +211,7 @@
       </div>
     </div>
 
-    <!-- ИНВЕНТАРЬ И МАГАЗИН -->
+    <!-- ИНВЕНТАРЬ -->
     <div id="page-inventory" class="page">
       <h1 class="page-title">Инвентарь и Магазин</h1>
       
@@ -197,47 +227,31 @@
       </div>
 
       <h2 style="color: #ff0000; font-family: Impact; border-bottom: 2px solid red; padding-bottom: 5px;">Мои предметы</h2>
-      <div id="inventory-grid" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px;">
-        <!-- Сюда загружаются предметы игрока -->
-      </div>
+      <div id="inventory-grid" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px;"></div>
 
       <h2 style="color: #ffcc00; font-family: Impact; border-bottom: 2px solid #ffcc00; padding-bottom: 5px;">JONNY CON SHOP (Покупка за реальные деньги)</h2>
       <p style="font-size: 12px; color: #888; margin-bottom: 15px;">Оплата через Kaspi Pay. После оплаты предмет будет выдан в игре.</p>
       
       <div style="display: flex; flex-wrap: wrap; gap: 15px;">
-        <!-- Предмет 1 -->
-        <div class="item-card item-rarity-uncommon">
+        <div class="item-card" style="border-color: #4a90e2;">
           <div class="item-icon">[SKIN]</div>
           <div class="item-name">Bloody Shotgun</div>
           <div class="item-desc">Скин на SPAS-12</div>
           <div class="item-price">150 руб.</div>
           <a href="https://pay.kaspi.kz/pay/ТВОЯ_ССЫЛКА" target="_blank" class="btn btn-green" style="padding: 5px 15px; font-size: 12px; margin-top: 10px;">Купить</a>
         </div>
-
-        <!-- Предмет 2 -->
-        <div class="item-card item-rarity-rare">
+        <div class="item-card" style="border-color: #9013fe;">
           <div class="item-icon">[HAT]</div>
           <div class="item-name">Butcher Hat</div>
           <div class="item-desc">Шапка для персонажа</div>
           <div class="item-price">300 руб.</div>
           <a href="https://pay.kaspi.kz/pay/ТВОЯ_ССЫЛКА" target="_blank" class="btn btn-green" style="padding: 5px 15px; font-size: 12px; margin-top: 10px;">Купить</a>
         </div>
-
-        <!-- Предмет 3 -->
-        <div class="item-card item-rarity-legendary">
+        <div class="item-card" style="border-color: #f5a623;">
           <div class="item-icon">[FX]</div>
           <div class="item-name">Blood Fountain</div>
           <div class="item-desc">Эффект фонтана крови</div>
           <div class="item-price">500 руб.</div>
-          <a href="https://pay.kaspi.kz/pay/ТВОЯ_ССЫЛКА" target="_blank" class="btn btn-green" style="padding: 5px 15px; font-size: 12px; margin-top: 10px;">Купить</a>
-        </div>
-
-        <!-- Предмет 4 -->
-        <div class="item-card item-rarity-legendary">
-          <div class="item-icon">[SKIN]</div>
-          <div class="item-name">Golden AK</div>
-          <div class="item-desc">Золотой скин на AK-47</div>
-          <div class="item-price">1000 руб.</div>
           <a href="https://pay.kaspi.kz/pay/ТВОЯ_ССЫЛКА" target="_blank" class="btn btn-green" style="padding: 5px 15px; font-size: 12px; margin-top: 10px;">Купить</a>
         </div>
       </div>
@@ -311,600 +325,39 @@
 
     <!-- СЕРВЕРА -->
     <div id="page-servers" class="page">
-      <h1 class="page-title">Список игровых серверов</h1>
-      <button class="btn btn-green" onclick="showPage('create-server')" style="margin-bottom: 15px;">Зарегистрировать сервер</button>
-      <p>ONLINE означает недавний отчёт от запущенного игрового сервера; доступность TCP-порта отдельно не проверяется.</p>
-      <div id="my-servers-wrap" class="management-box" style="display:none;">
-        <h3>МОИ СЕРВЕРЫ — ПАНЕЛЬ УПРАВЛЕНИЯ</h3>
-        <div id="my-servers-list"></div>
-      </div>
-      <h2 style="font-family:Impact;color:#ff4444;margin:15px 0 10px;">ВСЕ СЕРВЕРЫ</h2>
+      <h1 class="page-title">Хостинг серверов</h1>
+      <button class="btn btn-green" onclick="showPage('create-server')" style="margin-bottom: 15px;">Арендовать сервер</button>
       <div id="servers-list"></div>
     </div>
 
     <!-- СОЗДАНИЕ СЕРВЕРА -->
     <div id="page-create-server" class="page">
-      <h1 class="page-title">Настройки игрового сервера</h1>
+      <h1 class="page-title">Выберите тариф и плагины</h1>
       <input type="text" id="srv-name" class="form-control" placeholder="Название сервера">
-      <input id="srv-ip" class="form-control" placeholder="Публичный IP или домен (например, game.example.com)">
-      <input id="srv-port" class="form-control" type="number" min="1024" max="65535" value="5555" placeholder="TCP-порт">
-      <input id="srv-max" class="form-control" type="number" min="2" max="2" value="2" readonly title="Текущий сетевой протокол поддерживает 2 игроков">
-      <input id="srv-desc" class="form-control" maxlength="250" placeholder="Описание сервера">
-      <p>Для регистрации сервера достаточно войти в свой аккаунт Company 2010.</p>
-      <p>Сервер должен быть запущен отдельно. Сайт только публикует адрес и проверяет регулярные отчёты запущенного сервера.</p>
-      <p>Плагины в сервере версии 1.3 пока не исполняются: это сетевой TCP-relay для двух игроков.</p>
-      <button class="btn" onclick="createServer()">Зарегистрировать сервер</button>
-      <div id="server-setup" style="display:none; border:1px solid #660000; background:#111; padding:12px; margin-top:12px;">
-        <h3 style="color:#00cc00;">Сервер зарегистрирован — сохраните настройки!</h3>
-        <p>Создайте файл <strong>server_config.json</strong> рядом с <strong>vvb_dedicated_server.py</strong> и вставьте в него этот текст. Токен будет показан только один раз.</p>
-        <pre id="server-config-text" style="overflow:auto;white-space:pre-wrap;word-break:break-all;color:#ddd;padding:8px;"></pre>
-        <button class="btn" onclick="copyServerConfig()">Скопировать конфигурацию</button>
-        <button class="btn btn-green" onclick="downloadCreatedConfig()">Скачать server_config.json</button>
-        <button class="btn" onclick="openCreatedServerPanel()">Панель управления</button>
-        <p>На компьютере владельца запустите start_server.bat. Откройте TCP-порт на роутере и в брандмауэре. Сайт не запускает игру сам.</p>
-      </div>
+      <select id="srv-map" class="form-control">
+        <option value="Мясная фабрика">Мясная фабрика</option>
+        <option value="Адский переулок">Адский переулок</option>
+      </select>
+      <div style="background:#111; border:1px solid #440; padding:15px; margin-bottom:10px; cursor:pointer;" onclick="selectTariff('free')"><h3 style="color:#00ff00;">512 MB - БЕСПЛАТНО</h3><p>До 10 игроков.</p></div>
+      <div style="background:#111; border:1px solid #440; padding:15px; margin-bottom:10px; cursor:pointer;" onclick="selectTariff('1gb')"><h3 style="color:gold;">1 GB - 30 РУБ / 100 ТЕНГЕ</h3><p>До 20 игроков. VIP-чат.</p></div>
+      <div style="background:#111; border:1px solid #440; padding:15px; margin-bottom:10px; cursor:pointer;" onclick="selectTariff('3gb')"><h3 style="color:red;">3 GB - 50 РУБ / 500 ТЕНГЕ</h3><p>До 50 игроков. Все плагины.</p></div>
+      <h3 style="color:#ff6600; margin-bottom:10px;">Выберите плагины для сервера:</h3>
+      <div id="plugins-checkboxes" style="background:#111; border:1px solid #440; padding:10px; margin-bottom:15px;"></div>
+      <button class="btn" onclick="createServer()">Запустить</button>
       <button class="btn" onclick="showPage('servers')" style="background:#333;">Назад</button>
     </div>
 
-    <!-- ПАНЕЛЬ УПРАВЛЕНИЯ СВОИМ СЕРВЕРОМ -->
-    <div id="page-server-panel" class="page">
-      <h1 class="page-title">Панель управления сервером</h1>
-      <p>Доступна только владельцу после входа в аккаунт Company 2010.</p>
-      <div class="management-box">
-        <h3 id="manage-heading">SERVER CONTROL PANEL</h3>
-        <div class="manage-grid">
-          <div class="manage-stat"><small>СТАТУС</small><strong id="manage-status">—</strong></div>
-          <div class="manage-stat"><small>ИГРОКИ</small><strong id="manage-players">0 / 2</strong></div>
-          <div class="manage-stat"><small>IP:PORT</small><strong id="manage-address">—</strong></div>
-          <div class="manage-stat"><small>ПОСЛЕДНИЙ ОТЧЁТ</small><strong id="manage-last-ping">—</strong></div>
-        </div>
-        <button class="btn manage-btn-small" onclick="refreshManagePanel()">Обновить статус</button>
-        <button class="btn manage-btn-small" onclick="copyManagedAddress()">Скопировать IP</button>
-      </div>
-      <div class="management-box">
-        <h3>НАСТРОЙКИ СЕРВЕРА</h3>
-        <label class="manage-label" for="manage-name">Название</label>
-        <input class="form-control" id="manage-name" maxlength="60" autocomplete="off">
-        <label class="manage-label" for="manage-ip">Публичный IPv4 или домен</label>
-        <input class="form-control" id="manage-ip" autocomplete="off">
-        <label class="manage-label" for="manage-port">Порт TCP (1024–65535)</label>
-        <input class="form-control" id="manage-port" type="number" min="1024" max="65535">
-        <label class="manage-label" for="manage-description">Описание</label>
-        <textarea class="form-control" id="manage-description" maxlength="250" style="height:75px;"></textarea>
-        <p>Максимум игроков: 2 (ограничение текущей сетевой версии игры).</p>
-        <button class="btn btn-green" onclick="saveManagedServer()">СОХРАНИТЬ НАСТРОЙКИ</button>
-        <p class="manage-message" id="manage-message" role="status"></p>
-      </div>
-      <div class="management-box">
-        <h3>ТОКЕН И КОНФИГУРАЦИЯ</h3>
-        <p>Если забыли heartbeat-токен, можно создать новый. Старый ключ сразу перестанет работать. Это не меняет пароль от аккаунта.</p>
-        <button class="btn" onclick="rotateManagedToken()">СБРОСИТЬ ТОКЕН</button>
-        <div id="manage-secret-wrap" style="display:none;margin-top:12px;">
-          <p style="color:#ffcc66;">Сохраните файл сейчас: сайт не хранит токен в открытом виде и не сможет показать его повторно.</p>
-          <pre id="manage-secret-text" class="manage-secret"></pre>
-          <button class="btn btn-green" onclick="downloadManagedConfig()">Скачать server_config.json</button>
-          <button class="btn" onclick="copyManagedConfig()">Скопировать настройки</button>
-        </div>
-        <p>Файл <strong>server_config.json</strong> положите рядом с <strong>vvb_dedicated_server.py</strong>, затем перезапустите <strong>start_server.bat</strong>. Сайт не может включать компьютер или запускать игру самостоятельно.</p>
-      </div>
-      <div class="management-box manage-danger">
-        <h3>УДАЛЕНИЕ СЕРВЕРА</h3>
-        <p>Удаление убирает сервер из списка и отменяет его токен. Запущенный игровой процесс останется работать на компьютере, пока его не остановить вручную.</p>
-        <button class="btn" onclick="deleteManagedServer()">УДАЛИТЬ СЕРВЕР</button>
-      </div>
-      <button class="btn" onclick="showPage('servers')" style="background:#333;">НАЗАД К СЕРВЕРАМ</button>
+    <!-- КОНСОЛЬ -->
+    <div id="page-console" class="page">
+      <h1 class="page-title">Консоль сервера</h1>
+      <h3 id="console-srv-name" style="color:#ff6600; margin-bottom:10px;"></h3>
+      <div class="console-box" id="console-output"></div>
+      <input type="text" class="console-input" id="console-input" placeholder="Введите команду (help)..." onkeydown="if(event.key==='Enter') sendCommand()">
+      <button class="btn" onclick="showPage('servers')" style="margin-top:10px; background:#333;">Назад</button>
     </div>
 
     <!-- ГОСТЕВАЯ -->
     <div id="page-guestbook" class="page">
       <h1 class="page-title">Гостевая книга</h1>
       <div id="guestbook-list" style="margin-bottom: 20px;"></div>
-      <textarea id="review-text" class="form-control" style="height: 80px;" placeholder="Ваш отзыв..."></textarea>
-      <button class="btn" onclick="submitReview()">Отправить</button>
-    </div>
-
-    <!-- КАБИНЕТ -->
-    <div id="page-cabinet" class="page">
-      <h1 class="page-title">Личный кабинет</h1>
-      <div id="cabinet-content" style="display: none;">
-        <label style="color:#ff6600;">Никнейм:</label>
-        <input type="text" id="prof-name" class="form-control">
-        <label style="color:#ff6600;">E-mail:</label>
-        <input type="email" id="prof-email" class="form-control" placeholder="you@mail.ru">
-        <label style="color:#ff6600;">О себе (Био):</label>
-        <textarea id="prof-bio" class="form-control" style="height:60px;" placeholder="Расскажи о себе..."></textarea>
-        <label style="color:#ff6600;">Ссылка на VK:</label>
-        <input type="text" id="prof-vk" class="form-control" placeholder="vk.com/id123">
-        <label style="color:#ff6600;">Discord (тег):</label>
-        <input type="text" id="prof-discord" class="form-control" placeholder="User#0000">
-        <label style="color:#ff6600;">Аватарка:</label>
-        <input type="file" id="prof-avatar" class="form-control" style="border:none;">
-        <button class="btn" onclick="updateProfile()">Сохранить профиль</button>
-      </div>
-      <p id="cabinet-msg" style="color: #ff0000;">Пожалуйста, войдите через Google.</p>
-    </div>
-
-  </div>
-
-  <div id="sidebar">
-    <div class="box">
-      <h3>Статус</h3>
-      <div class="box-content">
-        <p>Игроков в сети: <span id="online-count" style="color:lime; font-weight:bold;">0</span></p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-  let currentUser = null;
-  let selectedTariff = 'free';
-  let managedServerId = null;
-  let managedServer = null;
-  let managedConfig = null;
-  let createdConfig = null;
-  let createdServerId = null;
-
-  function showPage(pageId) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + pageId).classList.add('active');
-    
-    document.querySelectorAll('#menu a').forEach(a => a.classList.remove('active'));
-    let navId = pageId;
-    if(pageId === 'create-server' || pageId === 'server-panel') navId = 'servers';
-    if(pageId === 'upload-addon') navId = 'addons';
-    if(pageId === 'upload-skin') navId = 'skins';
-    if(pageId === 'upload-plugin') navId = 'plugins';
-    
-    let nav = document.getElementById('nav-' + navId);
-    if(nav) nav.classList.add('active');
-
-    if(pageId === 'home') loadPosts();
-    if(pageId === 'gallery') loadGallery();
-    if(pageId === 'skins') loadSkins();
-    if(pageId === 'plugins') loadPlugins();
-    if(pageId === 'guestbook') loadGuestbook();
-    if(pageId === 'addons') loadAddons();
-    if(pageId === 'servers') loadServers();
-    if(pageId === 'create-server') loadCreateServerPlugins();
-    if(pageId === 'inventory') loadInventory();
-  }
-
-  window.onload = () => {
-    fetch('/api/auth/me',{cache:'no-store'}).then(r=>r.json()).then(d=>{if(d.user){currentUser=d.user;updateUI();}}).catch(()=>{});
-    loadPosts();
-    setInterval(() => {
-        if(document.getElementById('page-servers').classList.contains('active')) loadServers();
-        if(document.getElementById('page-server-panel').classList.contains('active') && managedServerId) refreshManagePanel(true);
-    }, 5000);
-  };
-
-  function handleCredentialResponse(response) {
-    fetch('/api/login', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ token: response.credential }) })
-    .then(res => res.json()).then(data => {
-      if (data.success) {
-        currentUser = data.user;
-
-        updateUI();
-      }
-    });
-  }
-
-  function updateUI() {
-    if (!currentUser) return;
-    document.getElementById('user-pic').src = currentUser.picture || '/resources/images/banner-bg.jpg';
-    document.getElementById('user-name').innerText = currentUser.name;
-    document.getElementById('google-btn-container').style.display = 'none';
-    document.getElementById('logout-btn').style.display='inline-block';
-    document.getElementById('user-info').style.display = 'flex';
-    
-    document.getElementById('cabinet-content').style.display = 'block';
-    document.getElementById('cabinet-msg').style.display = 'none';
-    
-    document.getElementById('prof-name').value = currentUser.name || '';
-    document.getElementById('prof-email').value = currentUser.email || '';
-    document.getElementById('prof-bio').value = currentUser.bio || '';
-    document.getElementById('prof-vk').value = currentUser.vk || '';
-    document.getElementById('prof-discord').value = currentUser.discord || '';
-
-    document.getElementById('post-form').style.display = 'block';
-    document.getElementById('post-msg').style.display = 'none';
-    document.getElementById('upload-gallery-form').style.display = 'block';
-  }
-
-  function updateProfile() {
-    if (!currentUser) return;
-    const formData = new FormData();
-    formData.append('google_id', currentUser.google_id);
-    formData.append('new_name', document.getElementById('prof-name').value);
-    formData.append('email', document.getElementById('prof-email').value);
-    formData.append('bio', document.getElementById('prof-bio').value);
-    formData.append('vk', document.getElementById('prof-vk').value);
-    formData.append('discord', document.getElementById('prof-discord').value);
-    const file = document.getElementById('prof-avatar').files[0];
-    if (file) formData.append('avatar', file);
-
-    fetch('/api/update-profile', { method: 'POST', body: formData })
-    .then(res => res.json()).then(data => {
-      if (data.success) {
-        currentUser = data.user;
-
-        updateUI();
-        alert('Профиль обновлен!');
-      }
-    });
-  }
-
-  // --- ИНВЕНТАРЬ ---
-  function loadInventory() {
-    if (!currentUser) {
-      document.getElementById('inventory-grid').innerHTML = '<p style="color:#ff0000;">Войдите в аккаунт, чтобы увидеть инвентарь.</p>';
-      return;
-    }
-    const grid = document.getElementById('inventory-grid');
-    // Заглушка для демонстрации (в реале берем из БД)
-    grid.innerHTML = `
-      <div class="item-card item-rarity-uncommon">
-        <div class="item-icon">[SKIN]</div>
-        <div class="item-name">Начальный нож</div>
-        <div class="item-desc">Выдан при регистрации</div>
-      </div>
-    `;
-    document.getElementById('user-coins').innerText = currentUser.coins || 100;
-    document.getElementById('user-kills').innerText = currentUser.kills || 0;
-  }
-
-  // --- СКИНЫ ---
-  function loadSkins() {
-    fetch('/api/skins').then(res => res.json()).then(data => {
-        const c = document.getElementById('skins-list'); c.innerHTML = '';
-        if(data.length === 0) return c.innerHTML = '<p>Пока нет скинов.</p>';
-        data.forEach(s => {
-            const img = s.image_url ? s.image_url : 'resources/images/banner-bg.jpg';
-            c.innerHTML += `<div class="card"><img src="${img}"><div class="card-info"><div class="card-title">${s.title}</div><div class="card-meta">Автор: ${s.author_name} | Скачиваний: ${s.downloads}</div><p style="font-size:11px;">${s.description}</p><a href="${s.skin_file_url}" class="btn" download style="padding:4px 10px; font-size:12px;" onclick="downloadSkin(${s.id})">Скачать скин</a></div></div>`;
-        });
-    });
-  }
-
-  function uploadSkin() {
-    if(!currentUser) return alert('Войдите!');
-    const title = document.getElementById('skin-title').value;
-    const desc = document.getElementById('skin-desc').value;
-    const img = document.getElementById('skin-image').files[0];
-    const file = document.getElementById('skin-file').files[0];
-    if(!title || !img || !file) return alert('Заполните поля и прикрепите файлы!');
-    const fd = new FormData();
-    fd.append('author', currentUser.name); fd.append('title', title); fd.append('desc', desc); fd.append('skin_image', img); fd.append('skin_file', file);
-    fetch('/api/skins/upload', { method: 'POST', body: fd }).then(async res => {
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Ошибка');
-        alert('Скин загружен!'); showPage('skins');
-    }).catch(err => alert('ОШИБКА: ' + err.message));
-  }
-
-  function downloadSkin(id) { fetch(`/api/skins/${id}/download`, { method: 'POST' }); }
-
-  // --- ПЛАГИНЫ ---
-  function loadPlugins() {
-    fetch('/api/plugins').then(res => res.json()).then(data => {
-        const c = document.getElementById('plugins-list'); c.innerHTML = '';
-        if(data.length === 0) return c.innerHTML = '<p>Пока нет плагинов.</p>';
-        data.forEach(p => {
-            c.innerHTML += `<div class="card"><div class="card-info"><div class="card-title">${p.title}</div><div class="card-meta">Автор: ${p.author_name}</div><p style="font-size:11px;">${p.description}</p><a href="${p.py_file_url}" class="btn" download style="padding:4px 10px; font-size:12px;">Скачать .py</a></div></div>`;
-        });
-    });
-  }
-
-  function uploadPlugin() {
-    if(!currentUser) return alert('Войдите!');
-    const title = document.getElementById('plug-title').value;
-    const desc = document.getElementById('plug-desc').value;
-    const file = document.getElementById('plug-file').files[0];
-    if(!title || !file) return alert('Заполните поля и прикрепите .py!');
-    const fd = new FormData();
-    fd.append('author', currentUser.name); fd.append('title', title); fd.append('desc', desc); fd.append('plugin_file', file);
-    fetch('/api/plugins/upload', { method: 'POST', body: fd }).then(async res => {
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Ошибка');
-        alert('Плагин загружен!'); showPage('plugins');
-    }).catch(err => alert('ОШИБКА: ' + err.message));
-  }
-
-  function loadCreateServerPlugins() {
-      fetch('/api/plugins').then(res => res.json()).then(data => {
-          const container = document.getElementById('plugins-checkboxes'); container.innerHTML = '';
-          if(data.length === 0) { container.innerHTML = '<p>Нет доступных плагинов.</p>'; return; }
-          data.forEach(p => {
-              container.innerHTML += `<label style="display:block; margin-bottom:8px; cursor:pointer; color:#ddd;"><input type="checkbox" class="plugin-checkbox" value="${p.id}"> ${p.title}</label>`;
-          });
-      });
-  }
-
-  // --- АДДОНЫ ---
-  function loadAddons() {
-    fetch('/api/addons').then(res => res.json()).then(data => {
-      const c = document.getElementById('addons-list'); c.innerHTML = '';
-      data.forEach(a => {
-        const cover = a.cover_url ? a.cover_url : 'resources/images/banner-bg.jpg';
-        c.innerHTML += `<div class="card"><img src="${cover}"><div class="card-info"><div class="card-title">${a.title}</div><div class="card-meta">Автор: ${a.author_name} | Скачиваний: ${a.downloads}</div><p style="font-size:11px;">${a.description}</p><a href="${a.py_file_url}" class="btn" download style="padding:4px 10px; font-size:12px;" onclick="downloadAddon(${a.id})">Скачать .py</a><button class="btn" style="padding:2px 5px; font-size:10px;" onclick="toggleComments(${a.id})">Комментарии</button><div id="comment-list-${a.id}" style="display:none; margin-top:5px;"></div><div id="comment-form-${a.id}" style="display:none; margin-top:5px;"><input type="text" id="comment-input-${a.id}" class="form-control" style="padding:2px;" placeholder="Написать..."><button class="btn" style="padding:2px 5px; font-size:10px;" onclick="addComment(${a.id})">ОК</button></div></div></div>`;
-      });
-    });
-  }
-
-  function uploadAddon() {
-    if (!currentUser) return alert('Войдите!');
-    const title = document.getElementById('addon-title').value;
-    const desc = document.getElementById('addon-desc').value;
-    const cover = document.getElementById('addon-cover').files[0];
-    const py = document.getElementById('addon-py').files[0];
-    if (!title || !py) return alert('Заполните поля и прикрепите .py!');
-    const formData = new FormData();
-    formData.append('author', currentUser.name); formData.append('title', title); formData.append('desc', desc);
-    if (cover) formData.append('cover', cover); formData.append('py_file', py);
-    fetch('/api/addons/upload', { method: 'POST', body: formData }).then(async res => {
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Ошибка');
-        alert('Аддон загружен!'); showPage('addons');
-    }).catch(err => alert('ОШИБКА: ' + err.message));
-  }
-
-  function downloadAddon(id) { fetch(`/api/addons/${id}/download`, { method: 'POST' }); }
-  function toggleComments(id) {
-    const list = document.getElementById(`comment-list-${id}`);
-    const form = document.getElementById(`comment-form-${id}`);
-    if(list.style.display === 'none') { list.style.display = 'block'; form.style.display = 'block'; loadComments(id); }
-    else { list.style.display = 'none'; form.style.display = 'none'; }
-  }
-  function loadComments(id) {
-    fetch(`/api/addons/${id}/comments`).then(res => res.json()).then(data => {
-        const c = document.getElementById(`comment-list-${id}`); c.innerHTML = '';
-        data.forEach(cmt => c.innerHTML += `<div class="comment"><span style="color:#ff6600">${cmt.author_name}:</span> ${cmt.message}</div>`);
-    });
-  }
-  function addComment(id) {
-    if(!currentUser) return alert('Войдите!');
-    const input = document.getElementById(`comment-input-${id}`);
-    const text = input.value.trim();
-    if(!text) return;
-    const c = document.getElementById(`comment-list-${id}`);
-    const newCmt = document.createElement('div'); newCmt.className = 'comment';
-    newCmt.innerHTML = `<span style="color:#ff6600">${currentUser.name}:</span> ${text}`;
-    c.prepend(newCmt); input.value = '';
-    fetch(`/api/addons/${id}/comments`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ author: currentUser.name, message: text }) }).catch(err => console.log(err));
-  }
-
-  // --- ПОСТЫ ---
-  function loadPosts() {
-    fetch('/api/posts').then(res => res.json()).then(data => {
-      const c = document.getElementById('home-posts'); c.innerHTML = '';
-      if(data.length === 0) return c.innerHTML = '<p>Пока нет постов.</p>';
-      data.forEach(p => c.innerHTML += `<div class="post"><div class="post-author">${p.author_name}</div><p>${p.message}</p><small style="color:#555">${p.created_at}</small></div>`);
-    });
-  }
-  function createPost() {
-    if(!currentUser) return alert('Войдите!');
-    const text = document.getElementById('post-text').value.trim();
-    if(!text) return;
-    const c = document.getElementById('home-posts');
-    const newPost = document.createElement('div'); newPost.className = 'post';
-    newPost.innerHTML = `<div class="post-author">${currentUser.name}</div><p>${text}</p><small style="color:#555">Только что</small>`;
-    c.prepend(newPost); document.getElementById('post-text').value = '';
-    fetch('/api/posts', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ author: currentUser.name, message: text }) }).catch(err => console.log(err));
-  }
-
-  // --- ГАЛЕРЕЯ ---
-  function loadGallery() {
-    fetch('/api/gallery').then(res => res.json()).then(data => {
-      const c = document.getElementById('gallery-list'); c.innerHTML = '';
-      data.forEach(g => c.innerHTML += `<div class="gallery-item"><img src="${g.image_url}"><div class="gallery-info"><span style="font-size:10px;">${g.author_name}</span><button class="btn" style="padding:2px 5px; font-size:10px;" onclick="likeImage(${g.id})">Лайк ${g.likes}</button></div></div>`);
-    });
-  }
-  function uploadGallery() {
-    if(!currentUser) return;
-    const file = document.getElementById('gallery-image').files[0];
-    if(!file) return;
-    const fd = new FormData(); fd.append('author', currentUser.name); fd.append('gallery_image', file);
-    fetch('/api/gallery/upload', { method: 'POST', body: fd }).then(() => loadGallery());
-  }
-  function likeImage(id) { fetch(`/api/gallery/${id}/like`, { method: 'POST' }).then(() => loadGallery()); }
-
-  // --- PUBLIC SERVERS / PRIVATE MANAGEMENT PANEL ---
-  const byId = id => document.getElementById(id);
-  const jsonHeaders = {'Content-Type':'application/json'};
-  const serverAddress = srv => `${srv.ip}:${srv.port}`;
-  function panelMessage(message, error=false) {
-    const el=byId('manage-message');
-    el.textContent=message;
-    el.style.color=error?'#ff5555':'#66dd88';
-  }
-  async function apiRequest(url,options={}) {
-    const response=await fetch(url,{cache:'no-store',...options});
-    let body;
-    try { body=await response.json(); } catch (_) { throw Error('Сайт вернул неверный ответ (HTTP '+response.status+')'); }
-    if(!response.ok) throw Error(body.error || 'Ошибка HTTP '+response.status);
-    return body;
-  }
-  function makeServerConfig(server, token) {
-    return {site_url:location.origin,name:server.name,heartbeat_token:token,bind:'0.0.0.0',port:Number(server.port),max_players:2};
-  }
-  function downloadConfig(config) {
-    if(!config) return alert('Сначала создайте или сбросьте токен. Старый токен нельзя получить повторно.');
-    const blob=new Blob([JSON.stringify(config,null,2)+'\n'],{type:'application/json;charset=utf-8'});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement('a'); a.href=url; a.download='server_config.json';
-    document.body.appendChild(a); a.click(); a.remove();
-    setTimeout(()=>URL.revokeObjectURL(url),1000);
-  }
-  async function copyValue(value, fallback) {
-    try { await navigator.clipboard.writeText(value); }
-    catch (_) { prompt(fallback, value); }
-  }
-  function downloadCreatedConfig() {downloadConfig(createdConfig);}
-  function downloadManagedConfig() {downloadConfig(managedConfig);}
-  function copyServerConfig() {if(createdConfig) copyValue(JSON.stringify(createdConfig,null,2),'Скопируйте конфигурацию:');}
-  function copyManagedConfig() {if(managedConfig) copyValue(JSON.stringify(managedConfig,null,2),'Скопируйте конфигурацию:');}
-  function openCreatedServerPanel() {if(createdServerId) openServerPanel(createdServerId);}
-
-  async function loadServers() {
-    const list=byId('servers-list'),mineList=byId('my-servers-list'),mineWrap=byId('my-servers-wrap');
-    try {
-      const [all,mine]=await Promise.all([
-        apiRequest('/api/servers'),
-        currentUser?apiRequest('/api/servers/mine').catch(()=>[]):Promise.resolve([])
-      ]);
-      const ownIds=new Set(mine.map(item=>Number(item.id)));
-      mineList.replaceChildren(); mineWrap.style.display=mine.length?'block':'none';
-      for(const srv of mine) {
-        const line=document.createElement('div'); line.className='server-item';
-        const text=document.createElement('div');text.textContent=srv.name+' — '+(srv.status==='ONLINE'?'ONLINE':'OFFLINE');
-        const button=document.createElement('button');button.className='btn manage-btn-small';
-        button.textContent='УПРАВЛЯТЬ';button.onclick=()=>openServerPanel(srv.id);
-        line.append(text,button);mineList.appendChild(line);
-      }
-      list.replaceChildren();
-      let onlineTotal=0;
-      for(const srv of all) {
-        if(srv.status==='ONLINE') onlineTotal+=Number(srv.current_players||0);
-        const line=document.createElement('div');line.className='server-item';
-        const info=document.createElement('div');
-        const name=document.createElement('div');name.className='card-title';name.textContent=srv.name;
-        const address=document.createElement('div');address.textContent=serverAddress(srv);
-        const description=document.createElement('div');description.style.color='#999';description.textContent=srv.description||'';
-        const status=document.createElement('div');status.className=srv.status==='ONLINE'?'status-online':'status-offline';
-        status.textContent=srv.status==='ONLINE'?'● ONLINE':'● OFFLINE';
-        info.append(name,address,description,status);
-        const right=document.createElement('div');right.style.textAlign='right';
-        const count=document.createElement('div');count.style.color='#ddd';count.textContent=(srv.status==='ONLINE'?srv.current_players:'0')+' / 2 игроков';
-        const copy=document.createElement('button');copy.className='btn manage-btn-small';copy.textContent='КОПИРОВАТЬ IP';
-        copy.onclick=()=>copyValue(serverAddress(srv),'Адрес для подключения:');
-        right.append(count,copy);
-        if(ownIds.has(Number(srv.id))) {
-          const manage=document.createElement('button');manage.className='btn manage-btn-small';
-          manage.textContent='ПАНЕЛЬ';manage.onclick=()=>openServerPanel(srv.id);
-          right.append(manage);
-        }
-        line.append(info,right);list.appendChild(line);
-      }
-      if(!all.length) list.textContent='Зарегистрированных серверов пока нет.';
-      byId('online-count').textContent=String(onlineTotal);
-    } catch(e) {list.textContent='Ошибка загрузки серверов: '+e.message;}
-  }
-  async function createServer() {
-    if(!currentUser) return alert('Войдите или зарегистрируйтесь!');
-    const data={name:byId('srv-name').value.trim(),ip:byId('srv-ip').value.trim(),
-      port:Number(byId('srv-port').value),max_players:2,description:byId('srv-desc').value.trim()};
-    try {
-      const result=await apiRequest('/api/servers',{method:'POST',headers:jsonHeaders,body:JSON.stringify(data)});
-      createdServerId=result.id;
-      createdConfig=makeServerConfig(data,result.heartbeat_token);
-      byId('server-config-text').textContent=JSON.stringify(createdConfig,null,2);
-      byId('server-setup').style.display='block';
-      byId('server-setup').scrollIntoView({behavior:'smooth',block:'center'});
-    } catch(e) {alert('Не удалось зарегистрировать сервер: '+e.message);}
-  }
-
-  function renderPanelStatus(srv) {
-    byId('manage-heading').textContent='SERVER CONTROL PANEL — '+srv.name;
-    byId('manage-status').textContent=srv.status;
-    byId('manage-status').style.color=srv.status==='ONLINE'?'#44ee44':'#ff5555';
-    byId('manage-players').textContent=String(srv.current_players)+' / 2';
-    byId('manage-address').textContent=serverAddress(srv);
-    byId('manage-last-ping').textContent=srv.last_ping?new Date(srv.last_ping).toLocaleString('ru-RU'):'Ещё не было';
-  }
-  async function openServerPanel(id) {
-    if(!currentUser) return showPage('auth');
-    managedServerId=Number(id);
-    managedConfig=null;
-    byId('manage-secret-wrap').style.display='none';
-    panelMessage('');
-    try {
-      const srv=await apiRequest('/api/servers/manage/'+managedServerId);
-      managedServer=srv;
-      byId('manage-name').value=srv.name;
-      byId('manage-ip').value=srv.ip;
-      byId('manage-port').value=srv.port;
-      byId('manage-description').value=srv.description||'';
-      renderPanelStatus(srv);
-      showPage('server-panel');
-    } catch(e) {alert('Панель недоступна: '+e.message);}
-  }
-  async function refreshManagePanel(silent=false) {
-    if(!managedServerId)return;
-    try {
-      const srv=await apiRequest('/api/servers/manage/'+managedServerId);
-      managedServer=srv;renderPanelStatus(srv);
-      if(!silent)panelMessage('Статус обновлён.');
-    } catch(e) {if(!silent)panelMessage(e.message,true);}
-  }
-  function copyManagedAddress(){if(managedServer)copyValue(serverAddress(managedServer),'Адрес игрового сервера:');}
-  async function saveManagedServer() {
-    if(!managedServerId)return;
-    const data={name:byId('manage-name').value.trim(),ip:byId('manage-ip').value.trim(),
-      port:Number(byId('manage-port').value),description:byId('manage-description').value.trim(),max_players:2};
-    try {
-      const result=await apiRequest('/api/servers/manage/'+managedServerId,
-        {method:'PATCH',headers:jsonHeaders,body:JSON.stringify(data)});
-      // A previously issued token is still valid; update in-memory config to match new name/port.
-      if(managedConfig){managedConfig.name=data.name;managedConfig.port=data.port;
-        byId('manage-secret-text').textContent=JSON.stringify(managedConfig,null,2);}
-      panelMessage(result.message);
-      await refreshManagePanel(true);
-    } catch(e) {panelMessage('Ошибка сохранения: '+e.message,true);}
-  }
-  async function rotateManagedToken() {
-    if(!managedServerId)return;
-    if(!confirm('СБРОСИТЬ ТОКЕН? Старый heartbeat-токен больше не будет работать. Игровой сервер потребуется перезапустить с новым server_config.json.'))return;
-    try {
-      const result=await apiRequest('/api/servers/manage/'+managedServerId+'/rotate-token',
-        {method:'POST',headers:jsonHeaders,body:'{}'});
-      const srv=await apiRequest('/api/servers/manage/'+managedServerId);
-      managedConfig=makeServerConfig(srv,result.heartbeat_token);
-      byId('manage-secret-text').textContent=JSON.stringify(managedConfig,null,2);
-      byId('manage-secret-wrap').style.display='block';
-      panelMessage('Новый токен создан! Сразу скачайте server_config.json и перезапустите игровой сервер.');
-      renderPanelStatus(srv);
-      byId('manage-secret-wrap').scrollIntoView({behavior:'smooth',block:'center'});
-    } catch(e) {panelMessage('Не удалось сбросить токен: '+e.message,true);}
-  }
-  async function deleteManagedServer() {
-    if(!managedServerId||!managedServer)return;
-    const typed=prompt('Для удаления введите название сервера точно:\n'+managedServer.name);
-    if(typed!==managedServer.name)return;
-    try {
-      await apiRequest('/api/servers/manage/'+managedServerId,{method:'DELETE'});
-      managedServer=null;managedServerId=null;managedConfig=null;
-      showPage('servers');
-      alert('Сервер удалён из списка сайта. Остановите запущенный игровой сервер на компьютере вручную.');
-    } catch(e) {panelMessage('Не удалось удалить сервер: '+e.message,true);}
-  }
-
-  async function accountRequest(url,body){
-    const response=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
-    const result=await response.json();if(!response.ok)throw Error(result.error||'Ошибка');
-    currentUser=result.user;updateUI();showPage('cabinet');
-  }
-  async function registerAccount(){try{await accountRequest('/api/auth/register',{name:document.getElementById('reg-name').value,email:document.getElementById('reg-email').value,password:document.getElementById('reg-pass').value});}catch(e){document.getElementById('auth-message').textContent=e.message;}}
-  async function signInAccount(){try{await accountRequest('/api/auth/signin',{email:document.getElementById('login-email').value,password:document.getElementById('login-pass').value});}catch(e){document.getElementById('auth-message').textContent=e.message;}}
-  async function logoutAccount(){await fetch('/api/auth/logout',{method:'POST'});location.reload();}
-
-  // --- ГОСТЕВАЯ ---
-  function loadGuestbook() {
-    fetch('/api/guestbook').then(res => res.json()).then(data => {
-      const c = document.getElementById('guestbook-list'); c.innerHTML = '';
-      data.forEach(m => c.innerHTML += `<div style="border-bottom:1px dashed #440; padding:10px 0;"><span style="color:#ff6600">${m.user_name}</span>: ${m.message}</div>`);
-    });
-  }
-  function submitReview() {
-    if (!currentUser) return alert('Войдите!');
-    const text = document.getElementById('review-text').value.trim();
-    if (!text) return;
-    const c = document.getElementById('guestbook-list');
-    const newMsg = document.createElement('div'); newMsg.style.cssText = "border-bottom:1px dashed #440; padding:10px 0;";
-    newMsg.innerHTML = `<span style="color:#ff6600">${currentUser.name}</span>: ${text}`;
-    c.prepend(newMsg); document.getElementById('review-text').value = '';
-    fetch('/api/guestbook', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ name: currentUser.name, message: text }) }).catch(err => console.log(err));
-  }
-</script>
-
-</body>
-</html>
+      <textarea
